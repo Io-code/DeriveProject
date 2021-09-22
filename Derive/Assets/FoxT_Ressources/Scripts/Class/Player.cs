@@ -22,8 +22,9 @@ public class Player
 		decelerationStep = _decelartionStep / 10;
 	}
 
-	public void Move(in Vector2 direction)
+	public void Move( Vector2 direction)
 	{
+		Debug.Log("try To Move");
 		float acceleration = -decelerationStep;
 		if (direction != Vector2.zero)
 		{

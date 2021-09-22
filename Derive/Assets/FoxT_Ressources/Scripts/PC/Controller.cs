@@ -14,19 +14,16 @@ public class Controller : MonoBehaviour
 	private void Awake()
 	{
 		pc = new Player(GetComponent<Rigidbody>(), in maxSpeed, in accelerationStep, in decelerationStep);
+		
 	}
 
 	void Start()
     {
-        
+		InputHandler.Instance.OnMove += pc.Move; 
     }
 
-    void Update()
-    {
-		InputHandler();
-    }
 
-	private void InputHandler()
+	private void InputHandlerAction()
 	{ 
 		pc.Move(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
 	}
