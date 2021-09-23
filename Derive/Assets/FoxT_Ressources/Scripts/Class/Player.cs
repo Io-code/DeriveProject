@@ -14,16 +14,20 @@ public class Player
 
 	private Vector2 lastDirection;
 
+	//Push
+	public bool isPushing;
+
 	public Player(Rigidbody _rb, in float _speed, in float _accelerationStep, in float _decelartionStep)
 	{
 		rb = _rb;
-		maxSpeed = _speed *100;
+		maxSpeed = _speed * 100;
 		accelerationStep = _accelerationStep / 10;
 		decelerationStep = _decelartionStep / 10;
 	}
 
 	public void Move(in Vector2 direction)
 	{
+		if (isPushing) return;
 		float acceleration = -decelerationStep;
 		if (direction != Vector2.zero)
 		{
@@ -33,7 +37,7 @@ public class Player
 
 		try
 		{
-			currentSpeed = Mathf.Clamp(currentSpeed + (maxSpeed * Time.deltaTime / acceleration), 0, maxSpeed);
+			currentSpeed = Mathf.Clamp(currentSpeed + (maxSpeed * Time.fixedDeltaTime / acceleration), 0, maxSpeed);
 		}
 		catch
 		{

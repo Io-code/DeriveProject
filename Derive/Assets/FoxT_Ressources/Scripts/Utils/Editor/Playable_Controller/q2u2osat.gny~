@@ -50,30 +50,26 @@ public class ControllerEditor : Editor
 		GUILayout.Label("");
 		GUILayout.Label("");
 		GUILayout.Label("");
-		sbyte debugDelay = 0;
-		if (debug)
-		{
-			debugDelay = 80;
-		}
-		if (GUI.Button(new Rect(5, 200 + debugDelay, Screen.width / 3 - 10, 25), "Simplified"))
+
+		if (GUI.Button(new Rect(5, 200, Screen.width / 3 - 10, 25), "Simplified"))
 		{
 			currentPushMethod = 0;
 		}
-		else if (GUI.Button(new Rect(5 + (Screen.width / 3), 200 + debugDelay, Screen.width / 3 - 10, 25), "Advanced"))
+		else if (GUI.Button(new Rect(5 + (Screen.width / 3), 200, Screen.width / 3 - 10, 25), "Advanced"))
 		{
 			currentPushMethod = 1;
 		}
-		else if (GUI.Button(new Rect(5 + (Screen.width / 3) * 2, 200 + debugDelay, Screen.width / 3 - 10, 25), "Curve"))
+		else if (GUI.Button(new Rect(5 + (Screen.width / 3) * 2, 200, Screen.width / 3 - 10, 25), "Curve"))
 		{
 			currentPushMethod = 2;
 		}
-		GUILayout.Label("");
-		ctrl.forceMultiplicator = EditorGUILayout.FloatField("Force Multiplicator", ctrl.forceMultiplicator);
-		GUILayout.Label("");
+
 		switch (currentPushMethod)
 		{
 			case 1:
-				ctrl.curveUsed = false;
+				GUILayout.Label("");
+				ctrl.forceMultiplicator = EditorGUILayout.FloatField("Force Multiplicator", ctrl.forceMultiplicator);
+				GUILayout.Label("");
 				howManyPart = EditorGUILayout.IntField("Part", howManyPart);
 				if (howManyPart < 0)
 				{
@@ -82,7 +78,7 @@ public class ControllerEditor : Editor
 				ctrl.pushDelay = new float[howManyPart];
 				ctrl.pushDecelerationStep = new float[howManyPart];
 				GUILayout.Label("");
-				for (int i = 0; i < howManyPart; i++)
+				for (uint i = 0; i < howManyPart; i++)
 				{
 					GUILayout.Label("Part " + (i + 1));
 					ctrl.pushDelay[i] = EditorGUILayout.FloatField("Delay", ctrl.pushDelay[i]);
@@ -91,10 +87,15 @@ public class ControllerEditor : Editor
 				}
 				break;
 			case 2:
-				ctrl.curveUsed = true;
+				GUILayout.Label("");
+				ctrl.forceMultiplicator = EditorGUILayout.FloatField("Force Multiplicator", ctrl.forceMultiplicator);
+				GUILayout.Label("");
 				ctrl.pushCurve = EditorGUILayout.CurveField("Curve", ctrl.pushCurve);
 				break;
-			default:				ctrl.curveUsed = false;
+			default:
+				GUILayout.Label("");
+				ctrl.forceMultiplicator = EditorGUILayout.FloatField("Force Multiplicator", ctrl.forceMultiplicator);
+				GUILayout.Label("");
 				ctrl.pushDelay = new float[2];
 				ctrl.pushDecelerationStep = new float[2];
 				GUILayout.Label("Part 1");
@@ -102,8 +103,8 @@ public class ControllerEditor : Editor
 				ctrl.pushDecelerationStep[0] = EditorGUILayout.FloatField("Deceleration Step", ctrl.pushDecelerationStep[0]);
 				GUILayout.Label("");
 				GUILayout.Label("Part 2");
-				ctrl.pushDelay[1] = EditorGUILayout.FloatField("Delay", ctrl.pushDelay[1]);
-				ctrl.pushDecelerationStep[1] = EditorGUILayout.FloatField("Deceleration Step", ctrl.pushDecelerationStep[1]);
+				ctrl.pushDelay[1] = EditorGUILayout.FloatField("Delay", ctrl.pushDelay[0]);
+				ctrl.pushDecelerationStep[1] = EditorGUILayout.FloatField("Deceleration Step", ctrl.pushDecelerationStep[0]);
 				break;
 		}
 	}
