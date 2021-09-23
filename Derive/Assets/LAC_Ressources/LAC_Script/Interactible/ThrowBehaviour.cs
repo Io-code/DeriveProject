@@ -47,7 +47,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
         }
     }
 
-    public void ChangeState(ObjectState newState)
+    void ChangeState(ObjectState newState)
     {
         switch (newState)
         {
@@ -83,6 +83,12 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public void PutDown()
     {
         ChangeState(ObjectState.FREE);
+    }
+
+    public void GetCaught()
+    {
+        ChangeState(ObjectState.HOLDED);
+        transform.position = holdRef.position;
     }
     public void Respawn()
     {
