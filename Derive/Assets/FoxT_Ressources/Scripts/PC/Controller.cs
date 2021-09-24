@@ -6,7 +6,18 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     private Player pc;
+
+	//Inspector Elements
+	//Debug
+	public bool debug;
+	public float minAccelerationStep = 1, maxAccelerationStep = 10;
+	public float minDecelerationStep = 1, maxDecelerationStep = 10;
 	
+	//Push elements
+	public sbyte currentPushMethod = 0, lastPushMethod = 0;
+	public int howManyPart, lastPartNumber;
+
+	//Script Elements
 	//Movement elements
 	public float maxSpeed;
 	public float accelerationStep;
@@ -69,7 +80,7 @@ public class Controller : MonoBehaviour
 			while (true)
 			{
 				GetComponent<Rigidbody>().velocity = -dir * pushCurve.Evaluate(timeElapsed) * force * forceMultiplicator;
-				if (timeElapsed >= pushCurve.keys[pushCurve.keys.Length].time) break;
+				if (timeElapsed >= pushCurve.keys[pushCurve.keys.Length - 1].time) break;
 				yield return new WaitForEndOfFrame();
 				timeElapsed += Time.deltaTime;
 			}

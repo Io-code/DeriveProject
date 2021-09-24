@@ -44,7 +44,7 @@ public class Player
 			Debug.LogError("One of Playable Characters have Acceleration Step or Deceleration Step variable equal to 0, it's impossible.");
 			currentSpeed = maxSpeed;
 		}
-		Debug.Log(currentSpeed);
+
 		rb.velocity = lastDirection.normalized * currentSpeed * Time.deltaTime;
 	}
 }

@@ -6,20 +6,11 @@ using UnityEditor;
 [CustomEditor(typeof(Controller))]
 public class ControllerEditor : Editor
 {
-	private bool debug;
-	//Debug
-	//Movement elements
-	private float minAccelerationStep = 1, maxAccelerationStep = 10;
-	private float minDecelerationStep = 1, maxDecelerationStep = 10;
-
-	//Push elements
-	private sbyte currentPushMethod = 0;
-	private int howManyPart;
 	public override void OnInspectorGUI()
 	{
 		Controller ctrl = (Controller)target;
 		//base.OnInspectorGUI();
-		debug = EditorGUILayout.Toggle("Enable Debug", debug);
+		ctrl.debug = EditorGUILayout.Toggle("Enable Debug", ctrl.debug);
 
 		//Movement
 		GUI.color = Color.cyan;
@@ -28,17 +19,17 @@ public class ControllerEditor : Editor
 
 		GUI.color = Color.white;
 		ctrl.maxSpeed = EditorGUILayout.FloatField("Max Speed", ctrl.maxSpeed);
-		if (debug)
+		if (ctrl.debug)
 		{
 			GUI.color = Color.green;
-			minAccelerationStep = EditorGUILayout.FloatField("min Acce Slider", minAccelerationStep);
-			maxAccelerationStep = EditorGUILayout.FloatField("max Acce Slider", maxAccelerationStep);
-			minDecelerationStep = EditorGUILayout.FloatField("min Dece Slider", minDecelerationStep);
-			maxDecelerationStep = EditorGUILayout.FloatField("max Dece Slider", maxDecelerationStep);
+			ctrl.minAccelerationStep = EditorGUILayout.FloatField("min Acce Slider", ctrl.minAccelerationStep);
+			ctrl.maxAccelerationStep = EditorGUILayout.FloatField("max Acce Slider", ctrl.maxAccelerationStep);
+			ctrl.minDecelerationStep = EditorGUILayout.FloatField("min Dece Slider", ctrl.minDecelerationStep);
+			ctrl.maxDecelerationStep = EditorGUILayout.FloatField("max Dece Slider", ctrl.maxDecelerationStep);
 			GUI.color = Color.white;
 		}
-		ctrl.accelerationStep = EditorGUILayout.Slider("Acceleration Step", ctrl.accelerationStep, minAccelerationStep, maxAccelerationStep);
-		ctrl.decelerationStep = EditorGUILayout.Slider("Deceleration Step", ctrl.decelerationStep, minDecelerationStep, maxDecelerationStep);
+		ctrl.accelerationStep = EditorGUILayout.Slider("Acceleration Step", ctrl.accelerationStep, ctrl.minAccelerationStep, ctrl.maxAccelerationStep);
+		ctrl.decelerationStep = EditorGUILayout.Slider("Deceleration Step", ctrl.decelerationStep, ctrl.minDecelerationStep, ctrl.maxDecelerationStep);
 
 		//Push
 		GUI.color = Color.cyan;
@@ -51,38 +42,42 @@ public class ControllerEditor : Editor
 		GUILayout.Label("");
 		GUILayout.Label("");
 		sbyte debugDelay = 0;
-		if (debug)
+		if (ctrl.debug)
 		{
 			debugDelay = 80;
 		}
 		if (GUI.Button(new Rect(5, 200 + debugDelay, Screen.width / 3 - 10, 25), "Simplified"))
 		{
-			currentPushMethod = 0;
+			ctrl.currentPushMethod = 0;
 		}
 		else if (GUI.Button(new Rect(5 + (Screen.width / 3), 200 + debugDelay, Screen.width / 3 - 10, 25), "Advanced"))
 		{
-			currentPushMethod = 1;
+			ctrl.currentPushMethod = 1;
 		}
 		else if (GUI.Button(new Rect(5 + (Screen.width / 3) * 2, 200 + debugDelay, Screen.width / 3 - 10, 25), "Curve"))
 		{
-			currentPushMethod = 2;
+			ctrl.currentPushMethod = 2;
 		}
 		GUILayout.Label("");
 		ctrl.forceMultiplicator = EditorGUILayout.FloatField("Force Multiplicator", ctrl.forceMultiplicator);
 		GUILayout.Label("");
-		switch (currentPushMethod)
+		switch (ctrl.currentPushMethod)
 		{
 			case 1:
 				ctrl.curveUsed = false;
-				howManyPart = EditorGUILayout.IntField("Part", howManyPart);
-				if (howManyPart < 0)
+				ctrl.howManyPart = EditorGUILayout.IntField("Part", ctrl.howManyPart);
+				if (ctrl.howManyPart < 0)
 				{
-					howManyPart = 0;
+					ctrl.howManyPart = 0;
 				}
-				ctrl.pushDelay = new float[howManyPart];
-				ctrl.pushDecelerationStep = new float[howManyPart];
+				if (ctrl.lastPartNumber != ctrl.howManyPart)
+				{
+					ctrl.pushDelay = new float[ctrl.howManyPart];
+					ctrl.pushDecelerationStep = new float[ctrl.howManyPart];
+				}
+				else ctrl.lastPartNumber = ctrl.howManyPart;
 				GUILayout.Label("");
-				for (int i = 0; i < howManyPart; i++)
+				for (int i = 0; i < ctrl.pushDelay.Length; i++)
 				{
 					GUILayout.Label("Part " + (i + 1));
 					ctrl.pushDelay[i] = EditorGUILayout.FloatField("Delay", ctrl.pushDelay[i]);
@@ -94,9 +89,14 @@ public class ControllerEditor : Editor
 				ctrl.curveUsed = true;
 				ctrl.pushCurve = EditorGUILayout.CurveField("Curve", ctrl.pushCurve);
 				break;
-			default:				ctrl.curveUsed = false;
-				ctrl.pushDelay = new float[2];
-				ctrl.pushDecelerationStep = new float[2];
+			default:
+				ctrl.curveUsed = false;
+				if (ctrl.lastPushMethod != ctrl.currentPushMethod)
+				{
+					ctrl.pushDelay = new float[2];
+					ctrl.pushDecelerationStep = new float[2];
+				}
+				else ctrl.lastPushMethod = ctrl.currentPushMethod;
 				GUILayout.Label("Part 1");
 				ctrl.pushDelay[0] = EditorGUILayout.FloatField("Delay", ctrl.pushDelay[0]);
 				ctrl.pushDecelerationStep[0] = EditorGUILayout.FloatField("Deceleration Step", ctrl.pushDecelerationStep[0]);
