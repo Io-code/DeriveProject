@@ -1,0 +1,111 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+
+[CustomEditor(typeof(Controller))]
+public class ControllerEditor : Editor
+{
+	private bool debug;
+	//Debug
+	//Movement elements
+	private float minAccelerationStep = 1, maxAccelerationStep = 10;
+	private float minDecelerationStep = 1, maxDecelerationStep = 10;
+
+	//Push elements
+	private sbyte currentPushMethod = 0;
+	private int howManyPart;
+	public override void OnInspectorGUI()
+	{
+		Controller ctrl = (Controller)target;
+		//base.OnInspectorGUI();
+		debug = EditorGUILayout.Toggle("Enable Debug", debug);
+
+		//Movement
+		GUI.color = Color.cyan;
+		GUILayout.Label("");
+		GUILayout.Label("Movement");
+
+		GUI.color = Color.white;
+		ctrl.maxSpeed = EditorGUILayout.FloatField("Max Speed", ctrl.maxSpeed);
+		if (debug)
+		{
+			GUI.color = Color.green;
+			minAccelerationStep = EditorGUILayout.FloatField("min Acce Slider", minAccelerationStep);
+			maxAccelerationStep = EditorGUILayout.FloatField("max Acce Slider", maxAccelerationStep);
+			minDecelerationStep = EditorGUILayout.FloatField("min Dece Slider", minDecelerationStep);
+			maxDecelerationStep = EditorGUILayout.FloatField("max Dece Slider", maxDecelerationStep);
+			GUI.color = Color.white;
+		}
+		ctrl.accelerationStep = EditorGUILayout.Slider("Acceleration Step", ctrl.accelerationStep, minAccelerationStep, maxAccelerationStep);
+		ctrl.decelerationStep = EditorGUILayout.Slider("Deceleration Step", ctrl.decelerationStep, minDecelerationStep, maxDecelerationStep);
+
+		//Push
+		GUI.color = Color.cyan;
+		GUILayout.Label("");
+		GUILayout.Label("Push");
+		
+		GUI.color = Color.white;
+		GUILayout.Label("Methods");
+		GUILayout.Label("");
+		GUILayout.Label("");
+		GUILayout.Label("");
+
+		if (GUI.Button(new Rect(5, 200, Screen.width / 3 - 10, 25), "Simplified"))
+		{
+			currentPushMethod = 0;
+		}
+		else if (GUI.Button(new Rect(5 + (Screen.width / 3), 200, Screen.width / 3 - 10, 25), "Advanced"))
+		{
+			currentPushMethod = 1;
+		}
+		else if (GUI.Button(new Rect(5 + (Screen.width / 3) * 2, 200, Screen.width / 3 - 10, 25), "Curve"))
+		{
+			currentPushMethod = 2;
+		}
+
+		switch (currentPushMethod)
+		{
+			case 1:
+				GUILayout.Label("");
+				ctrl.forceMultiplicator = EditorGUILayout.FloatField("Force Multiplicator", ctrl.forceMultiplicator);
+				GUILayout.Label("");
+				howManyPart = EditorGUILayout.IntField("Part", howManyPart);
+				if (howManyPart < 0)
+				{
+					howManyPart = 0;
+				}
+				ctrl.pushDelay = new float[howManyPart];
+				ctrl.pushDecelerationStep = new float[howManyPart];
+				GUILayout.Label("");
+				for (uint i = 0; i < howManyPart; i++)
+				{
+					GUILayout.Label("Part " + (i + 1));
+					ctrl.pushDelay[i] = EditorGUILayout.FloatField("Delay", ctrl.pushDelay[i]);
+					ctrl.pushDecelerationStep[i] = EditorGUILayout.FloatField("Deceleration Step", ctrl.pushDecelerationStep[i]);
+					GUILayout.Label("");
+				}
+				break;
+			case 2:
+				GUILayout.Label("");
+				ctrl.forceMultiplicator = EditorGUILayout.FloatField("Force Multiplicator", ctrl.forceMultiplicator);
+				GUILayout.Label("");
+				ctrl.pushCurve = EditorGUILayout.CurveField("Curve", ctrl.pushCurve);
+				break;
+			default:
+				GUILayout.Label("");
+				ctrl.forceMultiplicator = EditorGUILayout.FloatField("Force Multiplicator", ctrl.forceMultiplicator);
+				GUILayout.Label("");
+				ctrl.pushDelay = new float[2];
+				ctrl.pushDecelerationStep = new float[2];
+				GUILayout.Label("Part 1");
+				ctrl.pushDelay[0] = EditorGUILayout.FloatField("Delay", ctrl.pushDelay[0]);
+				ctrl.pushDecelerationStep[0] = EditorGUILayout.FloatField("Deceleration Step", ctrl.pushDecelerationStep[0]);
+				GUILayout.Label("");
+				GUILayout.Label("Part 2");
+				ctrl.pushDelay[1] = EditorGUILayout.FloatField("Delay", ctrl.pushDelay[0]);
+				ctrl.pushDecelerationStep[1] = EditorGUILayout.FloatField("Deceleration Step", ctrl.pushDecelerationStep[0]);
+				break;
+		}
+	}
+}

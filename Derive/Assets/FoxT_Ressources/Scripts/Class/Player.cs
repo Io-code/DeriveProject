@@ -14,17 +14,20 @@ public class Player
 
 	private Vector2 lastDirection;
 
+	//Push
+	public bool isPushing;
+
 	public Player(Rigidbody _rb, in float _speed, in float _accelerationStep, in float _decelartionStep)
 	{
 		rb = _rb;
-		maxSpeed = _speed *100;
+		maxSpeed = _speed * 100;
 		accelerationStep = _accelerationStep / 10;
 		decelerationStep = _decelartionStep / 10;
 	}
 
 	public void Move( Vector2 direction)
 	{
-		Debug.Log("try To Move");
+		if (isPushing) return;
 		float acceleration = -decelerationStep;
 		if (direction != Vector2.zero)
 		{
@@ -34,14 +37,14 @@ public class Player
 
 		try
 		{
-			currentSpeed = Mathf.Clamp(currentSpeed + (maxSpeed * Time.deltaTime / acceleration), 0, maxSpeed);
+			currentSpeed = Mathf.Clamp(currentSpeed + (maxSpeed * Time.fixedDeltaTime / acceleration), 0, maxSpeed);
 		}
 		catch
 		{
 			Debug.LogError("One of Playable Characters have Acceleration Step or Deceleration Step variable equal to 0, it's impossible.");
 			currentSpeed = maxSpeed;
 		}
-		Debug.Log(currentSpeed);
+
 		rb.velocity = lastDirection.normalized * currentSpeed * Time.deltaTime;
 	}
 }
