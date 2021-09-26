@@ -306,9 +306,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32c7ec63fcea7b94995b42d67048ea6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curveTest:
+    currentMethod: 0
+    curveKeys: 2
+    forceMultiplicator: 1
+    delay:
+    - 1
+    - 10
+    decelerationStep:
+    - 0
+    - 0.1
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    isPlaying: 0
+    velocity: {x: 0, y: 0}
+  debug: 0
+  minAccelerationStep: 1
+  maxAccelerationStep: 10
+  minDecelerationStep: 1
+  maxDecelerationStep: 10
+  currentPushMethod: 0
+  lastPushMethod: 0
+  howManyPart: 0
+  lastPartNumber: 0
   maxSpeed: 10
   accelerationStep: 1
   decelerationStep: 1
+  forceMultiplicator: 0
+  pushDelay: []
+  pushDecelerationStep: []
+  pushCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!54 &135896815
 Rigidbody:
   m_ObjectHideFlags: 0
