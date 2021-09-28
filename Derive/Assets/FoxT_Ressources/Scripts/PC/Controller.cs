@@ -31,7 +31,7 @@ public class Controller : MonoBehaviour
 
 	void Start()
     {
-		InputHandler.Instance.OnMove += pc.Move; 
+		//InputHandler.Instance.OnMove += pc.Move; 
     }
 
 

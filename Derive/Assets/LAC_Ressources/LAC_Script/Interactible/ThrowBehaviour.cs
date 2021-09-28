@@ -88,7 +88,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
             Vector3 pos = refController.transform.position;
 
             float holdRange = Vector2.Distance(pos, offset);
-            Vector2 lastDir = refController.pc.lastDirection;
+            Vector2 lastDir = refController.pc.lastNonNullDirection;
             Vector2 hold2DOffset =  lastDir + (Vector2)offset.normalized;
 
             transform.position = pos + (Vector3)hold2DOffset * holdRange + new Vector3(0, 0, offset.z);
@@ -141,7 +141,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
         {
             if(this.controller == controller)
             {
-                Throw(controller.pc.lastDirection);
+                Throw(controller.pc.lastNonNullDirection);
             }
         }
     }
