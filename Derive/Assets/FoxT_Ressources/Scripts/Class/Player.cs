@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Player
 {
 	//Movement elements
@@ -12,7 +11,7 @@ public class Player
 	private float accelerationStep;
 	private float decelerationStep;
 
-	public Vector2 lastDirection;
+	public Vector2 lastNonNullDirection;
 
 	//Push
 	public bool isPushing;
@@ -32,7 +31,7 @@ public class Player
 		if (direction != Vector2.zero)
 		{
 			acceleration = accelerationStep;
-			lastDirection = direction;
+			lastNonNullDirection = direction.normalized;
 		}
 
 		try
@@ -45,6 +44,6 @@ public class Player
 			currentSpeed = maxSpeed;
 		}
 
-		rb.velocity = lastDirection.normalized * currentSpeed * Time.deltaTime;
+		rb.velocity = lastNonNullDirection.normalized * currentSpeed * Time.deltaTime;
 	}
 }
