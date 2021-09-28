@@ -12,7 +12,7 @@ public class Player
 	private float accelerationStep;
 	private float decelerationStep;
 
-	private Vector2 lastDirection;
+	public Vector2 lastDirection;
 
 	//Push
 	public bool isPushing;

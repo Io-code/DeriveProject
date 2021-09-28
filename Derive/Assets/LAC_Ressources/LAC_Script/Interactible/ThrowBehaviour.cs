@@ -9,6 +9,8 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public ObjectState LastState { get { return m_lastState; } }
 
     ObjectState m_objectState, m_lastState;
+    public InteractibleBehaviour interactPoint;
+    Controller controller;
 
     [Header("Respawn")]
     public Transform respawnPoint;
@@ -19,10 +21,16 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public string placeHolder;
 
     [Header("Holded")]
-    public float holdRange;
     public Vector3 holdOffset;
-    [HideInInspector]
-    public Transform holdRef;
+
+    private void OnEnable()
+    {
+        interactPoint.InteractHappens += SetUpControl;
+    }
+    private void OnDisable()
+    {
+        interactPoint.InteractHappens -= SetUpControl;
+    }
 
     public void Update()
     {
@@ -36,6 +44,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
             case ObjectState.HOLDED:
                 {
+                    HoldPos(controller, holdOffset);
                     break;
                 }
             case ObjectState.THROWED:
@@ -49,30 +58,43 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
     void ChangeState(ObjectState newState)
     {
-        switch (newState)
-        {
-            case ObjectState.FREE:
-                {
-                    break;
-                }
-
-            case ObjectState.HOLDED:
-                {
-                    break;
-                }
-            case ObjectState.THROWED:
-                {
-
-                    break;
-                }
-            case ObjectState.DESTROYED:
-                {
-                    break;
-                }
-        }
 
         m_lastState = m_objectState;
         m_objectState = newState;
+
+        // Enable interaction
+        if (LastState == ObjectState.FREE && LastState != newState)
+            interactPoint.gameObject.SetActive(false);
+        if(newState == ObjectState.FREE)
+            interactPoint.gameObject.SetActive(false);
+
+        // Enable action
+        if(newState == ObjectState.HOLDED)
+        {
+            InputHandler.Instance.OnAttack += AttackAction;
+            InputHandler.Instance.OnInteract += InteractAction;
+        }
+        if (LastState == ObjectState.HOLDED && LastState != newState)
+        {
+            InputHandler.Instance.OnAttack -= AttackAction;
+            InputHandler.Instance.OnInteract -= InteractAction;
+        }
+
+    }
+    public void HoldPos(Controller refController, Vector3 offset)
+    {
+        if (refController)
+        {
+            Vector3 pos = refController.transform.position;
+
+            float holdRange = Vector2.Distance(pos, offset);
+            Vector2 lastDir = refController.pc.lastDirection;
+            Vector2 hold2DOffset =  lastDir + (Vector2)offset.normalized;
+
+            transform.position = pos + (Vector3)hold2DOffset * holdRange + new Vector3(0, 0, offset.z);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x + Mathf.Cos(lastDir.x) * Mathf.Rad2Deg, transform.eulerAngles.y + Mathf.Sin(lastDir.y) * Mathf.Rad2Deg, transform.eulerAngles.z);
+        }
+
     }
 
     #region Action Property
@@ -87,9 +109,14 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
     public void GetCaught()
     {
-        ChangeState(ObjectState.HOLDED);
-        transform.position = holdRef.position;
+        if (controller != null)
+        {
+            ChangeState(ObjectState.HOLDED);
+            HoldPos(controller, holdOffset);
+        }
+       
     }
+
     public void Respawn()
     {
         transform.position = respawnPoint.position;
@@ -101,5 +128,28 @@ public abstract class ThrowBehaviour : MonoBehaviour
     }
     #endregion
 
+    #region Input Action
+    void SetUpControl(Controller controller)
+    {
+        this.controller = controller;
+        GetCaught();
+    }
 
+    void AttackAction(Controller controller)
+    {
+        if(this.controller != null && controller != null)
+        {
+            if(this.controller == controller)
+            {
+                Throw(controller.pc.lastDirection);
+            }
+        }
+    }
+
+    void InteractAction(Controller controller)
+    {
+        if (CurrentState == ObjectState.HOLDED)
+            PutDown();
+    }
+    #endregion
 }

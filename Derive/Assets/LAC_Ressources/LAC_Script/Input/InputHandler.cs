@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 
-[RequireComponent(typeof(PlayerInput))]
 public class InputHandler : MonoBehaviour
 {
-    public delegate void InteractDelegate();
-    public event InteractDelegate OnInteract;
+    public delegate void InteractDelegate(Controller controller);
+    public event InteractDelegate OnInteract, OnAttack;
     public event Action<Vector2> OnMove;
 
     private static InputHandler instance = null;
@@ -28,9 +27,14 @@ public class InputHandler : MonoBehaviour
             Destroy(this.gameObject);
 
     }
-    public void PerformInteract()
+    public void PerformInteract(Controller controller)
     {
-        OnInteract?.Invoke();
+        OnInteract?.Invoke(controller);
+    }
+
+    public void PerformAttack(Controller controller)
+    {
+        OnAttack?.Invoke(controller);
     }
 
     public void PerformMove(InputAction.CallbackContext value)

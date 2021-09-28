@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Controller : MonoBehaviour
 {
-    private Player pc;
+    public Player pc;
 
 	//Inspector Elements
 	//Debug
