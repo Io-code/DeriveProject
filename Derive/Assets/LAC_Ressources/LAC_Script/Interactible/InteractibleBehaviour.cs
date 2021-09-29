@@ -7,10 +7,20 @@ using System;
 public class InteractibleBehaviour : MonoBehaviour
 {
     public string detectTag;
-    List<Controller> players = new List<Controller>();
+
+    [Range(0,5)]
+    public float detectRadius;
+    public CircleCollider2D cC2D;
+
+    public List<Controller> players = new List<Controller>();
     public event Action<Controller> InteractHappens;
-    
+
+
     // Start is called before the first frame update
+    public void Awake()
+    {
+        cC2D.radius = detectRadius;
+    }
     void OnEnable()
     {
         InputHandler.Instance.OnInteract += VerifyInteract;
@@ -25,7 +35,7 @@ public class InteractibleBehaviour : MonoBehaviour
         {
             Controller currentPlayer = collision.GetComponent<Controller>();
 
-            if (players.Contains(currentPlayer))
+            if (!players.Contains(currentPlayer))
                 players.Add(currentPlayer);
         }
             
@@ -46,5 +56,14 @@ public class InteractibleBehaviour : MonoBehaviour
     {
         if (players.Count == 1)
             InteractHappens?.Invoke(controller);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (players.Count > 0)
+            Gizmos.color = (players.Count == 1) ? Color.green : Color.red;
+        else
+            Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, detectRadius);
     }
 }

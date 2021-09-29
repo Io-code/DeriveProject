@@ -4,7 +4,7 @@ using UnityEngine;
 public class Player
 {
 	//Movement elements
-	private Rigidbody rb;
+	private Rigidbody2D rb;
 
 	private float maxSpeed;
 	private float currentSpeed;
@@ -16,7 +16,7 @@ public class Player
 	//Push
 	public bool isPushing;
 
-	public Player(Rigidbody _rb, in float _speed, in float _accelerationStep, in float _decelartionStep)
+	public Player(Rigidbody2D _rb, in float _speed, in float _accelerationStep, in float _decelartionStep)
 	{
 		rb = _rb;
 		maxSpeed = _speed * 100;

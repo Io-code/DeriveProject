@@ -8,7 +8,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public ObjectState CurrentState { get { return m_objectState; } }
     public ObjectState LastState { get { return m_lastState; } }
 
-    ObjectState m_objectState, m_lastState;
+    public ObjectState m_objectState, m_lastState;
     public InteractibleBehaviour interactPoint;
     Controller controller;
 
@@ -18,7 +18,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public float respawnDelay;
 
     [Header("Throw")]
-    public string placeHolder;
+    public string placeHolderParam;
 
     [Header("Holded")]
     public Vector3 holdOffset;
@@ -59,9 +59,6 @@ public abstract class ThrowBehaviour : MonoBehaviour
     void ChangeState(ObjectState newState)
     {
 
-        m_lastState = m_objectState;
-        m_objectState = newState;
-
         // Enable interaction
         if (LastState == ObjectState.FREE && LastState != newState)
             interactPoint.gameObject.SetActive(false);
@@ -80,6 +77,8 @@ public abstract class ThrowBehaviour : MonoBehaviour
             InputHandler.Instance.OnInteract -= InteractAction;
         }
 
+        m_lastState = m_objectState;
+        m_objectState = newState;
     }
     public void HoldPos(Controller refController, Vector3 offset)
     {
@@ -87,9 +86,9 @@ public abstract class ThrowBehaviour : MonoBehaviour
         {
             Vector3 pos = refController.transform.position;
 
-            float holdRange = Vector2.Distance(pos, offset);
-            Vector2 lastDir = refController.pc.lastNonNullDirection;
-            Vector2 hold2DOffset =  lastDir + (Vector2)offset.normalized;
+            float holdRange = Vector2.Distance(Vector2.zero, offset);
+            Vector2 lastDir = refController.pc.lastNonNullDirection.normalized;
+            Vector2 hold2DOffset =  (lastDir + (Vector2)offset.normalized) * new Vector2(Mathf.Sign(lastDir.x),1);
 
             transform.position = pos + (Vector3)hold2DOffset * holdRange + new Vector3(0, 0, offset.z);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x + Mathf.Cos(lastDir.x) * Mathf.Rad2Deg, transform.eulerAngles.y + Mathf.Sin(lastDir.y) * Mathf.Rad2Deg, transform.eulerAngles.z);
@@ -98,6 +97,16 @@ public abstract class ThrowBehaviour : MonoBehaviour
     }
 
     #region Action Property
+
+    public void GetCaught()
+    {
+        if (controller != null)
+        {
+            ChangeState(ObjectState.HOLDED);
+            HoldPos(controller, holdOffset);
+        }
+
+    }
     public void Throw( Vector2 dir)
     {
         ChangeState(ObjectState.THROWED);
@@ -107,15 +116,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
         ChangeState(ObjectState.FREE);
     }
 
-    public void GetCaught()
-    {
-        if (controller != null)
-        {
-            ChangeState(ObjectState.HOLDED);
-            HoldPos(controller, holdOffset);
-        }
-       
-    }
+
 
     public void Respawn()
     {
@@ -124,6 +125,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     }
     public void GetDestroy()
     {
+        
         ChangeState(ObjectState.DESTROYED);
     }
     #endregion
@@ -152,4 +154,9 @@ public abstract class ThrowBehaviour : MonoBehaviour
             PutDown();
     }
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position + holdOffset, 0.2f);
+    }
 }

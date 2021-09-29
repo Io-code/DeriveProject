@@ -5,7 +5,7 @@ using Fox.Editor;
 using UnityEngine.InputSystem;
 using System;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Controller : MonoBehaviour
 {
     public Player pc;
@@ -27,7 +27,7 @@ public class Controller : MonoBehaviour
 	private Vector2 joystick;
 	private void Awake()
 	{
-		pc = new Player(GetComponent<Rigidbody>(), in maxSpeed, in accelerationStep, in decelerationStep);
+		pc = new Player(GetComponent<Rigidbody2D>(), in maxSpeed, in accelerationStep, in decelerationStep);
 		
 	}
 
@@ -67,13 +67,15 @@ public class Controller : MonoBehaviour
 		Debug.Log("Move : " + value.ReadValue<Vector2>());
 	}
 
-	public void PerformInteract()
+	public void PerformInteract(InputAction.CallbackContext value)
     {
-		InputHandler.Instance.CallInteract(this);
+		if(value.started)
+			InputHandler.Instance.CallInteract(this);
 	}
 
-	public void PerformAttack()
+	public void PerformAttack(InputAction.CallbackContext value)
 	{
-		InputHandler.Instance.CallAttack(this);
+		if (value.started)
+			InputHandler.Instance.CallAttack(this);
 	}
 }
