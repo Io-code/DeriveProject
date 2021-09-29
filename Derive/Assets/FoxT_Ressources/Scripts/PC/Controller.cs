@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fox.Editor;
+using UnityEngine.InputSystem;
+using System;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Controller : MonoBehaviour
@@ -35,17 +37,9 @@ public class Controller : MonoBehaviour
     }
 
 
-	private void FixedUpdate()
-	{
-		if (curves.isPlaying)
-		{
-			Debug.Log(curves.velocity);
-			GetComponent<Rigidbody>().velocity = curves.velocity;
-		}
-		else pc.Move(joystick);
-	}
 
-	private void InputHandler()
+
+	private void JoystickTest()
 	{ 
 		 joystick = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
@@ -61,5 +55,25 @@ public class Controller : MonoBehaviour
 	public void Push(Vector3 direction, float force)
 	{
 		StartCoroutine(curves.Play(-direction, force));
+	}
+
+	// New Input system
+	public void PerformMove(InputAction.CallbackContext value)
+	{
+		Vector2 dir = value.ReadValue<Vector2>();
+		InputHandler.Instance.CallMove(dir, this);
+		pc.Move(dir);
+
+		Debug.Log("Move : " + value.ReadValue<Vector2>());
+	}
+
+	public void PerformInteract()
+    {
+		InputHandler.Instance.CallInteract(this);
+	}
+
+	public void PerformAttack()
+	{
+		InputHandler.Instance.CallAttack(this);
 	}
 }

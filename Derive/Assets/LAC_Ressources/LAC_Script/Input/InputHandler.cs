@@ -8,7 +8,7 @@ public class InputHandler : MonoBehaviour
 {
     public delegate void InteractDelegate(Controller controller);
     public event InteractDelegate OnInteract, OnAttack;
-    public event Action<Vector2> OnMove;
+    public event Action<Vector2, Controller> OnMove;
 
     private static InputHandler instance = null;
     public static InputHandler Instance
@@ -27,19 +27,18 @@ public class InputHandler : MonoBehaviour
             Destroy(this.gameObject);
 
     }
-    public void PerformInteract(Controller controller)
+    public void CallInteract(Controller controller)
     {
         OnInteract?.Invoke(controller);
     }
 
-    public void PerformAttack(Controller controller)
+    public void CallAttack(Controller controller)
     {
         OnAttack?.Invoke(controller);
     }
 
-    public void PerformMove(InputAction.CallbackContext value)
+    public void CallMove(Vector2 dir, Controller controller)
     {
-        OnMove?.Invoke( value.ReadValue<Vector2>());
-        Debug.Log("Move : " + value.ReadValue<Vector2>());
+        OnMove?.Invoke(dir,controller);
     }
 }
