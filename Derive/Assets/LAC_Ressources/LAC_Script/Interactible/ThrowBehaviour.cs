@@ -133,7 +133,10 @@ public abstract class ThrowBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         if (CurrentState == ObjectState.THROWED)
+        {
             velocity = Vector2.zero;
+        }
+           
     }
     public void PutDown()
     {
