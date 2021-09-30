@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Collider2D))]
 public abstract class ThrowBehaviour : MonoBehaviour
 {
+    public Rigidbody2D rb2D;
     public enum ObjectState {FREE, HOLDED, THROWED, DESTROYED };
     public ObjectState CurrentState { get { return m_objectState; } }
     public ObjectState LastState { get { return m_lastState; } }
@@ -11,6 +13,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public ObjectState m_objectState, m_lastState;
     public InteractibleBehaviour interactPoint;
     Controller controller;
+    Vector2 velocity = Vector2.zero;
 
     [Header("Respawn")]
     public Transform respawnPoint;
@@ -18,7 +21,12 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public float respawnDelay;
 
     [Header("Throw")]
-    public string placeHolderParam;
+    public float throwDuration;
+    public float throwSpeed;
+    public AnimationCurve throwSpeedModifier;
+    Vector2 throwDir;
+    float throwReadTime = 0;
+    
 
     [Header("Holded")]
     public Vector3 holdOffset;
@@ -49,21 +57,26 @@ public abstract class ThrowBehaviour : MonoBehaviour
                 }
             case ObjectState.THROWED:
                 {
-
+                    velocity = throwSpeed * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;
                     break;
                 }
 
         }
     }
 
+    private void FixedUpdate()
+    {
+        
+    }
+
     void ChangeState(ObjectState newState)
     {
 
         // Enable interaction
-        if (LastState == ObjectState.FREE && LastState != newState)
+        if (newState != ObjectState.FREE)
             interactPoint.gameObject.SetActive(false);
-        if(newState == ObjectState.FREE)
-            interactPoint.gameObject.SetActive(false);
+        else
+            interactPoint.gameObject.SetActive(true);
 
         // Enable action
         if(newState == ObjectState.HOLDED)
@@ -88,7 +101,9 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
             float holdRange = Vector2.Distance(Vector2.zero, offset);
             Vector2 lastDir = refController.pc.lastNonNullDirection.normalized;
-            Vector2 hold2DOffset =  (lastDir + (Vector2)offset.normalized) * new Vector2(Mathf.Sign(lastDir.x),1);
+            float holdAngle = Mathf.Atan2(lastDir.y, lastDir.x) + Mathf.Atan2(offset.y, offset.x);
+
+            Vector2 hold2DOffset = new Vector2(Mathf.Cos(holdAngle), Mathf.Sin(holdAngle));
 
             transform.position = pos + (Vector3)hold2DOffset * holdRange + new Vector3(0, 0, offset.z);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x + Mathf.Cos(lastDir.x) * Mathf.Rad2Deg, transform.eulerAngles.y + Mathf.Sin(lastDir.y) * Mathf.Rad2Deg, transform.eulerAngles.z);
@@ -110,6 +125,15 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public void Throw( Vector2 dir)
     {
         ChangeState(ObjectState.THROWED);
+        throwDir = dir;
+        throwReadTime = Time.time;
+    }
+
+    IEnumerator EndThrow(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (CurrentState == ObjectState.THROWED)
+            velocity = Vector2.zero;
     }
     public void PutDown()
     {
