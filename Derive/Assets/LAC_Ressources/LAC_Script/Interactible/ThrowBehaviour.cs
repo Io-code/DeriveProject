@@ -34,17 +34,20 @@ public abstract class ThrowBehaviour : MonoBehaviour
     [Header("Collision")]
     [Range(0,5)]
     public float collsionRange;
-    public List<string> collsionTag = new List<string>();
+    public CollisionDetector collsionDetector;
     //public float placeHolderThrowParam
 
 
     private void OnEnable()
     {
         interactPoint.InteractHappens += SetUpControl;
+        
+
     }
     private void OnDisable()
     {
         interactPoint.InteractHappens -= SetUpControl;
+        
     }
 
     public void Update()
@@ -107,6 +110,15 @@ public abstract class ThrowBehaviour : MonoBehaviour
             InputHandler.Instance.OnInteract -= InteractAction;
         }
 
+        if(newState == ObjectState.THROWED)
+        {
+            collsionDetector.OnCollision += CollisionAction;
+        }
+        else if (LastState == ObjectState.THROWED)
+        {
+            collsionDetector.OnCollision -= CollisionAction;
+        }
+
         m_lastState = m_objectState;
         m_objectState = newState;
     }
@@ -124,9 +136,16 @@ public abstract class ThrowBehaviour : MonoBehaviour
             Vector2 hold2DOffset = new Vector2(Mathf.Cos(holdAngle), Mathf.Sin(holdAngle));
 
             transform.position = pos + (Vector3)hold2DOffset * holdRange + new Vector3(0, 0, offset.z);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x + Mathf.Cos(lastDir.x) * Mathf.Rad2Deg, transform.eulerAngles.y + Mathf.Sin(lastDir.y) * Mathf.Rad2Deg, transform.eulerAngles.z);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, holdAngle * Mathf.Rad2Deg);
         }
 
+    }
+
+    public void CollisionAction( GameObject colObject)
+    {
+        Debug.Log("Push " + colObject.name);
+        Controller pControl = colObject.GetComponent<Controller>();
+        pControl?.Push(transform.position, 10);
     }
 
     #region Action Property
@@ -141,6 +160,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
         }
 
     }
+
     public void Throw( Vector2 dir)
     {
         ChangeState(ObjectState.THROWED);
@@ -149,7 +169,6 @@ public abstract class ThrowBehaviour : MonoBehaviour
         rb2D.velocity = throwSpeed * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;
         StartCoroutine(EndThrow(throwDuration));
     }
-
     IEnumerator EndThrow(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -158,19 +177,18 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
 
     }
+
     public void FallInGround()
     {
         ChangeState(ObjectState.FREE);
         velocity = Vector2.zero;
     }
-
     public void PutDown()
     {
         ChangeState(ObjectState.FREE);
-        velocity = Vector2.zero;
+        controller = null;
+         velocity = Vector2.zero;
     }
-
-
 
     public void Respawn()
     {

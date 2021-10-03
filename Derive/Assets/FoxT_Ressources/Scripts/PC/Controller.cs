@@ -64,7 +64,7 @@ public class Controller : MonoBehaviour
 		InputHandler.Instance.CallMove(dir, this);
 		pc.Move(dir);
 
-		Debug.Log("Move : " + value.ReadValue<Vector2>());
+		//Debug.Log("Move : " + value.ReadValue<Vector2>());
 	}
 
 	public void PerformInteract(InputAction.CallbackContext value)

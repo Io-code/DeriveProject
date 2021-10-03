@@ -14,7 +14,7 @@ public class InteractibleBehaviour : MonoBehaviour
 
     public List<Controller> players = new List<Controller>();
     public event Action<Controller> InteractHappens;
-
+    public bool oneController;
 
     // Start is called before the first frame update
     public void Awake()
@@ -54,14 +54,14 @@ public class InteractibleBehaviour : MonoBehaviour
 
     public void VerifyInteract(Controller controller)
     {
-        if (players.Count == 1)
+        if ((players.Count == 1 && controller == players[0]) || !oneController)
             InteractHappens?.Invoke(controller);
     }
 
     private void OnDrawGizmos()
     {
         if (players.Count > 0)
-            Gizmos.color = (players.Count == 1) ? Color.green : Color.red;
+            Gizmos.color = (players.Count == 1 || !oneController) ? Color.green : Color.red;
         else
             Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, detectRadius);
