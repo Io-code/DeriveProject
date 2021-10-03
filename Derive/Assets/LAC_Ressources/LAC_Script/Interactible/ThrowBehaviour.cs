@@ -31,6 +31,13 @@ public abstract class ThrowBehaviour : MonoBehaviour
     [Header("Holded")]
     public Vector3 holdOffset;
 
+    [Header("Collision")]
+    [Range(0,5)]
+    public float collsionRange;
+    public List<string> collsionTag = new List<string>();
+    //public float placeHolderThrowParam
+
+
     private void OnEnable()
     {
         interactPoint.InteractHappens += SetUpControl;
@@ -46,7 +53,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
         {
             case ObjectState.FREE:
                 {
-
+                    rb2D.bodyType = RigidbodyType2D.Kinematic;
                     break;
                 }
 
@@ -57,7 +64,13 @@ public abstract class ThrowBehaviour : MonoBehaviour
                 }
             case ObjectState.THROWED:
                 {
+                    rb2D.bodyType = RigidbodyType2D.Dynamic;
                     velocity = throwSpeed * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;
+                    if (rb2D.velocity.magnitude < 0.1f && CurrentState == ObjectState.THROWED)
+                        FallInGround();
+
+                    // detect 
+                    
                     break;
                 }
 
@@ -66,9 +79,13 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        rb2D.velocity = velocity;
         
     }
 
+
+
+    #region Method
     void ChangeState(ObjectState newState)
     {
 
@@ -97,6 +114,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     {
         if (refController)
         {
+            velocity = Vector2.zero;
             Vector3 pos = refController.transform.position;
 
             float holdRange = Vector2.Distance(Vector2.zero, offset);
@@ -117,6 +135,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     {
         if (controller != null)
         {
+            velocity = Vector2.zero;
             ChangeState(ObjectState.HOLDED);
             HoldPos(controller, holdOffset);
         }
@@ -127,20 +146,28 @@ public abstract class ThrowBehaviour : MonoBehaviour
         ChangeState(ObjectState.THROWED);
         throwDir = dir;
         throwReadTime = Time.time;
+        rb2D.velocity = throwSpeed * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;
+        StartCoroutine(EndThrow(throwDuration));
     }
 
     IEnumerator EndThrow(float delay)
     {
         yield return new WaitForSeconds(delay);
         if (CurrentState == ObjectState.THROWED)
-        {
-            velocity = Vector2.zero;
-        }
-           
+            FallInGround();
+
+
     }
+    public void FallInGround()
+    {
+        ChangeState(ObjectState.FREE);
+        velocity = Vector2.zero;
+    }
+
     public void PutDown()
     {
         ChangeState(ObjectState.FREE);
+        velocity = Vector2.zero;
     }
 
 
@@ -181,9 +208,15 @@ public abstract class ThrowBehaviour : MonoBehaviour
             PutDown();
     }
     #endregion
+    #endregion
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.white;
+        if (CurrentState == ObjectState.FREE)
         Gizmos.DrawSphere(transform.position + holdOffset, 0.2f);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, collsionRange);
     }
 }
