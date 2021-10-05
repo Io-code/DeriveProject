@@ -114,11 +114,13 @@ public abstract class ThrowBehaviour : MonoBehaviour
         {
             collsionDetector.OnCollision += CollisionAction;
         }
-        else if (LastState == ObjectState.THROWED)
+        if (newState != ObjectState.THROWED && CurrentState == ObjectState.THROWED)
         {
+            //Debug.Log("unsuscribe");
             collsionDetector.OnCollision -= CollisionAction;
         }
 
+        //Debug.Log("State switch " + m_objectState + " to " + newState);
         m_lastState = m_objectState;
         m_objectState = newState;
     }

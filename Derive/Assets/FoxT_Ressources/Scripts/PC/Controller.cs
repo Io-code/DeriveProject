@@ -48,6 +48,7 @@ public class Controller : MonoBehaviour
 
 	public void Push(Transform position, float force)
 	{
+		Debug.Log("Push " + name);
 		Vector3 direction = transform.position - position.position;
 		Push(direction, force);
 	}
