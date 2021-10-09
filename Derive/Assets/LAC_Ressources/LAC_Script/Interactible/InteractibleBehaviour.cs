@@ -34,7 +34,6 @@ public class InteractibleBehaviour : MonoBehaviour
         if (collision.tag == detectTag)
         {
             Controller currentPlayer = collision.GetComponent<Controller>();
-
             if (!players.Contains(currentPlayer))
                 players.Add(currentPlayer);
         }
@@ -54,8 +53,12 @@ public class InteractibleBehaviour : MonoBehaviour
 
     public void VerifyInteract(Controller controller)
     {
-        if ((players.Count == 1 && controller == players[0]) || !oneController)
+        if ((players.Count == 1 && controller == players[0]) || (!oneController && players.Count > 0))
+        {
+            Debug.Log("Verifiy : " + players[0]);
             InteractHappens?.Invoke(controller);
+        }
+            
     }
 
     private void OnDrawGizmos()
