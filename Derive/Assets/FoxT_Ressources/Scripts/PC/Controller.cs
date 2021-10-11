@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fox.Editor;
+using UnityEngine.InputSystem;
+using System;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Controller : MonoBehaviour
 {
     public Player pc;
@@ -21,48 +23,74 @@ public class Controller : MonoBehaviour
 
 	//Push
 	public CurveOptions curves = new CurveOptions();
+	private Coroutine pushCoroutine;
 
-	private Vector2 joystick;
+	private Vector2 lastNonNullDirection;
+	private Coroutine decelerationCoroutine, accelerationCoroutine;
+
+	private bool moveFunctionCall;
 	private void Awake()
 	{
-		pc = new Player(GetComponent<Rigidbody>(), in maxSpeed, in accelerationStep, in decelerationStep);
-	}
-
-	void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-		InputHandler();
-    }
-
-	private void FixedUpdate()
-	{
-		if (curves.isPlaying)
-		{
-			Debug.Log(curves.velocity);
-			GetComponent<Rigidbody>().velocity = curves.velocity;
-		}
-		else pc.Move(joystick);
-	}
-
-	private void InputHandler()
-	{ 
-		 joystick = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-		if (Input.GetButtonDown("Test")) Push(new Vector3(1, -1, 0), 1);
+		pc = new Player(GetComponent<Rigidbody2D>(), in maxSpeed, in accelerationStep, in decelerationStep);
+		
 	}
 
 	public void Push(Transform position, float force)
 	{
 		Vector3 direction = transform.position - position.position;
-		Push(direction, force);
+		Push(-direction, force);
 	}
 
 	public void Push(Vector3 direction, float force)
 	{
 		StartCoroutine(curves.Play(-direction, force));
+		if (pushCoroutine != null)
+        {
+			StopCoroutine(pushCoroutine);
+        }
+		pushCoroutine = StartCoroutine(PushController());
+	}
+
+	// New Input system
+	public void PerformMove(InputAction.CallbackContext value)
+	{
+		Vector2 dir = value.ReadValue<Vector2>();
+		InputHandler.Instance.CallMove(dir, this);
+		lastNonNullDirection = dir;
+		if (dir == Vector2.zero)
+		{
+			decelerationCoroutine = StartCoroutine(pc.Deceleration());
+			if (accelerationCoroutine != null) StopCoroutine(accelerationCoroutine);
+		}
+		else
+		{
+			pc.lastNonNullDirection = dir;
+			accelerationCoroutine = StartCoroutine(pc.Acceleration());
+			if (decelerationCoroutine != null) StopCoroutine(decelerationCoroutine);
+		}
+	}
+
+	public void PerformInteract(InputAction.CallbackContext value)
+    {
+		if(value.started)
+			InputHandler.Instance.CallInteract(this);
+	}
+
+	public void PerformAttack(InputAction.CallbackContext value)
+	{
+		if (value.started)
+			InputHandler.Instance.CallAttack(this);
+	}
+
+	private IEnumerator PushController()
+	{
+		pc.currentState = PlayerState.PUSH;
+		while (curves.isPlaying)
+		{
+			pc.Move(curves.velocity);
+			yield return new WaitForFixedUpdate();
+		}
+		pc.Move(Vector2.zero);
+		pc.currentState = PlayerState.FREE;
 	}
 }
