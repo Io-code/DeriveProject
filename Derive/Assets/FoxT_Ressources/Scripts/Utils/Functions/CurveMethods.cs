@@ -58,7 +58,6 @@ namespace Fox.Editor
 						try
 						{
 							currentForce = Mathf.Clamp(force - (force * decelerationStep[i] * (timeElapsed / delay[i])) - forceSubstracted, 0, force);
-							Debug.Log(currentForce);
 						}
 						catch
 						{
