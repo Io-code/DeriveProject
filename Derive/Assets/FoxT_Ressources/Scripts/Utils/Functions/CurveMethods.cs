@@ -33,12 +33,14 @@ namespace Fox.Editor
 		public IEnumerator Play(Vector2 dir, float force)
 		{
 			isPlaying = true;
+			dir = dir.normalized;
 			float timeElapsed = 0;
+			float currentForce = force;
 			if (currentMethod == CurveMethods.Curve)
 			{
 				while (true)
 				{
-					velocity = dir * curve.Evaluate(timeElapsed) * force * forceMultiplicator;
+					velocity = dir * curve.Evaluate(timeElapsed) * force * forceMultiplicator * 10;
 					if (timeElapsed >= curve.keys[curve.keys.Length - 1].time) break;
 					yield return new WaitForEndOfFrame();
 					timeElapsed += Time.deltaTime;
@@ -46,14 +48,17 @@ namespace Fox.Editor
 			}
 			else
 			{
+				float forceSubstracted = 0;
 				for (int i = 0; i < delay.Length; i++)
 				{
+					timeElapsed = 0;
 					while (true)
 					{
-						velocity = dir * force * forceMultiplicator;
+						velocity = dir * currentForce * forceMultiplicator * 10;
 						try
 						{
-							force = Mathf.Clamp(force - (decelerationStep[i] / delay[i]), 0, force);
+							currentForce = Mathf.Clamp(force - (force * decelerationStep[i] * (timeElapsed / delay[i])) - forceSubstracted, 0, force);
+							Debug.Log(currentForce);
 						}
 						catch
 						{
@@ -64,6 +69,7 @@ namespace Fox.Editor
 						yield return new WaitForEndOfFrame();
 						timeElapsed += Time.deltaTime;
 					}
+					forceSubstracted += force * decelerationStep[i];
 				}
 			}
 			isPlaying = false;
@@ -101,11 +107,14 @@ namespace Fox.Editor
 				method.decelerationStep = new float[part];
 			}
 			GUILayout.Label("");
+			float decelerationSomme = 0;
 			for (uint i = 0; i < method.delay.Length; i++)
 			{
 				GUILayout.Label("Part " + (i + 1));
-				method.delay[i] = EditorGUILayout.FloatField("Delay", method.delay[i]);
-				method.decelerationStep[i] = EditorGUILayout.FloatField("Deceleration Step", method.decelerationStep[i]);
+				method.delay[i] = EditorGUILayout.FloatField("Duration", method.delay[i]);
+				if (i < method.delay.Length - 1) method.decelerationStep[i] = Mathf.Clamp(EditorGUILayout.FloatField("Deceleration Step", method.decelerationStep[i]), 0, 1 - decelerationSomme);
+				else method.decelerationStep[i] = EditorGUILayout.FloatField("Deceleration Step", 1 - decelerationSomme);
+				decelerationSomme += method.decelerationStep[i];
 				GUILayout.Label("");
 			}
 		}
