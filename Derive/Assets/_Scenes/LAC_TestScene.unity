@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &124117371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,10 +153,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 0}
-  firePoint: {x: 0, y: 0, z: 0}
   shootAngle: 0
-  shootInitialSpeed: 0
-  load: 0
+  shootInitialSpeed: 5
+  bulletLoaded: []
+  loadPos: {x: -0.5, y: 0, z: 0}
+  loadDetectRadius: 0.249
 --- !u!4 &124117372
 Transform:
   m_ObjectHideFlags: 0
@@ -507,7 +508,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 0.31
 --- !u!50 &196741467
 Rigidbody2D:
   serializedVersion: 4
@@ -625,12 +626,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 940116886}
-  - component: {fileID: 940116885}
   - component: {fileID: 940116888}
   - component: {fileID: 940116887}
+  - component: {fileID: 940116885}
   m_Layer: 0
   m_Name: InetractibleObject
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -644,7 +645,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 940116884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cb916a933d67864cbac447053599679, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b07438ed097dd24ebbbf129fbe53dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb2D: {fileID: 940116888}
@@ -680,8 +681,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   holdOffset: {x: 1, y: 0, z: 0}
-  collsionRange: 0.36
+  collsionRange: 0.87
   collsionDetector: {fileID: 196741465}
+  bulletState: 0
+  lasteBulletState: 0
 --- !u!4 &940116886
 Transform:
   m_ObjectHideFlags: 0
@@ -690,7 +693,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 940116884}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.05, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1070286099}
@@ -767,7 +770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectTag: Player
-  detectRadius: 1.43
+  detectRadius: 1.6
   cC2D: {fileID: 1070286098}
   players: []
   oneController: 0
@@ -786,7 +789,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.22
 --- !u!4 &1070286099
 Transform:
   m_ObjectHideFlags: 0
@@ -1004,7 +1007,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
