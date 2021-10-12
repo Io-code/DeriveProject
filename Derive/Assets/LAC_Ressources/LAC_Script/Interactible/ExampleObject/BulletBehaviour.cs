@@ -2,17 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBehaviour : MonoBehaviour
+public class BulletBehaviour :ThrowBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum BulletState { UNLOAD,LOAD, THROWED, EXPLODED };
+    public BulletState bulletState, lasteBulletState;
+    bool triggerCollisionAction = true;
+
+    private void Awake()
     {
-        
+        ChangeStateAction += ResetTriggerCollision;
+    }
+    #region State
+    void ChangeBulletState( BulletState state)
+    {
+        lasteBulletState = bulletState;
+        bulletState = state;
+    }
+    void ResetTriggerCollision(ObjectState lastState, ObjectState currentState)
+    {
+        if(currentState == ObjectState.FREE)
+        {
+            triggerCollisionAction = true;
+        }
+    }
+    #endregion
+    #region Method
+    public void Load()
+    {
+        GetManage();
+        ChangeBulletState(BulletState.LOAD);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Shoot( Vector3 shootPos, Vector2 dir, float power)
     {
-        
+        transform.position = shootPos;
+        ChangeBulletState(BulletState.THROWED);
+        Throw(dir, power);
     }
+
+    public override void CollisionAction(GameObject colObject)
+    {
+        if (triggerCollisionAction)
+        {
+            triggerCollisionAction = false;
+            ChangeBulletState(BulletState.EXPLODED);
+            FallInGround();
+            Debug.Log("Fall");
+        }
+        
+        //throw new System.NotImplementedException();
+    }
+    #endregion
 }
