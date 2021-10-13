@@ -17,25 +17,40 @@ public class Controller : MonoBehaviour
 
 	//Script Elements
 	//Movement elements
+	// On Floor
 	public float maxSpeed;
 	public float accelerationStep;
 	public float decelerationStep;
+	private Coroutine decelerationCoroutine, accelerationCoroutine;
+
+	//On Water
+	public float swimSpeed;
+	private Vector3 laderPosition;
 
 	//Push
 	public CurveOptions curves = new CurveOptions();
 	private Coroutine pushCoroutine;
 
-	private Vector2 lastNonNullDirection;
-	private Coroutine decelerationCoroutine, accelerationCoroutine;
 
-	private bool moveFunctionCall;
 	private void Awake()
 	{
-		pc = new Player(GetComponent<Rigidbody2D>(), in maxSpeed, in accelerationStep, in decelerationStep);
-		
+		pc = new Player(GetComponent<Rigidbody2D>(), in maxSpeed, in accelerationStep, in decelerationStep, (byte)GameObject.FindGameObjectsWithTag("Player").Length);
 	}
 
-	public void Push(Transform position, float force)
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+		if (collision.collider.tag == "Water")
+		{
+			if (pc.currentState != PlayerState.SWIM)
+			{
+				pc.ChangeState(PlayerState.SWIM);
+				// EventSystem
+				// Changer Animaiton
+			}
+		}
+    }
+
+    public void Push(Transform position, float force)
 	{
 		Vector3 direction = transform.position - position.position;
 		Push(-direction, force);
@@ -56,7 +71,6 @@ public class Controller : MonoBehaviour
 	{
 		Vector2 dir = value.ReadValue<Vector2>();
 		InputHandler.Instance.CallMove(dir, this);
-		lastNonNullDirection = dir;
 		if (dir == Vector2.zero)
 		{
 			decelerationCoroutine = StartCoroutine(pc.Deceleration());
@@ -84,13 +98,22 @@ public class Controller : MonoBehaviour
 
 	private IEnumerator PushController()
 	{
-		pc.currentState = PlayerState.PUSH;
+		pc.ChangeState(PlayerState.PUSH);
 		while (curves.isPlaying)
 		{
 			pc.Move(curves.velocity);
 			yield return new WaitForFixedUpdate();
 		}
 		pc.Move(Vector2.zero);
-		pc.currentState = PlayerState.FREE;
+		pc.ChangeState(PlayerState.FREE);
+	}
+
+	public IEnumerator Swim()
+	{
+		while (pc.currentState == PlayerState.SWIM)
+		{
+			yield return new WaitForFixedUpdate();
+			pc.Move(((transform.position - laderPosition) * 100).normalized * swimSpeed);
+		}
 	}
 }

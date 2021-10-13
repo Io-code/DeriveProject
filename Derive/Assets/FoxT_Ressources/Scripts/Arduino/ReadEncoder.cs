@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using Uduino;
 
@@ -7,7 +8,13 @@ public class ReadEncoder : MonoBehaviour
 {
     private int fpInitialeValue, fpCurrentValue;
     private int spInitialeValue, spCurrentValue;
+    [HideInInspector]
     public int fpTour = 0, spTour = 0;
+
+    //Swim
+    public float swimEncoderReadDelay;
+    public float swimSpeed;
+    public int lastEncoderValue;
 
     void Start()
     {
@@ -56,6 +63,19 @@ public class ReadEncoder : MonoBehaviour
                     spInitialeValue = spCurrentValue;
                 }
             }
+        }
+    }
+
+    public IEnumerator SwimRead(MonoBehaviour owner, bool firstPl)
+    {
+        while(true)
+        { 
+            yield return new WaitForSeconds(swimEncoderReadDelay);
+            if (firstPl)
+            {
+                swimSpeed = Mathf.Clamp(fpCurrentValue - lastEncoderValue, -40, 40) / 40;
+            }
+            else swimSpeed = Mathf.Clamp((spCurrentValue - lastEncoderValue), -40, 40) / 40;
         }
     }
 }

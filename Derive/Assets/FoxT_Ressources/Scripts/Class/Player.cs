@@ -10,25 +10,27 @@ public class Player
 
 	public float maxSpeed;
 	public float currentSpeed;
+	public Vector2 lastNonNullDirection;
 	private float accelerationStep;
 	private float decelerationStep;
 
-	public Vector2 lastNonNullDirection;
-
+	public byte playerNumber;
 	public PlayerState currentState;
 
-	public Player(Rigidbody2D _rb, in float _speed, in float _accelerationStep, in float _decelartionStep)
+
+	public Player(Rigidbody2D _rb, in float _speed, in float _accelerationStep, in float _decelartionStep, in byte _playerNumber)
 	{
 		rb = _rb;
 		maxSpeed = _speed * 100;
 		accelerationStep = _accelerationStep / 10;
 		decelerationStep = _decelartionStep / 10;
+		playerNumber = _playerNumber;
 		currentState = PlayerState.FREE;
 	}
 
 	public void Move( Vector2 direction)
 	{
-		if (currentState == PlayerState.PUSH)
+		if (currentState != PlayerState.FREE)
 		{
 			rb.velocity = direction * Time.fixedDeltaTime;
 			return;
@@ -70,5 +72,10 @@ public class Player
 			Move(lastNonNullDirection);
 			if (currentSpeed >= maxSpeed) break;
 		}
+	}
+
+	public void ChangeState(PlayerState newState)
+	{
+		if (newState != currentState) currentState = newState;
 	}
 }
