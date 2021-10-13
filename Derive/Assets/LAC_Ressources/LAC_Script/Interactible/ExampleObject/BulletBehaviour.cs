@@ -46,6 +46,9 @@ public class BulletBehaviour :ThrowBehaviour
         {
             triggerCollisionAction = false;
             ChangeBulletState(BulletState.EXPLODED);
+
+            colObject?.GetComponent<Controller>()?.Push(transform, 10);
+
             FallInGround();
             Debug.Log("Fall");
         }

@@ -120,12 +120,12 @@ public abstract class ThrowBehaviour : MonoBehaviour
         
         if(newState == ObjectState.THROWED && CurrentState != ObjectState.THROWED)
         {
-            collsionDetector.OnCollision += CollisionAction;
+            collsionDetector.OnCollisionPlayer += CollisionAction;
         }
         if (newState != ObjectState.THROWED && CurrentState == ObjectState.THROWED)
         {
             //Debug.Log("unsuscribe");
-            collsionDetector.OnCollision -= CollisionAction;
+            collsionDetector.OnCollisionPlayer -= CollisionAction;
         }
 
         //Debug.Log("State switch " + m_objectState + " to " + newState);
@@ -190,7 +190,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     {
         ChangeState(ObjectState.FREE);
         Debug.Log("Fall in ground");
-        velocity = Vector2.zero;
+        rb2D.velocity = velocity = Vector2.zero;
     }
     public void PutDown()
     {

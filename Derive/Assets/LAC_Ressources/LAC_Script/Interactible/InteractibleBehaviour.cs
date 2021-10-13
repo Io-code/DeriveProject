@@ -23,11 +23,11 @@ public class InteractibleBehaviour : MonoBehaviour
     }
     void OnEnable()
     {
-        InputHandler.Instance.OnInteract += VerifyInteract;
+        InputHandler.instance.OnInteract += VerifyInteract;
     }
     void OnDisable()
     {
-        InputHandler.Instance.OnInteract -= VerifyInteract;
+        InputHandler.instance.OnInteract -= VerifyInteract;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
