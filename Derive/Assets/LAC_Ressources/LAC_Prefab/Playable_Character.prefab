@@ -114,7 +114,7 @@ MonoBehaviour:
     - 0
     decelerationStep:
     - 0
-    - 0
+    - 1
     curve:
       serializedVersion: 2
       m_Curve: []

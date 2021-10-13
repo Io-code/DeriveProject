@@ -9,7 +9,7 @@ public class CollisionDetector : MonoBehaviour
     CircleCollider2D cC2D;
     public enum CollisionType { PLAYER, OTHER};
     public CollisionType collisionType;
-    public Action< GameObject> OnCollision;
+    public Action< GameObject> OnCollisionPlayer, OnCollisionWall;
 
     private void Awake()
     {
@@ -25,10 +25,17 @@ public class CollisionDetector : MonoBehaviour
             case CollisionType.PLAYER:
                 {
                     if (collision.tag == "Player")
-                        OnCollision?.Invoke(collision.gameObject);
+                        OnCollisionPlayer?.Invoke(collision.gameObject);
 
                     break;
                 }
         }
+        if(collision.tag == "BreakableWall")
+        {
+            Debug.Log("Hit wall");
+            collision.GetComponent<BreakableWall>()?.TakeDamage(1);
+        }
+            
+        
     }
 }
