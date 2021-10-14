@@ -211,14 +211,14 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
     public void GetDestroy()
     {
-        StartCoroutine(Respawn());
         ChangeState(ObjectState.DESTROYED);
-        //gameObject.SetActive(false);
+        PoolManager.instance.PerformPoolActive(respawnDelay, Respawn);
+        gameObject.SetActive(false);
     }
 
-    public IEnumerator Respawn()
+    public void Respawn( )
     {
-        yield return new WaitForSeconds(respawnDelay);
+        Debug.Log("Respawn");
         gameObject.SetActive(true);
         transform.position = respawnPoint.position;
         ChangeState(ObjectState.FREE);

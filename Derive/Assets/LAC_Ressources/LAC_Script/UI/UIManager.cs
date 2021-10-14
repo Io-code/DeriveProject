@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PullManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    PullManager instance;
+    public static UIManager instance;
+
+    public UIPlayerData[] playerData;
     private void Awake()
     {
         UpdateSingleton();
+        DontDestroyOnLoad(gameObject);
     }
 
     #region debug
@@ -21,7 +24,4 @@ public class PullManager : MonoBehaviour
 
     }
     #endregion
-
-
-
 }
