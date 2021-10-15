@@ -9,5 +9,8 @@ public static class PlayerDataUtils
         playerData.distToObjectif = 100;
     }
 
-    
+    public static void UpdateScore(UIPlayerData playerData, float decreaseSpeed)
+    {
+        playerData.distToObjectif -= decreaseSpeed * Time.deltaTime;
+    }
 }

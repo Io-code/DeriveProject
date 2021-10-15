@@ -11,8 +11,19 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         UpdateSingleton();
+        AssignControllerToData();
         DontDestroyOnLoad(gameObject);
     }
+    
+    void AssignControllerToData()
+    {
+        for(int i = 0; i < playerData.Length; i++)
+        {
+            if (i < playerController.Length)
+                playerData[i].refPlayer = playerController[i];
+        }
+    }
+
 
     #region debug
     [ContextMenu("Update Singleton")]

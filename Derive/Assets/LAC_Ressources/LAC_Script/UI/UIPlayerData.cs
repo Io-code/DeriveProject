@@ -7,6 +7,5 @@ public class UIPlayerData : ScriptableObject
 {
     [Range(0, 100)]
     public float distToObjectif;
-    [HideInInspector]
     public Controller refPlayer;
 }

@@ -6,6 +6,7 @@ public class ControlePoint : MonoBehaviour
 {
     public InteractibleBehaviour interactPoint;
     public Controller underControl;
+    int playerIndex;
     public void OnEnable()
     {
         interactPoint.InteractHappens += SetUpShipLead;
@@ -20,9 +21,9 @@ public class ControlePoint : MonoBehaviour
     {
         if(underControl != null)
         {
-            int playerindex = CtrlToIndex(underControl, UIManager.instance.playerData);
-            if (playerindex >= 0)
-                UIManager.instance.playerData[playerindex].distToObjectif -= Time.deltaTime * 0.1f;
+          
+            if (playerIndex >= 0)
+                PlayerDataUtils.UpdateScore(UIManager.instance.playerData[playerIndex], 0.5f);
         }
     }
     public void SetUpShipLead( Controller player)
@@ -30,9 +31,11 @@ public class ControlePoint : MonoBehaviour
         if (interactPoint.players.Count == 1)
         {
             underControl = player;
+            
         }
         else
             underControl = null;
+        playerIndex = CtrlToIndex(underControl, UIManager.instance.playerData);
     }
 
     public int CtrlToIndex(Controller ctrl, UIPlayerData[] data)
@@ -43,7 +46,7 @@ public class ControlePoint : MonoBehaviour
             if (ctrl == data[i].refPlayer)
                 returnIndex = i;
         }
-        Debug.Log("CtrlToIndex : " + returnIndex);
+        //Debug.Log("CtrlToIndex : " + returnIndex);
 
 
         return returnIndex;
