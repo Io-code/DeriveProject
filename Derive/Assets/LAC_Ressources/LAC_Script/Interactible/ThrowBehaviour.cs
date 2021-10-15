@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 public abstract class ThrowBehaviour : MonoBehaviour
 {
     public Rigidbody2D rb2D;
-    public enum ObjectState {FREE, HOLDED, THROWED, DESTROYED };
+    public enum ObjectState {FREE, HOLDED, THROWED, DESTROYED, MANAGE };
     public ObjectState CurrentState { get { return m_objectState; } }
     public ObjectState LastState { get { return m_lastState; } }
+    public event Action <ObjectState, ObjectState> ChangeStateAction;
 
     public ObjectState m_objectState, m_lastState;
     public InteractibleBehaviour interactPoint;
+
     Controller controller;
     Vector2 velocity = Vector2.zero;
 
@@ -21,8 +24,8 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public float respawnDelay;
 
     [Header("Throw")]
-    public float throwDuration;
-    public float throwSpeed;
+    public float throwDuration = 1;
+    public float throwSpeed = 3;
     public AnimationCurve throwSpeedModifier;
     Vector2 throwDir;
     float throwReadTime = 0;
@@ -69,7 +72,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
                 {
                     rb2D.bodyType = RigidbodyType2D.Dynamic;
                     velocity = throwSpeed * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;
-                    if (rb2D.velocity.magnitude < 0.1f && CurrentState == ObjectState.THROWED)
+                    if (rb2D.velocity.magnitude < 0.1f && CurrentState == ObjectState.THROWED && ((Time.time - throwReadTime) / throwDuration) > 0.2f)
                         FallInGround();
 
                     // detect 
@@ -91,15 +94,19 @@ public abstract class ThrowBehaviour : MonoBehaviour
     #region Method
     void ChangeState(ObjectState newState)
     {
+        Debug.Log(CurrentState + " To " + newState);
+        // Exit Manage state
+        if (newState != ObjectState.MANAGE && CurrentState == ObjectState.MANAGE)
+            gameObject.SetActive(true);
 
-        // Enable interaction
-        if (newState != ObjectState.FREE)
+            // Enable interaction
+            if (newState != ObjectState.FREE)
             interactPoint.gameObject.SetActive(false);
         else
             interactPoint.gameObject.SetActive(true);
 
         // Enable action
-        if(newState == ObjectState.HOLDED)
+        if(newState == ObjectState.HOLDED && CurrentState != ObjectState.HOLDED)
         {
             InputHandler.Instance.OnAttack += AttackAction;
             InputHandler.Instance.OnInteract += InteractAction;
@@ -110,7 +117,8 @@ public abstract class ThrowBehaviour : MonoBehaviour
             InputHandler.Instance.OnInteract -= InteractAction;
         }
 
-        if(newState == ObjectState.THROWED)
+        
+        if(newState == ObjectState.THROWED && CurrentState != ObjectState.THROWED)
         {
             collsionDetector.OnCollision += CollisionAction;
         }
@@ -123,6 +131,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
         //Debug.Log("State switch " + m_objectState + " to " + newState);
         m_lastState = m_objectState;
         m_objectState = newState;
+        ChangeStateAction?.Invoke(LastState, CurrentState);
     }
     public void HoldPos(Controller refController, Vector3 offset)
     {
@@ -143,12 +152,8 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
     }
 
-    public void CollisionAction( GameObject colObject)
-    {
-        Debug.Log("Push " + colObject.name);
-        Controller pControl = colObject.GetComponent<Controller>();
-        pControl?.Push(transform.position, 10);
-    }
+    public abstract void CollisionAction(GameObject colObject);
+  
 
     #region Action Property
 
@@ -163,12 +168,13 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
     }
 
-    public void Throw( Vector2 dir)
+    public void Throw( Vector2 dir, float power)
     {
         ChangeState(ObjectState.THROWED);
         throwDir = dir;
         throwReadTime = Time.time;
-        rb2D.velocity = throwSpeed * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;
+        rb2D.velocity = power * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;
+        Debug.Log("throw" + throwDuration);
         StartCoroutine(EndThrow(throwDuration));
     }
     IEnumerator EndThrow(float delay)
@@ -183,6 +189,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public void FallInGround()
     {
         ChangeState(ObjectState.FREE);
+        Debug.Log("Fall in ground");
         velocity = Vector2.zero;
     }
     public void PutDown()
@@ -202,6 +209,12 @@ public abstract class ThrowBehaviour : MonoBehaviour
         
         ChangeState(ObjectState.DESTROYED);
     }
+
+    public void GetManage()
+    {
+        ChangeState(ObjectState.MANAGE);
+        gameObject.SetActive(false);
+    }
     #endregion
 
     #region Input Action
@@ -217,7 +230,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
         {
             if(this.controller == controller)
             {
-                Throw(controller.pc.lastNonNullDirection);
+                Throw(controller.pc.lastNonNullDirection, throwSpeed);
             }
         }
     }
