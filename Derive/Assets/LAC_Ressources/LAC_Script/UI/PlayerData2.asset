@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: PlayerData2
   m_EditorClassIdentifier: 
   distToObjectif: 100
+  refPlayer: {fileID: 0}

@@ -5,7 +5,6 @@ using UnityEngine;
 public class ControlePoint : MonoBehaviour
 {
     public InteractibleBehaviour interactPoint;
-    [HideInInspector]
     public Controller underControl;
     public void OnEnable()
     {
@@ -44,6 +43,8 @@ public class ControlePoint : MonoBehaviour
             if (ctrl == data[i].refPlayer)
                 returnIndex = i;
         }
+        Debug.Log("CtrlToIndex : " + returnIndex);
+
 
         return returnIndex;
     }

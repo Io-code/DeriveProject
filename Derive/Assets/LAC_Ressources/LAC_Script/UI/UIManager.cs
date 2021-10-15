@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
 
     public UIPlayerData[] playerData;
+    public Controller[] playerController;
     private void Awake()
     {
         UpdateSingleton();

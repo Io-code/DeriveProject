@@ -42,7 +42,7 @@ public class CanonBehaviour : MonoBehaviour
         {
             Vector3 shootPos = new Vector3(Mathf.Cos(shootAngle * Mathf.Deg2Rad), Mathf.Sin(shootAngle * Mathf.Deg2Rad), 0);
             Vector2 shootDir = new Vector2(Mathf.Cos(shootAngle * Mathf.Deg2Rad), Mathf.Sin(shootAngle * Mathf.Deg2Rad));
-            bulletLoaded[bulletLoaded.Count - 1].Shoot(shootPos, shootDir, shootInitialSpeed);
+            bulletLoaded[bulletLoaded.Count - 1].Shoot(shootPos + transform.position, shootDir, shootInitialSpeed);
             bulletLoaded.Remove(bulletLoaded[bulletLoaded.Count - 1]);
         }
     }
