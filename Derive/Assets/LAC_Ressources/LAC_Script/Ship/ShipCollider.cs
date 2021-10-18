@@ -16,4 +16,10 @@ public class ShipCollider : MonoBehaviour
         if (collision.GetComponent<ThrowBehaviour>() != null)
             ShipEvent.PerformExitObj(collision.gameObject);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<ThrowBehaviour>() != null)
+            ShipEvent.PerformEnterObj(collision.gameObject);
+    }
 }
