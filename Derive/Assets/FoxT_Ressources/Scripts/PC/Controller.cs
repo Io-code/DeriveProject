@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fox.Editor;
 using UnityEngine.InputSystem;
-using System;
+
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Controller : MonoBehaviour
@@ -25,30 +25,69 @@ public class Controller : MonoBehaviour
 
 	//On Water
 	public float swimSpeed;
-	private Vector3 laderPosition;
+	private Vector3 laderPosition, endLaderPosition;
+	private Coroutine swimCoroutine, encoderCoroutine;
 
 	//Push
 	public CurveOptions curves = new CurveOptions();
 	private Coroutine pushCoroutine;
 
+	//Arduino
+	private ReadEncoder encoderValues;
+	private LaderManager laders;
 
-	private void Awake()
-	{
-		pc = new Player(GetComponent<Rigidbody2D>(), in maxSpeed, in accelerationStep, in decelerationStep, (byte)GameObject.FindGameObjectsWithTag("Player").Length);
+    private void OnEnable()
+    {
+		ShipEvent.OnExitPlayer += EnterWater;
+    }
+
+    private void OnDisable()
+    {
+		ShipEvent.OnExitPlayer -= EnterWater;
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Awake()
+	{
+		pc = new Player(GetComponent<Rigidbody2D>(), in maxSpeed, in accelerationStep, in decelerationStep, (byte)GameObject.FindGameObjectsWithTag("Player").Length);
+		try
+		{
+			encoderValues = GameObject.Find("Uduino").GetComponent<ReadEncoder>();
+			laders = GameObject.Find("Uduino").GetComponent<LaderManager>();
+		}
+		catch
+		{
+			Debug.LogError("Player " + pc.playerNumber + " Can't Find Uduino GameObject or scripts inside, swim can't run");
+		}
+	}
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-		if (collision.collider.tag == "Water")
+		if (collision.tag == "EditorOnly")
 		{
 			if (pc.currentState != PlayerState.SWIM)
 			{
 				pc.ChangeState(PlayerState.SWIM);
-				// EventSystem
+				laderPosition = laders.LaderPosition(transform.position);
+				endLaderPosition = laders.EndLaderPosition();
+				StartCoroutine(Swim());
 				// Changer Animaiton
 			}
 		}
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+		if (collision.tag == "EditorOnly")
+		{
+			if (pc.currentState == PlayerState.SWIM)
+			{
+				pc.ChangeState(PlayerState.FREE);
+				StopCoroutine(encoderCoroutine);
+				//StopCoroutine(swimCoroutine);
+				//Animation
+			}
+		}
+	}
 
     public void Push(Transform position, float force)
 	{
@@ -66,21 +105,27 @@ public class Controller : MonoBehaviour
 		pushCoroutine = StartCoroutine(PushController());
 	}
 
+	public void EnterWater(GameObject PLAYER)
+    {
+		// something
+    }
+
 	// New Input system
 	public void PerformMove(InputAction.CallbackContext value)
 	{
+		if (pc.currentState != PlayerState.FREE) return;
 		Vector2 dir = value.ReadValue<Vector2>();
 		InputHandler.Instance.CallMove(dir, this);
 		if (dir == Vector2.zero)
 		{
-			decelerationCoroutine = StartCoroutine(pc.Deceleration());
 			if (accelerationCoroutine != null) StopCoroutine(accelerationCoroutine);
+			decelerationCoroutine = StartCoroutine(pc.Deceleration());
 		}
 		else
 		{
 			pc.lastNonNullDirection = dir;
-			accelerationCoroutine = StartCoroutine(pc.Acceleration());
 			if (decelerationCoroutine != null) StopCoroutine(decelerationCoroutine);
+			accelerationCoroutine = StartCoroutine(pc.Acceleration());
 		}
 	}
 
@@ -110,10 +155,32 @@ public class Controller : MonoBehaviour
 
 	public IEnumerator Swim()
 	{
-		while (pc.currentState == PlayerState.SWIM)
+		float encoderValue;
+		encoderCoroutine = StartCoroutine(encoderValues.SwimRead(pc.playerNumber));
+		pc.currentSpeed = 0;
+		while (!V3MoreOrLess(transform.position, laderPosition, 0.2f) == true)
 		{
 			yield return new WaitForFixedUpdate();
-			pc.Move(((transform.position - laderPosition) * 100).normalized * swimSpeed);
+			encoderValue = encoderValues.swimSpeed;
+			pc.Move(((laderPosition - transform.position) * 100).normalized * swimSpeed * encoderValue);
 		}
+		transform.position = endLaderPosition;
+		pc.Move(Vector2.zero);
+		//StopCoroutine(encoderCoroutine);
+	}
+
+	private bool V3MoreOrLess(Vector3 vectorCompared, Vector3 vectorComparer, float value)
+	{
+		if (MoreOrLess(vectorCompared.x, vectorComparer.x, value) && MoreOrLess(vectorCompared.y, vectorComparer.y, value) && MoreOrLess(vectorCompared.z, vectorComparer.z, value))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private bool MoreOrLess(float compared, float comparer, float value)
+	{
+		if (compared <= comparer + value && compared >= comparer - value) return true;
+		else return false;
 	}
 }

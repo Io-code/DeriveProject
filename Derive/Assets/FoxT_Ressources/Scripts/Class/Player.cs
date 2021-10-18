@@ -28,11 +28,11 @@ public class Player
 		currentState = PlayerState.FREE;
 	}
 
-	public void Move( Vector2 direction)
+	public void Move(Vector2 direction)
 	{
 		if (currentState != PlayerState.FREE)
 		{
-			rb.velocity = direction * Time.fixedDeltaTime;
+			rb.velocity = direction * Time.deltaTime;
 			return;
 		}
 		float acceleration = -decelerationStep;
