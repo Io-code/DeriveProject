@@ -8,4 +8,6 @@ public class UIPlayerData : ScriptableObject
     [Range(0, 100)]
     public float distToObjectif;
     public Controller refPlayer;
+    [HideInInspector]
+    public float lastInputTime;
 }
