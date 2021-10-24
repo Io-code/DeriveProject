@@ -10,6 +10,5 @@ public class UIPlayerData : ScriptableObject
     public Controller refPlayer;
 
     public bool[] winRound = new bool[3];
-    [HideInInspector]
     public float lastInputTime;
 }

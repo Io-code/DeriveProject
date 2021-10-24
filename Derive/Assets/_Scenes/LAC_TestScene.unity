@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43699142, g: 0.47576922, b: 0.5167298, a: 1}
+  m_IndirectSpecularColor: {r: 0.43699092, g: 0.4757685, b: 0.51672906, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1193,6 +1193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactPoint: {fileID: 2081556742}
   underControl: {fileID: 0}
+  playerIndex: 0
 --- !u!1 &611892695
 GameObject:
   m_ObjectHideFlags: 0
@@ -3258,7 +3259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1214162063
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6453,14 +6454,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e2c243bc2fbfa45ac1f477f17f4573, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiData: {fileID: 11400000, guid: e5011bc16fee16343820d17f99a6ee4b, type: 2}
   playerData:
   - {fileID: 11400000, guid: 3cf715cba75de654094e3a57932eadee, type: 2}
   - {fileID: 11400000, guid: 85adb8d61c2c3874fa5bbaf5165fe3f5, type: 2}
   playerController:
   - {fileID: 1965916971}
   - {fileID: 459507593}
+  uiPanel: {fileID: 1486578623}
   startPanel: {fileID: 1214162062}
   roundPanel: {fileID: 1260911442}
+  RoundShowTime: 4
   goPanel: {fileID: 2003848649}
   finishPanel: {fileID: 1132146768}
   roundEndPanel: {fileID: 1100291186}
@@ -6535,7 +6539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectTag: Player
-  detectRadius: 1
+  detectRadius: 4
   cC2D: {fileID: 2081556743}
   players: []
   oneController: 1

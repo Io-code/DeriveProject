@@ -6,7 +6,7 @@ public class ControlePoint : MonoBehaviour
 {
     public InteractibleBehaviour interactPoint;
     public Controller underControl;
-    int playerIndex;
+    public int playerIndex;
     public void OnEnable()
     {
         interactPoint.InteractHappens += SetUpShipLead;
