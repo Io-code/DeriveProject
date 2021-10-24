@@ -9,6 +9,11 @@ public class UIManager : MonoBehaviour
     public UIPlayerData[] playerData;
     public Controller[] playerController;
 
+    bool readyToPlay = true;
+    bool endTrigger = true;
+    float readyBuffer = 5f;
+    float endPlayBuffer = 360;
+
     [Header("Start")]
     public GameObject startPanel;
 
@@ -19,8 +24,7 @@ public class UIManager : MonoBehaviour
     public GameObject goPanel;
     public GameObject finishPanel;
 
-    bool readyToPlay = false;
-    float readyBuffer = 5f;
+   
 
     [Header("RoundEnd")]
     public GameObject roundEndPanel;
@@ -71,20 +75,30 @@ public class UIManager : MonoBehaviour
         }
 
         if (playerData[0].lastInputTime != 0 && playerData[1].lastInputTime != 0)
-            readyToPlay = (Mathf.Abs(playerData[0].lastInputTime - playerData[1].lastInputTime) < readyBuffer);
-
-        if (readyToPlay)
         {
-            StartPlay();
-            InputHandler.instance.OnAttack -= ListenStartInput;
-            InputHandler.instance.OnInteract -= ListenStartInput;
+            if ((Mathf.Abs(playerData[0].lastInputTime - playerData[1].lastInputTime) < readyBuffer) && readyToPlay)
+            {
+                readyToPlay = false;
+                StartPlay();
+            }
+                
         }
-
+           
     }
-
+    public IEnumerator VerifyEndPlay()
+    {
+        yield return new WaitForSeconds(endPlayBuffer + 1);
+        if(Mathf.Abs(playerData[0].lastInputTime - playerData[1].lastInputTime) >= endPlayBuffer)
+            EndPlay();
+    }
     public void StartPlay()
     {
 
+    }
+
+    public void EndPlay()
+    {
+        readyToPlay = true;
     }
 
     [System.Serializable]
