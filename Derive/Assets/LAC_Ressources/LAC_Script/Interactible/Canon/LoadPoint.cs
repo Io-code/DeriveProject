@@ -9,7 +9,7 @@ public class LoadPoint : MonoBehaviour
     public float radius;
     CircleCollider2D cC2D;
 
-    private void Awake()
+    private void Start()
     {
         cC2D = GetComponent<CircleCollider2D>();
         cC2D.isTrigger = true;

@@ -10,7 +10,7 @@ public class InputHandler : MonoBehaviour
     public event InteractDelegate OnInteract, OnAttack;
     public event Action<Vector2, Controller> OnMove;
 
-    private static InputHandler instance = null;
+    public static InputHandler instance;
     public static InputHandler Instance
     {
         get
@@ -21,11 +21,7 @@ public class InputHandler : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else if(instance != this)
-            Destroy(this.gameObject);
-
+        UpdateSingleton();
     }
     public void CallInteract(Controller controller)
     {
@@ -41,4 +37,16 @@ public class InputHandler : MonoBehaviour
     {
         OnMove?.Invoke(dir,controller);
     }
+    #region debug
+    [ContextMenu("Update Singleton")]
+    public void UpdateSingleton()
+    {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(this.gameObject);
+
+    }
+    #endregion
+
 }

@@ -20,6 +20,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
     [Header("Respawn")]
     public Transform respawnPoint;
+    bool inShip = true;
     [Range(0,10)]
     public float respawnDelay;
 
@@ -40,17 +41,17 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public CollisionDetector collsionDetector;
     //public float placeHolderThrowParam
 
-
     private void OnEnable()
     {
         interactPoint.InteractHappens += SetUpControl;
-        
-
+        ShipEvent.OnExitObj += OutShip;
+        ShipEvent.OnEnterObj += InShip;
     }
     private void OnDisable()
     {
         interactPoint.InteractHappens -= SetUpControl;
-        
+        ShipEvent.OnExitObj -= OutShip;
+        ShipEvent.OnEnterObj -= InShip;
     }
 
     public void Update()
@@ -73,23 +74,22 @@ public abstract class ThrowBehaviour : MonoBehaviour
                     rb2D.bodyType = RigidbodyType2D.Dynamic;
                     velocity = throwSpeed * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;
                     if (rb2D.velocity.magnitude < 0.1f && CurrentState == ObjectState.THROWED && ((Time.time - throwReadTime) / throwDuration) > 0.2f)
-                        FallInGround();
-
-                    // detect 
-                    
+                    {
+                        if (inShip)
+                            FallInGround();
+                        else
+                            Plouf();
+                    }
+                       
                     break;
                 }
-
         }
     }
-
     private void FixedUpdate()
     {
         rb2D.velocity = velocity;
         
     }
-
-
 
     #region Method
     void ChangeState(ObjectState newState)
@@ -120,12 +120,12 @@ public abstract class ThrowBehaviour : MonoBehaviour
         
         if(newState == ObjectState.THROWED && CurrentState != ObjectState.THROWED)
         {
-            collsionDetector.OnCollision += CollisionAction;
+            collsionDetector.OnCollisionPlayer += CollisionAction;
         }
         if (newState != ObjectState.THROWED && CurrentState == ObjectState.THROWED)
         {
             //Debug.Log("unsuscribe");
-            collsionDetector.OnCollision -= CollisionAction;
+            collsionDetector.OnCollisionPlayer -= CollisionAction;
         }
 
         //Debug.Log("State switch " + m_objectState + " to " + newState);
@@ -181,16 +181,20 @@ public abstract class ThrowBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         if (CurrentState == ObjectState.THROWED)
-            FallInGround();
-
-
+        {
+            if (inShip)
+                FallInGround();
+            else
+                Plouf();
+        }
+ 
     }
 
     public void FallInGround()
     {
         ChangeState(ObjectState.FREE);
         Debug.Log("Fall in ground");
-        velocity = Vector2.zero;
+        rb2D.velocity = velocity = Vector2.zero;
     }
     public void PutDown()
     {
@@ -199,21 +203,42 @@ public abstract class ThrowBehaviour : MonoBehaviour
          velocity = Vector2.zero;
     }
 
-    public void Respawn()
+    public void Plouf()
     {
+        rb2D.velocity = velocity = Vector2.zero;
+        GetDestroy();
+    }
+
+    public void GetDestroy()
+    {
+        ChangeState(ObjectState.DESTROYED);
+        PoolManager.instance.PerformPoolActive(respawnDelay, Respawn);
+        gameObject.SetActive(false);
+    }
+
+    public void Respawn( )
+    {
+        Debug.Log("Respawn");
+        gameObject.SetActive(true);
         transform.position = respawnPoint.position;
         ChangeState(ObjectState.FREE);
     }
-    public void GetDestroy()
-    {
-        
-        ChangeState(ObjectState.DESTROYED);
-    }
-
     public void GetManage()
     {
         ChangeState(ObjectState.MANAGE);
         gameObject.SetActive(false);
+    }
+
+    public void OutShip(GameObject obj)
+    {
+        if (obj = gameObject)
+            inShip = false;
+    }
+
+    public void InShip(GameObject obj)
+    {
+        if (obj = gameObject)
+            inShip = true;
     }
     #endregion
 
@@ -238,7 +263,13 @@ public abstract class ThrowBehaviour : MonoBehaviour
     void InteractAction(Controller controller)
     {
         if (CurrentState == ObjectState.HOLDED)
-            PutDown();
+        {
+            if (inShip)
+                PutDown();
+            else
+                Plouf();
+        }
+            
     }
     #endregion
     #endregion

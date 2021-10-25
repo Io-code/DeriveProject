@@ -23,39 +23,32 @@ public class Controller : MonoBehaviour
 
 	//Push
 	public CurveOptions curves = new CurveOptions();
+	private Coroutine pushCoroutine;
 
-	private Vector2 joystick;
+	private Vector2 lastNonNullDirection;
+	private Coroutine decelerationCoroutine, accelerationCoroutine;
+
+	private bool moveFunctionCall;
 	private void Awake()
 	{
 		pc = new Player(GetComponent<Rigidbody2D>(), in maxSpeed, in accelerationStep, in decelerationStep);
 		
 	}
 
-	void Start()
-    {
-		//InputHandler.Instance.OnMove += pc.Move; 
-    }
-
-
-
-
-	private void JoystickTest()
-	{ 
-		 joystick = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-		if (Input.GetButtonDown("Test")) Push(new Vector3(1, -1, 0), 1);
-	}
-
 	public void Push(Transform position, float force)
 	{
-		Debug.Log("Push " + name);
 		Vector3 direction = transform.position - position.position;
-		Push(direction, force);
+		Push(-direction, force);
 	}
 
 	public void Push(Vector3 direction, float force)
 	{
 		StartCoroutine(curves.Play(-direction, force));
+		if (pushCoroutine != null)
+        {
+			StopCoroutine(pushCoroutine);
+        }
+		pushCoroutine = StartCoroutine(PushController());
 	}
 
 	// New Input system
@@ -63,9 +56,18 @@ public class Controller : MonoBehaviour
 	{
 		Vector2 dir = value.ReadValue<Vector2>();
 		InputHandler.Instance.CallMove(dir, this);
-		pc.Move(dir);
-
-		//Debug.Log("Move : " + value.ReadValue<Vector2>());
+		lastNonNullDirection = dir;
+		if (dir == Vector2.zero)
+		{
+			decelerationCoroutine = StartCoroutine(pc.Deceleration());
+			if (accelerationCoroutine != null) StopCoroutine(accelerationCoroutine);
+		}
+		else
+		{
+			pc.lastNonNullDirection = dir;
+			accelerationCoroutine = StartCoroutine(pc.Acceleration());
+			if (decelerationCoroutine != null) StopCoroutine(decelerationCoroutine);
+		}
 	}
 
 	public void PerformInteract(InputAction.CallbackContext value)
@@ -78,5 +80,17 @@ public class Controller : MonoBehaviour
 	{
 		if (value.started)
 			InputHandler.Instance.CallAttack(this);
+	}
+
+	private IEnumerator PushController()
+	{
+		pc.currentState = PlayerState.PUSH;
+		while (curves.isPlaying)
+		{
+			pc.Move(curves.velocity);
+			yield return new WaitForFixedUpdate();
+		}
+		pc.Move(Vector2.zero);
+		pc.currentState = PlayerState.FREE;
 	}
 }
