@@ -71,8 +71,14 @@ public class UIManager : MonoBehaviour
             //playerData[i].lastInputTime = 0;
             PlayerDataUtils.ResetScore(playerData[i]);
         }
-        if (uiData.round != 0)
+        if (uiData.inGame)
+        {
             StartPlay();
+            StartRound();
+        }
+           
+
+
 
     }
     void AssignControllerToData()
@@ -95,7 +101,7 @@ public class UIManager : MonoBehaviour
 
         if (playerData[0].lastInputTime != 0 && playerData[1].lastInputTime != 0)
         {
-            Debug.Log(playerData[0].lastInputTime + "/" + playerData[1].lastInputTime);
+            //Debug.Log(playerData[0].lastInputTime + "/" + playerData[1].lastInputTime);
             if ((Mathf.Abs(playerData[0].lastInputTime - playerData[1].lastInputTime) < readyBuffer) && readyToPlay)
                 StartPlay();
             
@@ -128,16 +134,70 @@ public class UIManager : MonoBehaviour
         readyToPlay = false;
         uiPanel.SetActive(false);
         startPanel.SetActive(false);
+       
         Debug.Log("StartPlay");
-        //StartCoroutine(DebugEnd());
+        if(uiData.inGame == false)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            uiData.inGame = true;
+
+    }
+    public void StartRound()
+    {
+        uiPanel.SetActive(true);
+        roundPanel.SetActive(true);
+
+        playersUI[0].roundNmber[uiData.round].SetActive(true);
+        playersUI[1].roundNmber[uiData.round].SetActive(true);
+        StartCoroutine(StartRoundDelay(2));
     }
     public void EndRound(UIPlayerData winner)
     {
         PlayerDataUtils.UpdateRound(uiData);
-        uiPanel.SetActive(true);
-        roundPanel.SetActive(true);
+        if (uiData.round < 3)
+        {
+            roundEndPanel.SetActive(true);
+            for(int i = 0; i < playersUI.Length; i++)
+            {
+                if (playerData[i].winRound[uiData.round])
+                    playersUI[i].winRoundImg.SetActive(true);
+                else
+                    playersUI[i].loseRoundImg.SetActive(true);
 
-        StartCoroutine(RoundDelay(3));
+                playersUI[i].point[0].SetActive(playerData[i].winRound[0]);
+                playersUI[i].point[1].SetActive(playerData[i].winRound[1]);
+
+            }
+        }
+        else
+        {
+            finalEndPanel.SetActive(true);
+
+            for (int i = 0; i < playersUI.Length; i++)
+            {
+                int totalWinRound = 0;
+                for(int j = 0; i < playerData[i].winRound.Length; j++)
+                {
+                    if (playerData[i].winRound[j])
+                        totalWinRound++;
+                }
+                if (totalWinRound > 1)
+                {
+                    playersUI[i].winTxt.SetActive(true);
+                    playersUI[i].winImg.SetActive(true);
+                }
+                else
+                {
+                    playersUI[i].loseTxt.SetActive(true);
+                    playersUI[i].loseImg.SetActive(true);
+                }
+                    
+
+            }
+        }
+            
+
+        StartCoroutine(EndRoundDelay(3));
     }
     public void EndPlay()
     {
@@ -147,22 +207,28 @@ public class UIManager : MonoBehaviour
             
         }
         PlayerDataUtils.ResetRound(uiData);
+        uiData.inGame = false;
         readyToPlay = true;
         //PlayerDataUtils.UpdateRound(uiData);
         Debug.Log("EndPlay");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public IEnumerator DebugEnd()
-    {
-        yield return new WaitForSeconds(2);
-            EndPlay();
-    }
-
-    public IEnumerator RoundDelay( float delay)
+    public IEnumerator StartRoundDelay(float delay)
     {
         yield return new WaitForSecondsRealtime(delay);
-        if (uiData.round <= 3)
+
+        uiPanel.SetActive(false);
+        roundPanel.SetActive(false);
+
+        playersUI[0].roundNmber[uiData.round].SetActive(false);
+        playersUI[1].roundNmber[uiData.round].SetActive(false);
+
+    }
+    public IEnumerator EndRoundDelay( float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        if (uiData.round < 3)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         else
             EndPlay();
@@ -175,12 +241,11 @@ public class UIManager : MonoBehaviour
         public Controller refCtrl;
 
         [Header("Round")]
-        public GameObject roundNmber1; 
-        public GameObject roundNmber2, roundNmber3;
+        public GameObject[] roundNmber ; 
+
 
         [Header("RoundEnd")]
-        public GameObject point1;
-        public GameObject point2;
+        public GameObject[] point;
         public GameObject winRoundImg, loseRoundImg;
 
         [Header("FinalEnd")]

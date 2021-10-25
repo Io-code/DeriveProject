@@ -3127,7 +3127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1190288194
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3632,7 +3632,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1316946413
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4466,7 +4466,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1522342053
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4648,7 +4648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1543602097
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5099,7 +5099,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1808870144
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5805,7 +5805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1999832655
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6471,11 +6471,13 @@ MonoBehaviour:
   finalEndPanel: {fileID: 190183846}
   playersUI:
   - refCtrl: {fileID: 1965916971}
-    roundNmber1: {fileID: 1543602096}
-    roundNmber2: {fileID: 1522342052}
-    roundNmber3: {fileID: 1190288193}
-    point1: {fileID: 1808889614}
-    point2: {fileID: 856665640}
+    roundNmber:
+    - {fileID: 1543602096}
+    - {fileID: 1522342052}
+    - {fileID: 1190288193}
+    point:
+    - {fileID: 1808889614}
+    - {fileID: 856665640}
     winRoundImg: {fileID: 2029280327}
     loseRoundImg: {fileID: 1407155568}
     winTxt: {fileID: 940121336}
@@ -6483,11 +6485,13 @@ MonoBehaviour:
     loseTxt: {fileID: 1291159023}
     loseImg: {fileID: 1461091501}
   - refCtrl: {fileID: 459507593}
-    roundNmber1: {fileID: 1808870143}
-    roundNmber2: {fileID: 1316946412}
-    roundNmber3: {fileID: 1999832654}
-    point1: {fileID: 611892695}
-    point2: {fileID: 2145785088}
+    roundNmber:
+    - {fileID: 1808870143}
+    - {fileID: 1316946412}
+    - {fileID: 1999832654}
+    point:
+    - {fileID: 611892695}
+    - {fileID: 2145785088}
     winRoundImg: {fileID: 2010383023}
     loseRoundImg: {fileID: 720242098}
     winTxt: {fileID: 940121336}
