@@ -60,35 +60,6 @@ public class Controller : MonoBehaviour
 		}
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-		if (collision.tag == "EditorOnly")
-		{
-			if (pc.currentState != PlayerState.SWIM)
-			{
-				pc.ChangeState(PlayerState.SWIM);
-				laderPosition = laders.LaderPosition(transform.position);
-				endLaderPosition = laders.EndLaderPosition();
-				StartCoroutine(Swim());
-				// Changer Animaiton
-			}
-		}
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-		if (collision.tag == "EditorOnly")
-		{
-			if (pc.currentState == PlayerState.SWIM)
-			{
-				pc.ChangeState(PlayerState.FREE);
-				StopCoroutine(encoderCoroutine);
-				//StopCoroutine(swimCoroutine);
-				//Animation
-			}
-		}
-	}
-
     public void Push(Transform position, float force)
 	{
 		Vector3 direction = transform.position - position.position;
@@ -108,6 +79,7 @@ public class Controller : MonoBehaviour
 	public void EnterWater(GameObject PLAYER)
     {
 		// something
+		pc.onWater = true;
     }
 
 	// New Input system
@@ -150,7 +122,14 @@ public class Controller : MonoBehaviour
 			yield return new WaitForFixedUpdate();
 		}
 		pc.Move(Vector2.zero);
-		pc.ChangeState(PlayerState.FREE);
+		if (pc.onWater)
+		{
+			pc.ChangeState(PlayerState.SWIM);
+			laderPosition = laders.LaderPosition(transform.position);
+			endLaderPosition = laders.EndLaderPosition();
+			StartCoroutine(Swim());
+		}
+		else pc.ChangeState(PlayerState.FREE);
 	}
 
 	public IEnumerator Swim()
@@ -166,7 +145,9 @@ public class Controller : MonoBehaviour
 		}
 		transform.position = endLaderPosition;
 		pc.Move(Vector2.zero);
-		//StopCoroutine(encoderCoroutine);
+		pc.onWater = false;
+		pc.ChangeState(PlayerState.FREE);
+		StopCoroutine(encoderCoroutine);
 	}
 
 	private bool V3MoreOrLess(Vector3 vectorCompared, Vector3 vectorComparer, float value)

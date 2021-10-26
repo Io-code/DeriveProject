@@ -17,6 +17,8 @@ public class Player
 	public byte playerNumber;
 	public PlayerState currentState;
 
+	public bool onWater;
+
 
 	public Player(Rigidbody2D _rb, in float _speed, in float _accelerationStep, in float _decelartionStep, in byte _playerNumber)
 	{
