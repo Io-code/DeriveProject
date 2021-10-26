@@ -154,6 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 0}
   shootAngle: 0
+  shootDist: 0
+  zOffset: 0
   shootInitialSpeed: 5
   bulletLoaded: []
   loadPos: {x: -0.5, y: 0, z: 0}
