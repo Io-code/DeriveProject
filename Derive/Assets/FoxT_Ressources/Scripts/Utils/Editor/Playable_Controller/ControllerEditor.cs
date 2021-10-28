@@ -32,6 +32,7 @@ public class ControllerEditor : Editor
 		}
 		ctrl.accelerationStep = EditorGUILayout.Slider("Acceleration Step", ctrl.accelerationStep, ctrl.minAccelerationStep, ctrl.maxAccelerationStep);
 		ctrl.decelerationStep = EditorGUILayout.Slider("Deceleration Step", ctrl.decelerationStep, ctrl.minDecelerationStep, ctrl.maxDecelerationStep);
+		ctrl.swimSpeed = Mathf.Abs(EditorGUILayout.FloatField("Swiming Speed", ctrl.swimSpeed));
 
 		//Push
 		GUI.color = Color.cyan;
