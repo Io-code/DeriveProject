@@ -8,4 +8,7 @@ public class UIPlayerData : ScriptableObject
     [Range(0, 100)]
     public float distToObjectif;
     public Controller refPlayer;
+
+    public bool[] winRound = new bool[3];
+    public float lastInputTime;
 }
