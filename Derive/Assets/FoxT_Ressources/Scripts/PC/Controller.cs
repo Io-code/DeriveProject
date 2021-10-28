@@ -60,7 +60,24 @@ public class Controller : MonoBehaviour
 		}
 	}
 
-    public void Push(Transform position, float force)
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.collider.tag == "Player")
+		{
+			GetComponent<Rigidbody2D>().isKinematic = true;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+		}
+	}
+
+	private void OnCollisionExit2D(Collision2D collision)
+	{
+		if (collision.collider.tag == "Player")
+		{
+			GetComponent<Rigidbody2D>().isKinematic = false;
+		}
+	}
+
+	public void Push(Transform position, float force)
 	{
 		Vector3 direction = transform.position - position.position;
 		Push(-direction, force);
