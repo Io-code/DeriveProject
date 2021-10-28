@@ -41,9 +41,9 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
 
-            InputHandler.instance.OnAttack += ListenEndStartInput;
-            InputHandler.instance.OnInteract += ListenEndStartInput;
-        InputHandler.instance.OnMove += ListenEndStartInput;
+            InputHandler.OnAttack += ListenEndStartInput;
+            InputHandler.OnInteract += ListenEndStartInput;
+        InputHandler.OnMove += ListenEndStartInput;
 
         PlayerDataUtils.winRound += EndRound;
         
@@ -51,9 +51,9 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        InputHandler.instance.OnAttack -= ListenEndStartInput;
-        InputHandler.instance.OnInteract -= ListenEndStartInput;
-        InputHandler.instance.OnMove -= ListenEndStartInput;
+        InputHandler.OnAttack -= ListenEndStartInput;
+        InputHandler.OnInteract -= ListenEndStartInput;
+        InputHandler.OnMove -= ListenEndStartInput;
         PlayerDataUtils.winRound -= EndRound;
     }
     private void Awake()
@@ -75,11 +75,7 @@ public class UIManager : MonoBehaviour
         {
             StartPlay();
             StartRound();
-        }
-           
-
-
-
+        } 
     }
     void AssignControllerToData()
     {

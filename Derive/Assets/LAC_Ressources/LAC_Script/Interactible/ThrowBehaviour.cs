@@ -53,6 +53,10 @@ public abstract class ThrowBehaviour : MonoBehaviour
         ShipEvent.OnExitObj -= OutShip;
         ShipEvent.OnEnterObj -= InShip;
     }
+    private void Start()
+    {
+        collsionDetector.cC2D.radius = collsionRange;
+    }
 
     public void Update()
     {
@@ -108,13 +112,13 @@ public abstract class ThrowBehaviour : MonoBehaviour
         // Enable action
         if(newState == ObjectState.HOLDED && CurrentState != ObjectState.HOLDED)
         {
-            InputHandler.Instance.OnAttack += AttackAction;
-            InputHandler.Instance.OnInteract += InteractAction;
+            InputHandler.OnAttack += AttackAction;
+            InputHandler.OnInteract += InteractAction;
         }
         if (LastState == ObjectState.HOLDED && LastState != newState)
         {
-            InputHandler.Instance.OnAttack -= AttackAction;
-            InputHandler.Instance.OnInteract -= InteractAction;
+            InputHandler.OnAttack -= AttackAction;
+            InputHandler.OnInteract -= InteractAction;
         }
 
         
