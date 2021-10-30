@@ -80,4 +80,9 @@ public class Player
 	{
 		if (newState != currentState) currentState = newState;
 	}
+
+	public void CancelCurrentSpeed()
+	{
+		currentSpeed = 0;
+	}
 }

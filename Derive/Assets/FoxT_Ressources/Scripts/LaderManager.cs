@@ -21,7 +21,6 @@ public class LaderManager : MonoBehaviour
                 index = i;
             } 
         }
-        Debug.Log(index);
         return waypointsPosition[index];
     }
 
