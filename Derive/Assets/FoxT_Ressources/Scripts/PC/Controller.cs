@@ -88,7 +88,6 @@ public class Controller : MonoBehaviour
 		if (pc.currentState != PlayerState.FREE) return;
 		Vector2 dir = value.ReadValue<Vector2>();
 		InputHandler.CallMove(dir, this);
-		lastNonNullDirection = dir;
 		if (dir == Vector2.zero)
 		{
 			if (accelerationCoroutine != null) StopCoroutine(accelerationCoroutine);

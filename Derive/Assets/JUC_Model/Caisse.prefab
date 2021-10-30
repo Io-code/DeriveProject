@@ -92,9 +92,10 @@ GameObject:
   - component: {fileID: 2856020530250540871}
   - component: {fileID: 8611007424391471711}
   - component: {fileID: 842618682309560218}
+  - component: {fileID: 2670467212939338495}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: BreakableWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -160,6 +161,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &2670467212939338495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2431907842642651672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c610284c72eaa54ea1904a68f9fbf9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxDamage: 3
 --- !u!1 &7748161239761932892
 GameObject:
   m_ObjectHideFlags: 0

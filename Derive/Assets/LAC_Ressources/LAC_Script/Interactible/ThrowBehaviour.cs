@@ -19,7 +19,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     Vector2 velocity = Vector2.zero;
 
     [Header("Respawn")]
-    public Transform respawnPoint;
+    public Vector3 respawnPoint;
     bool inShip = true;
     [Range(0,10)]
     public float respawnDelay;
@@ -55,11 +55,16 @@ public abstract class ThrowBehaviour : MonoBehaviour
     }
     private void Start()
     {
+
+        respawnPoint = transform.position;
+        
+
         collsionDetector.cC2D.radius = collsionRange;
     }
 
     public void Update()
     {
+        collsionDetector.gameObject.SetActive(m_objectState == ObjectState.THROWED);
         switch (CurrentState)
         {
             case ObjectState.FREE:
@@ -125,11 +130,13 @@ public abstract class ThrowBehaviour : MonoBehaviour
         if(newState == ObjectState.THROWED && CurrentState != ObjectState.THROWED)
         {
             collsionDetector.OnCollisionPlayer += CollisionAction;
+            collsionDetector.gameObject.SetActive(true);
         }
         if (newState != ObjectState.THROWED && CurrentState == ObjectState.THROWED)
         {
             //Debug.Log("unsuscribe");
             collsionDetector.OnCollisionPlayer -= CollisionAction;
+            collsionDetector.gameObject.SetActive(false);
         }
 
         //Debug.Log("State switch " + m_objectState + " to " + newState);
@@ -224,7 +231,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     {
         Debug.Log("Respawn");
         gameObject.SetActive(true);
-        transform.position = respawnPoint.position;
+        transform.position = respawnPoint;
         ChangeState(ObjectState.FREE);
     }
     public void GetManage()

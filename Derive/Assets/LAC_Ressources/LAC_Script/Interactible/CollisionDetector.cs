@@ -31,10 +31,12 @@ public class CollisionDetector : MonoBehaviour
                     break;
                 }
         }
+
         if(collision.tag == "BreakableWall")
         {
             Debug.Log("Hit wall");
-            collision.GetComponent<BreakableWall>()?.TakeDamage(1);
+            BreakableWall wall = collision.GetComponent<BreakableWall>();
+            wall.TakeDamage(1);
         }
             
         

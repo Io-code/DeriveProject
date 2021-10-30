@@ -33,7 +33,7 @@ public class BreakableWall : MonoBehaviour
 
     void DestroyWall()
     {
-        Destroy(transform.parent); 
+        Destroy(transform.parent.gameObject); 
     }
 
     IEnumerator DamageCooldown()
