@@ -15,4 +15,4 @@ MonoBehaviour:
   distToObjectif: 100
   refPlayer: {fileID: 0}
   winRound: 000000
-  lastInputTime: 36.03231
+  lastInputTime: 62.43115

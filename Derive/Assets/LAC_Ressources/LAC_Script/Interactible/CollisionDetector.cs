@@ -6,7 +6,8 @@ using System;
 [RequireComponent(typeof(CircleCollider2D))]
 public class CollisionDetector : MonoBehaviour
 {
-    CircleCollider2D cC2D;
+    [HideInInspector]
+    public CircleCollider2D cC2D;
     public enum CollisionType { PLAYER, OTHER};
     public CollisionType collisionType;
     public Action< GameObject> OnCollisionPlayer, OnCollisionWall;
@@ -30,10 +31,12 @@ public class CollisionDetector : MonoBehaviour
                     break;
                 }
         }
+
         if(collision.tag == "BreakableWall")
         {
             Debug.Log("Hit wall");
-            collision.GetComponent<BreakableWall>()?.TakeDamage(1);
+            BreakableWall wall = collision.GetComponent<BreakableWall>();
+            wall.TakeDamage(1);
         }
             
         

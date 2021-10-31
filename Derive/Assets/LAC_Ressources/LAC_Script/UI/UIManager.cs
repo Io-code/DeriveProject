@@ -41,9 +41,9 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
 
-            InputHandler.instance.OnAttack += ListenEndStartInput;
-            InputHandler.instance.OnInteract += ListenEndStartInput;
-        InputHandler.instance.OnMove += ListenEndStartInput;
+            InputHandler.OnAttack += ListenEndStartInput;
+            InputHandler.OnInteract += ListenEndStartInput;
+        InputHandler.OnMove += ListenEndStartInput;
 
         PlayerDataUtils.winRound += EndRound;
         
@@ -51,9 +51,9 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        InputHandler.instance.OnAttack -= ListenEndStartInput;
-        InputHandler.instance.OnInteract -= ListenEndStartInput;
-        InputHandler.instance.OnMove -= ListenEndStartInput;
+        InputHandler.OnAttack -= ListenEndStartInput;
+        InputHandler.OnInteract -= ListenEndStartInput;
+        InputHandler.OnMove -= ListenEndStartInput;
         PlayerDataUtils.winRound -= EndRound;
     }
     private void Awake()
@@ -75,11 +75,7 @@ public class UIManager : MonoBehaviour
         {
             StartPlay();
             StartRound();
-        }
-           
-
-
-
+        } 
     }
     void AssignControllerToData()
     {
@@ -153,7 +149,19 @@ public class UIManager : MonoBehaviour
     }
     public void EndRound(UIPlayerData winner)
     {
+        winner.winRound[uiData.round] = true;
         PlayerDataUtils.UpdateRound(uiData);
+
+        bool end = false;
+        int[] winRounds = new int[playerData.Length];
+        for (int i = 0; i < playerData.Length; i++)
+        {
+            for(int j = 0; j < playerData[i].winRound.Length; j++)
+            {
+                if (playerData[i].winRound[j])
+                    winRounds[i]++;
+            }    
+        }
         if (uiData.round < 3)
         {
             roundEndPanel.SetActive(true);
@@ -176,7 +184,7 @@ public class UIManager : MonoBehaviour
             for (int i = 0; i < playersUI.Length; i++)
             {
                 int totalWinRound = 0;
-                for(int j = 0; i < playerData[i].winRound.Length; j++)
+                for(int j = 0; j < playerData[i].winRound.Length; j++)
                 {
                     if (playerData[i].winRound[j])
                         totalWinRound++;

@@ -56,4 +56,11 @@ public class BulletBehaviour :ThrowBehaviour
         //throw new System.NotImplementedException();
     }
     #endregion
+
+[ContextMenu("Throw")]
+
+    void debugThrow()
+    {
+        Throw(Vector2.right, 10);
+    }
 }

@@ -104,7 +104,7 @@ public class Controller : MonoBehaviour
 	{
 		if (pc.currentState != PlayerState.FREE) return;
 		Vector2 dir = value.ReadValue<Vector2>();
-		InputHandler.Instance.CallMove(dir, this);
+		InputHandler.CallMove(dir, this);
 		if (dir == Vector2.zero)
 		{
 			if (accelerationCoroutine != null) StopCoroutine(accelerationCoroutine);
@@ -121,13 +121,13 @@ public class Controller : MonoBehaviour
 	public void PerformInteract(InputAction.CallbackContext value)
     {
 		if(value.started)
-			InputHandler.Instance.CallInteract(this);
+			InputHandler.CallInteract(this);
 	}
 
 	public void PerformAttack(InputAction.CallbackContext value)
 	{
 		if (value.started)
-			InputHandler.Instance.CallAttack(this);
+			InputHandler.CallAttack(this);
 	}
 
 	private IEnumerator PushController()

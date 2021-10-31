@@ -25,6 +25,7 @@ public class BreakableWall : MonoBehaviour
                 DestroyWall();
 
             StartCoroutine(DamageCooldown());
+            Debug.Log("Take damage");
         }
         
         
@@ -32,7 +33,7 @@ public class BreakableWall : MonoBehaviour
 
     void DestroyWall()
     {
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject); 
     }
 
     IEnumerator DamageCooldown()

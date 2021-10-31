@@ -28,8 +28,8 @@ public class CanonBehaviour : MonoBehaviour
     {
         loadObject = new GameObject("LoadDetector");
         //loadObject.transform.position = transform.position;
+        loadObject.transform.position = transform.position + loadPos;
         loadObject.transform.parent = transform;
-        loadObject.transform.localPosition = loadPos;
         loadPoint =(LoadPoint)loadObject.AddComponent(typeof(LoadPoint));
 
         loadPoint.canon = this;
