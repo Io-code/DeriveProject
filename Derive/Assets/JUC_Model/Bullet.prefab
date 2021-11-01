@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2390567035886409675}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3878609494584987795}
   - component: {fileID: 3959546414634804398}
   - component: {fileID: 7076868905880990875}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CollisionDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 6210879711699075065}
   - component: {fileID: 8688009240199853242}
   - component: {fileID: 3085353450427854089}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: InteractionPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 8616383782671442492}
   - component: {fileID: 1806892666862379617}
   - component: {fileID: 5202860222014119542}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   - component: {fileID: 1984155140958055957}
   - component: {fileID: 2738469671929109310}
   - component: {fileID: 417953827266160928}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_objectState: 0
   m_lastState: 0
   interactPoint: {fileID: 8688009240199853242}
-  respawnPoint: {fileID: 0}
+  respawnPoint: {x: 0, y: 0, z: 0}
   respawnDelay: 2.14
   throwDuration: 2
   throwSpeed: 5
@@ -403,5 +403,6 @@ MonoBehaviour:
   holdOffset: {x: 2, y: 0, z: 0}
   collsionRange: 0.87
   collsionDetector: {fileID: 3959546414634804398}
+  throwForce: 40
   bulletState: 0
   lasteBulletState: 0

@@ -39,16 +39,19 @@ public abstract class ThrowBehaviour : MonoBehaviour
     [Range(0,5)]
     public float collsionRange;
     public CollisionDetector collsionDetector;
+    public float throwForce;
     //public float placeHolderThrowParam
 
     private void OnEnable()
     {
+        collsionDetector.OnCollisionPlayer += CollisionAction;
         interactPoint.InteractHappens += SetUpControl;
         ShipEvent.OnExitObj += OutShip;
         ShipEvent.OnEnterObj += InShip;
     }
     private void OnDisable()
     {
+        collsionDetector.OnCollisionPlayer -= CollisionAction;
         interactPoint.InteractHappens -= SetUpControl;
         ShipEvent.OnExitObj -= OutShip;
         ShipEvent.OnEnterObj -= InShip;
@@ -126,18 +129,6 @@ public abstract class ThrowBehaviour : MonoBehaviour
             InputHandler.OnInteract -= InteractAction;
         }
 
-        
-        if(newState == ObjectState.THROWED && CurrentState != ObjectState.THROWED)
-        {
-            collsionDetector.OnCollisionPlayer += CollisionAction;
-            collsionDetector.gameObject.SetActive(true);
-        }
-        if (newState != ObjectState.THROWED && CurrentState == ObjectState.THROWED)
-        {
-            //Debug.Log("unsuscribe");
-            collsionDetector.OnCollisionPlayer -= CollisionAction;
-            collsionDetector.gameObject.SetActive(false);
-        }
 
         //Debug.Log("State switch " + m_objectState + " to " + newState);
         m_lastState = m_objectState;

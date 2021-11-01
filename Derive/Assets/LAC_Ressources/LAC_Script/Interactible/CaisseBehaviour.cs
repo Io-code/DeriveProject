@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBehaviour :ThrowBehaviour
+public class CaisseBehaviour : ThrowBehaviour
 {
-    public enum BulletState { UNLOAD,LOAD, THROWED, EXPLODED };
-    public BulletState bulletState, lasteBulletState;
     bool triggerCollisionAction = true;
 
     private void Awake()
@@ -13,51 +11,33 @@ public class BulletBehaviour :ThrowBehaviour
         ChangeStateAction += ResetTriggerCollision;
     }
     #region State
-    void ChangeBulletState( BulletState state)
-    {
-        lasteBulletState = bulletState;
-        bulletState = state;
-    }
+
     void ResetTriggerCollision(ObjectState lastState, ObjectState currentState)
     {
-        if(currentState == ObjectState.FREE)
+        if (currentState == ObjectState.FREE)
         {
             triggerCollisionAction = true;
         }
     }
     #endregion
     #region Method
-    public void Load()
-    {
-        GetManage();
-        ChangeBulletState(BulletState.LOAD);
-    }
-
-    public void Shoot( Vector3 shootPos, Vector2 dir, float power)
-    {
-        transform.position = shootPos;
-        ChangeBulletState(BulletState.THROWED);
-        Throw(dir, power);
-    }
 
     public override void CollisionAction(GameObject colObject)
     {
         if (triggerCollisionAction)
         {
             triggerCollisionAction = false;
-            ChangeBulletState(BulletState.EXPLODED);
-
-            colObject.GetComponent<Controller>().Push(transform, throwForce);
+            colObject.GetComponent<Controller>().Push(transform, 10);
 
             FallInGround();
             Debug.Log("Fall");
         }
-        
+
         //throw new System.NotImplementedException();
     }
     #endregion
 
-[ContextMenu("Throw")]
+    [ContextMenu("Throw")]
 
     void debugThrow()
     {

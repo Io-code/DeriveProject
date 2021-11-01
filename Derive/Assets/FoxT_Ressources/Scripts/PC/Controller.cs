@@ -132,9 +132,11 @@ public class Controller : MonoBehaviour
 
 	private IEnumerator PushController()
 	{
+		Debug.Log("Push");
 		pc.ChangeState(PlayerState.PUSH);
 		while (curves.isPlaying)
 		{
+			Physics2D.IgnoreLayerCollision(6, 7, true);
 			pc.Move(curves.velocity);
 			yield return new WaitForFixedUpdate();
 		}
@@ -147,6 +149,8 @@ public class Controller : MonoBehaviour
 			StartCoroutine(Swim());
 		}
 		else pc.ChangeState(PlayerState.FREE);
+
+		Physics2D.IgnoreLayerCollision(6, 7, false);
 	}
 
 	public IEnumerator Swim()

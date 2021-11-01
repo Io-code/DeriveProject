@@ -26,7 +26,11 @@ public class CollisionDetector : MonoBehaviour
             case CollisionType.PLAYER:
                 {
                     if (collision.tag == "Player")
+                    {
                         OnCollisionPlayer?.Invoke(collision.gameObject);
+                        Debug.Log("HitPlayer");
+                    }
+                       
 
                     break;
                 }

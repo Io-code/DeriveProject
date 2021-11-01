@@ -8,7 +8,7 @@ namespace Fox.Editor
 	[System.Serializable]
 	public class CurveOptions
 	{
-		public CurveMethods currentMethod = CurveMethods.Simplified;
+		public CurveMethods currentMethod;
 		public uint curveKeys;
 		public float forceMultiplicator;
 		//Simplified & Advanced methods
