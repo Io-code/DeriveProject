@@ -152,17 +152,15 @@ public class UIManager : MonoBehaviour
         winner.winRound[uiData.round] = true;
         PlayerDataUtils.UpdateRound(uiData);
 
-        bool end = false;
-        int[] winRounds = new int[playerData.Length];
-        for (int i = 0; i < playerData.Length; i++)
+        int winRounds = 0;
+        for (int i = 0; i < winner.winRound.Length; i++)
         {
-            for(int j = 0; j < playerData[i].winRound.Length; j++)
-            {
-                if (playerData[i].winRound[j])
-                    winRounds[i]++;
-            }    
+            if (winner.winRound[i])
+                winRounds++;
+            
         }
-        if (uiData.round < 3)
+
+        if ((winRounds < 2))
         {
             roundEndPanel.SetActive(true);
             for(int i = 0; i < playersUI.Length; i++)
