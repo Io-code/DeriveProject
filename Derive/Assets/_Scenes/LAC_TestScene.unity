@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43699092, g: 0.4757685, b: 0.51672906, a: 1}
+  m_IndirectSpecularColor: {r: 0.43699142, g: 0.47576922, b: 0.5167298, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1062,6 +1062,30 @@ PrefabInstance:
     - target: {fileID: 4056173503236090089, guid: 4dd95be97479d2842808685c359af4af, type: 3}
       propertyPath: m_Name
       value: Barril
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258419010349579970, guid: 4dd95be97479d2842808685c359af4af, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[1].time
+      value: 0.9065558
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258419010349579970, guid: 4dd95be97479d2842808685c359af4af, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[1].value
+      value: 0.5122098
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258419010349579970, guid: 4dd95be97479d2842808685c359af4af, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[0].inSlope
+      value: -0.5380697
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258419010349579970, guid: 4dd95be97479d2842808685c359af4af, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[2].inSlope
+      value: -5.481449
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258419010349579970, guid: 4dd95be97479d2842808685c359af4af, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[0].outSlope
+      value: -0.5380697
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258419010349579970, guid: 4dd95be97479d2842808685c359af4af, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[2].outSlope
+      value: -5.481449
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dd95be97479d2842808685c359af4af, type: 3}
@@ -4208,8 +4232,8 @@ MonoBehaviour:
   m_objectState: 0
   m_lastState: 0
   interactPoint: {fileID: 1070286097}
-  respawnPoint: {x: 0, y: 0, z: 0}
   respawnDelay: 2.14
+  respawnPoint: {x: 0, y: 0, z: 0}
   throwDuration: 2
   throwSpeed: 5
   throwSpeedModifier:

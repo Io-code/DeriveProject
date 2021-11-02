@@ -19,6 +19,19 @@ public class CaisseBehaviour : ThrowBehaviour
             triggerCollisionAction = true;
         }
     }
+
+    public override void ThrowState()
+    {
+        rb2D.bodyType = RigidbodyType2D.Dynamic;
+        velocity = throwSpeed * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;
+        if (rb2D.velocity.magnitude < 0.1f && CurrentState == ObjectState.THROWED && ((Time.time - throwReadTime) / throwDuration) > 0.2f)
+        {
+            if (inShip)
+                FallInGround();
+            else
+                Plouf();
+        }
+    }
     #endregion
     #region Method
 

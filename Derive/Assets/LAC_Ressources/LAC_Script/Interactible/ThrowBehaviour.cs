@@ -16,20 +16,22 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public InteractibleBehaviour interactPoint;
 
     Controller controller;
-    Vector2 velocity = Vector2.zero;
+    protected Vector2 velocity = Vector2.zero;
 
     [Header("Respawn")]
-    public Vector3 respawnPoint;
-    bool inShip = true;
-    [Range(0,10)]
+    [Range(0, 10)]
     public float respawnDelay;
+    [HideInInspector]
+    public Vector3 respawnPoint;
+    protected bool inShip = true;
+
 
     [Header("Throw")]
     public float throwDuration = 1;
     public float throwSpeed = 3;
     public AnimationCurve throwSpeedModifier;
-    Vector2 throwDir;
-    float throwReadTime = 0;
+    protected Vector2 throwDir;
+    protected float throwReadTime = 0;
     
 
     [Header("Holded")]
@@ -68,6 +70,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public void Update()
     {
         collsionDetector.gameObject.SetActive(m_objectState == ObjectState.THROWED);
+        //transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, shootAngle);
         switch (CurrentState)
         {
             case ObjectState.FREE:
@@ -83,16 +86,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
                 }
             case ObjectState.THROWED:
                 {
-                    rb2D.bodyType = RigidbodyType2D.Dynamic;
-                    velocity = throwSpeed * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;
-                    if (rb2D.velocity.magnitude < 0.1f && CurrentState == ObjectState.THROWED && ((Time.time - throwReadTime) / throwDuration) > 0.2f)
-                    {
-                        if (inShip)
-                            FallInGround();
-                        else
-                            Plouf();
-                    }
-                       
+                    ThrowState();
                     break;
                 }
         }
@@ -149,12 +143,14 @@ public abstract class ThrowBehaviour : MonoBehaviour
             Vector2 hold2DOffset = new Vector2(Mathf.Cos(holdAngle), Mathf.Sin(holdAngle));
 
             transform.position = pos + (Vector3)hold2DOffset * holdRange + new Vector3(0, 0, offset.z);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, holdAngle * Mathf.Rad2Deg);
+            transform.eulerAngles = new Vector3( Mathf.Atan2(transform.position.y - pos.y, transform.position.x - pos.x) * Mathf.Rad2Deg + 90, 90 , 0);
         }
 
     }
 
     public abstract void CollisionAction(GameObject colObject);
+
+    public abstract void ThrowState();
   
 
     #region Action Property

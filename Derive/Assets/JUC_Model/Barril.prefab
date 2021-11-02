@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 5878231024442883797}
   - component: {fileID: 7258419010349579970}
   m_Layer: 8
-  m_Name: Bullet
+  m_Name: Barrel
   m_TagString: Bullet
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
   holdOffset: {x: 1.8, y: 0, z: 0}
   collsionRange: 1.27
   collsionDetector: {fileID: 4722430560433775569}
-  throwForce: 0
+  throwForce: 40
 --- !u!1 &3950184256675782718
 GameObject:
   m_ObjectHideFlags: 0
