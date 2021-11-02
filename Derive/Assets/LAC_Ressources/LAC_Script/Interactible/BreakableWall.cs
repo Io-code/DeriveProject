@@ -5,24 +5,26 @@ using UnityEngine;
 public class BreakableWall : MonoBehaviour
 {
     public int MaxDamage;
-    int currentDamage;
+    public int currentDamage = 0;
+
+    public MeshRenderer mesh;
+    public Material[] changeMat;
 
     float damageDelay = 0.2f;
     bool canTakeDamage = true;
 
-    private void Awake()
-    {
-        currentDamage = MaxDamage;
-    }
+
     public void TakeDamage( int damage)
     {
         if (canTakeDamage)
         {
             canTakeDamage = false;
 
-            currentDamage -= damage;
-            if (currentDamage <= 0)
+            currentDamage += damage;
+            if (currentDamage >= MaxDamage)
                 DestroyWall();
+
+            mesh.material = changeMat[Mathf.Clamp(currentDamage, 0, changeMat.Length)];
 
             StartCoroutine(DamageCooldown());
             Debug.Log("Take damage");

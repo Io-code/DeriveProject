@@ -15,7 +15,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public ObjectState m_objectState, m_lastState;
     public InteractibleBehaviour interactPoint;
 
-    Controller controller;
+    protected Controller controller;
     protected Vector2 velocity = Vector2.zero;
 
     [Header("Respawn")]

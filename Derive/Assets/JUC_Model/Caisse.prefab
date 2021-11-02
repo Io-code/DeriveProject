@@ -174,6 +174,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxDamage: 3
+  mesh: {fileID: 2138882348938644480}
+  changeMat:
+  - {fileID: -876546973899608171, guid: 045481316f399ec4f8b604ee5fbb3187, type: 3}
+  - {fileID: 2100000, guid: 29db237951ae204408e052b432ff9d4a, type: 2}
+  - {fileID: 2100000, guid: 26c1c6278265c1646bf37d9d99916ae5, type: 2}
 --- !u!1 &7748161239761932892
 GameObject:
   m_ObjectHideFlags: 0
