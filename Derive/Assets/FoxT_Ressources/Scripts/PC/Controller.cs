@@ -36,6 +36,11 @@ public class Controller : MonoBehaviour
 	private ReadEncoder encoderValues;
 	private LaderManager laders;
 
+	//Divers
+	private Animator anim;
+	private string currentAnimationState;
+	public string[] animationState;
+
     private void OnEnable()
     {
 		ShipEvent.OnExitPlayer += EnterWater;
@@ -48,11 +53,13 @@ public class Controller : MonoBehaviour
 
     private void Awake()
 	{
-		pc = new Player(GetComponent<Rigidbody2D>(), in maxSpeed, in accelerationStep, in decelerationStep, (byte)GameObject.FindGameObjectsWithTag("Player").Length);
+		animationState = new string[] {"RUN", "THROW", "CLIMB", "SLASH" };
 		try
 		{
+			anim = GetComponentInChildren<Animator>();
 			encoderValues = GameObject.Find("Uduino").GetComponent<ReadEncoder>();
 			laders = GameObject.Find("Uduino").GetComponent<LaderManager>();
+			pc = new Player(GetComponent<Rigidbody2D>(), anim, in maxSpeed, in accelerationStep, in decelerationStep, (byte)GameObject.FindGameObjectsWithTag("Player").Length, in animationState);
 		}
 		catch
 		{

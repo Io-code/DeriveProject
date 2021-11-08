@@ -11,6 +11,7 @@ public class Player
 	public float maxSpeed;
 	public float currentSpeed;
 	public Vector2 lastNonNullDirection;
+	private float angle;
 	private float accelerationStep;
 	private float decelerationStep;
 
@@ -18,16 +19,20 @@ public class Player
 	public PlayerState currentState;
 
 	public bool onWater;
+	private Animator anim;
+	public string[] animationState; // 0 = RUN, 1 = THROW, 2 = SLASH, 3 = THROW, 4 IDLE
+	private string currentAnimationState;
 
-
-	public Player(Rigidbody2D _rb, in float _speed, in float _accelerationStep, in float _decelartionStep, in byte _playerNumber)
+	public Player(Rigidbody2D _rb, Animator _anim, in float _speed, in float _accelerationStep, in float _decelartionStep, in byte _playerNumber, in string[] _animationState)
 	{
 		rb = _rb;
+		anim = _anim;
 		maxSpeed = _speed * 100;
 		accelerationStep = _accelerationStep / 10;
 		decelerationStep = _decelartionStep / 10;
 		playerNumber = _playerNumber;
 		currentState = PlayerState.FREE;
+		animationState = _animationState;
 	}
 
 	public void Move(Vector2 direction)
@@ -42,6 +47,8 @@ public class Player
 		{
 			acceleration = accelerationStep;
 			lastNonNullDirection = direction.normalized;
+			angle = Mathf.Atan2(lastNonNullDirection.y, lastNonNullDirection.x * -1) * Mathf.Rad2Deg - 90;
+			if (angle < 0) angle += 360;
 		}
 
 		try
@@ -55,6 +62,10 @@ public class Player
 		}
 
 		rb.velocity = lastNonNullDirection.normalized * currentSpeed * Time.deltaTime;
+		anim.transform.localEulerAngles = new Vector3(0, angle, 0);
+
+		if (rb.velocity != Vector2.zero) ChangeAnimationState(animationState[0]);
+		else ChangeAnimationState(animationState[2]);
 	}
 	public IEnumerator Deceleration()
 	{
@@ -84,5 +95,13 @@ public class Player
 	public void CancelCurrentSpeed()
 	{
 		currentSpeed = 0;
+	}
+
+	public void ChangeAnimationState(string newState)
+	{
+		if (newState == currentAnimationState) return;
+
+		currentAnimationState = newState;
+		anim.Play(newState);
 	}
 }
