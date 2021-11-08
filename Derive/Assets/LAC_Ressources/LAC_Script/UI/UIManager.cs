@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class UIManager : MonoBehaviour
     float endPlayBuffer = 360;
 
     public GameObject uiPanel;
+    public GameObject inGameUI;
+
     [Header("Start")]
     public GameObject startPanel;
 
@@ -64,8 +68,14 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update()
+    {
+        
+    }
+
     private void Start()
     {
+        inGameUI.SetActive(false);
         for (int i = 0; i < playerData.Length; i++)
         {
             //playerData[i].lastInputTime = 0;
@@ -135,7 +145,8 @@ public class UIManager : MonoBehaviour
         if(uiData.inGame == false)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-            uiData.inGame = true;
+        uiData.inGame = true;
+        inGameUI.SetActive(true);
 
     }
     public void StartRound()
@@ -157,7 +168,6 @@ public class UIManager : MonoBehaviour
         {
             if (winner.winRound[i])
                 winRounds++;
-            
         }
 
         if ((winRounds < 2))
@@ -257,6 +267,10 @@ public class UIManager : MonoBehaviour
         [Header("FinalEnd")]
         public GameObject winTxt;
         public GameObject winImg, loseTxt, loseImg;
+
+        [Header("Score")]
+        public Slider slider;
+        public TextMeshProUGUI scoreTxt1, scoreTxt2;
 
     }
 
