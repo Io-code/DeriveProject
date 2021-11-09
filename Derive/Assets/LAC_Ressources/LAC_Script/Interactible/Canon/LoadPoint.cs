@@ -21,10 +21,14 @@ public class LoadPoint : MonoBehaviour
         if(collision.tag == "Bullet")
         {
             BulletBehaviour bullet = collision.GetComponent<BulletBehaviour>();
-            if (!canon.bulletLoaded.Contains(bullet))
-                canon.bulletLoaded.Add(bullet);
+            if(bullet.m_objectState == ThrowBehaviour.ObjectState.FREE)
+            {
+                if (!canon.bulletLoaded.Contains(bullet))
+                    canon.bulletLoaded.Add(bullet);
 
-            bullet.Load();
+                bullet.Load();
+            }
+            
         }
     }
 }

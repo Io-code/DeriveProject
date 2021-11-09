@@ -151,7 +151,7 @@ public class UIManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         uiData.inGame = true;
-        inGameUI.SetActive(true);
+
 
     }
     public void StartRound()
@@ -245,6 +245,7 @@ public class UIManager : MonoBehaviour
         playersUI[0].roundNmber[uiData.round].SetActive(false);
         playersUI[1].roundNmber[uiData.round].SetActive(false);
 
+        inGameUI.SetActive(true);
     }
     public IEnumerator EndRoundDelay( float delay)
     {

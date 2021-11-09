@@ -23,5 +23,6 @@ public class PaddleBehaviour : ThrowBehaviour
     public override void ThrowState()
     {
         collsionDetector.gameObject.SetActive(paddleActive);
+        HoldPos(controller, holdOffset);
     }
 }
