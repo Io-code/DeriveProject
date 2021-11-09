@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17262745, g: 0.20685187, b: 0.2473893, a: 1}
+  m_IndirectSpecularColor: {r: 0.17262782, g: 0.2068525, b: 0.2473901, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6385,6 +6385,66 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 870100022}
     m_Modifications:
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[1].time
+      value: 0.69553345
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[1].value
+      value: 0.6505358
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[0].inSlope
+      value: -0.5024405
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[1].inSlope
+      value: 3.6118743
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[2].inSlope
+      value: -2.1366415
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[0].outSlope
+      value: -0.5024405
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[1].inWeight
+      value: 0.16131523
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[1].outSlope
+      value: 3.6118743
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[2].outSlope
+      value: -2.1366415
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417953827266160928, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
+      propertyPath: throwSpeedModifier.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
     - target: {fileID: 2390567035886409675, guid: e481a6be901ceae46b020c8afd612b2b, type: 3}
       propertyPath: m_RootOrder
       value: 2

@@ -143,8 +143,8 @@ public abstract class ThrowBehaviour : MonoBehaviour
             Vector2 hold2DOffset = new Vector2(Mathf.Cos(holdAngle), Mathf.Sin(holdAngle));
 
             transform.position = pos + (Vector3)hold2DOffset * holdRange + new Vector3(0, 0, offset.z);
-            transform.localRotation = Quaternion.Euler(0, Mathf.Atan2(lastDir.y, lastDir.x) * Mathf.Rad2Deg, 0);
-            Debug.DrawLine(controller.transform.position, transform.position );
+            transform.localRotation = Quaternion.Euler(0, Mathf.Atan2(-lastDir.y, lastDir.x) * Mathf.Rad2Deg, 0);
+            Debug.DrawRay(controller.transform.position, lastDir * 1.5f );
 
         }
 
