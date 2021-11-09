@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23eb450b8a349b0479adada747468d09, type: 3}
   m_Name: UIData
   m_EditorClassIdentifier: 
-  inGame: 0
-  round: 0
+  inGame: 1
+  round: 1

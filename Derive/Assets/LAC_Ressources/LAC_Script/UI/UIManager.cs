@@ -70,7 +70,14 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        
+        if (uiData.inGame)
+        {
+            playersUI[0].slider.value = (int)playerData[0].distToObjectif;
+            playersUI[0].scoreTxt1.text = playersUI[0].scoreTxt2.text = ((int)playerData[0].distToObjectif).ToString();
+
+            playersUI[1].slider.value = (int)playerData[1].distToObjectif;
+            playersUI[1].scoreTxt1.text = playersUI[1].scoreTxt2.text = ((int)playerData[1].distToObjectif).ToString();
+        }
     }
 
     private void Start()
@@ -109,9 +116,7 @@ public class UIManager : MonoBehaviour
         {
             //Debug.Log(playerData[0].lastInputTime + "/" + playerData[1].lastInputTime);
             if ((Mathf.Abs(playerData[0].lastInputTime - playerData[1].lastInputTime) < readyBuffer) && readyToPlay)
-                StartPlay();
-            
-                
+                StartPlay(); 
         }
 
         if (endTrigger)

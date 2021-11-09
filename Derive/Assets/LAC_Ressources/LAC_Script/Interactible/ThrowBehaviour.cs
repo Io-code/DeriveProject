@@ -143,7 +143,9 @@ public abstract class ThrowBehaviour : MonoBehaviour
             Vector2 hold2DOffset = new Vector2(Mathf.Cos(holdAngle), Mathf.Sin(holdAngle));
 
             transform.position = pos + (Vector3)hold2DOffset * holdRange + new Vector3(0, 0, offset.z);
-            transform.eulerAngles = new Vector3( Mathf.Atan2(transform.position.y - pos.y, transform.position.x - pos.x) * Mathf.Rad2Deg + 90, 90 , 0);
+            transform.localRotation = Quaternion.Euler(0, Mathf.Atan2(lastDir.y, lastDir.x) * Mathf.Rad2Deg, 0);
+            Debug.DrawLine(controller.transform.position, transform.position );
+
         }
 
     }
@@ -280,5 +282,6 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, collsionRange);
+
     }
 }

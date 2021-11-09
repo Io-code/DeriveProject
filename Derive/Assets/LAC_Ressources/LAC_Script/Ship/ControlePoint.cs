@@ -5,8 +5,11 @@ using UnityEngine;
 public class ControlePoint : MonoBehaviour
 {
     public InteractibleBehaviour interactPoint;
+    [HideInInspector]
     public Controller underControl;
+    [HideInInspector]
     public int playerIndex;
+    public float scoreIncreaseSpeed = 1;
     public void OnEnable()
     {
         interactPoint.InteractHappens += SetUpShipLead;
@@ -23,7 +26,7 @@ public class ControlePoint : MonoBehaviour
         {
           
             if (playerIndex >= 0)
-                PlayerDataUtils.UpdateScore(UIManager.instance.playerData[playerIndex], 0.5f);
+                PlayerDataUtils.UpdateScore(UIManager.instance.playerData[playerIndex], scoreIncreaseSpeed);
         }
     }
     public void SetUpShipLead( Controller player)
