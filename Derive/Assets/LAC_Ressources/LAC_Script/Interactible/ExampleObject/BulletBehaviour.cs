@@ -39,6 +39,17 @@ public class BulletBehaviour :ThrowBehaviour
         }
     }
 
+    public override void EndThrow()
+    {
+        if (CurrentState == ObjectState.THROWED)
+        {
+            if (inShip)
+                FallInGround();
+            else
+                Plouf();
+        }
+    }
+
     #endregion
     #region Method
     public void Load()

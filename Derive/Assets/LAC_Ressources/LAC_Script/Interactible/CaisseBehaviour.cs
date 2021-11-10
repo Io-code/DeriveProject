@@ -48,6 +48,17 @@ public class CaisseBehaviour : ThrowBehaviour
 
         //throw new System.NotImplementedException();
     }
+
+    public override void EndThrow()
+    {
+        if (CurrentState == ObjectState.THROWED)
+        {
+            if (inShip)
+                FallInGround();
+            else
+                Plouf();
+        }
+    }
     #endregion
 
     [ContextMenu("Throw")]

@@ -110,7 +110,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   holdOffset: {x: 0, y: 0.5, z: 0}
-  collsionRange: 0
+  collsionRange: 1.24
   collsionDetector: {fileID: 9034958260566012447}
   throwForce: 0
   paddleActive: 1
@@ -227,7 +227,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5651726754506774711}
-  m_LocalRotation: {x: 0.50000006, y: 0.5, z: 0.50000006, w: 0.5}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 1.91, y: 0, z: -0}
   m_LocalScale: {x: 129.99998, y: 129.99998, z: 129.99998}
   m_Children: []
@@ -392,7 +392,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8952727109730363811}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.03, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8808066741635130037}

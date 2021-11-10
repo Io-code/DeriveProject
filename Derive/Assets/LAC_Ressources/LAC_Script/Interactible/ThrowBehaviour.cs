@@ -175,20 +175,15 @@ public abstract class ThrowBehaviour : MonoBehaviour
         throwReadTime = Time.time;
         rb2D.velocity = power * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;
         Debug.Log("throw" + throwDuration);
-        StartCoroutine(EndThrow(throwDuration));
+        StartCoroutine(ThrowDuration(throwDuration));
     }
-    IEnumerator EndThrow(float delay)
+    IEnumerator ThrowDuration(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (CurrentState == ObjectState.THROWED)
-        {
-            if (inShip)
-                FallInGround();
-            else
-                Plouf();
-        }
- 
+        EndThrow();
     }
+
+    public abstract void EndThrow();
 
     public void FallInGround()
     {
@@ -281,7 +276,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
         Gizmos.DrawSphere(transform.position + holdOffset, 0.2f);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, collsionRange);
+        Gizmos.DrawWireSphere(collsionDetector.transform.position, collsionRange);
 
     }
 }
