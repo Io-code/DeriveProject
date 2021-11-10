@@ -170,7 +170,9 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
     public void Throw( Vector2 dir, float power)
     {
+        controller.ChangeAnimationState(controller.animationState[1]);
         ChangeState(ObjectState.THROWED);
+
         throwDir = dir;
         throwReadTime = Time.time;
         rb2D.velocity = power * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;
@@ -188,6 +190,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public void FallInGround()
     {
         ChangeState(ObjectState.FREE);
+        controller = null;
         Debug.Log("Fall in ground");
         rb2D.velocity = velocity = Vector2.zero;
     }
@@ -200,6 +203,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
     public void Plouf()
     {
+        controller = null;
         rb2D.velocity = velocity = Vector2.zero;
         GetDestroy();
     }

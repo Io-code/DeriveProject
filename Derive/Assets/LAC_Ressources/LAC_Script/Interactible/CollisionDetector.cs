@@ -10,7 +10,7 @@ public class CollisionDetector : MonoBehaviour
     public CircleCollider2D cC2D;
     public enum CollisionType { PLAYER, OTHER};
     public CollisionType collisionType;
-    public Action< GameObject> OnCollisionPlayer, OnCollisionWall;
+    public Action< GameObject> OnCollisionPlayer, OnCollisionWall, OnCollisionExitPlayer;
 
     private void Awake()
     {
@@ -44,5 +44,23 @@ public class CollisionDetector : MonoBehaviour
         }
             
         
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        switch (collisionType)
+        {
+            case CollisionType.PLAYER:
+                {
+                    if (collision.tag == "Player")
+                    {
+                        OnCollisionExitPlayer?.Invoke(collision.gameObject);
+                        Debug.Log("ExitPlayer");
+                    }
+
+
+                    break;
+                }
+        }
     }
 }

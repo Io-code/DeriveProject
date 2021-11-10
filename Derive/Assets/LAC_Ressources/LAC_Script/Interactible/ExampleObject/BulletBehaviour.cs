@@ -67,7 +67,7 @@ public class BulletBehaviour :ThrowBehaviour
 
     public override void CollisionAction(GameObject colObject)
     {
-        if (triggerCollisionAction)
+        if (triggerCollisionAction && colObject != controller?.gameObject)
         {
             triggerCollisionAction = false;
             ChangeBulletState(BulletState.EXPLODED);

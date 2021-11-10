@@ -200,13 +200,14 @@ public class Controller : MonoBehaviour
 			return;
 		}
 		float delay = 0;
-		if (newState == animationState[2]) delay = 0.3f;
-		else if (newState == animationState[3]) delay = 0.4f;
+		if (newState == animationState[1]) delay = 0.3f;
+		else if (newState == animationState[2]) delay = 0.4f;
+		pc.ChangeAnimationState(newState);
+		pc.animationBlocked = true;
 		StartCoroutine(AnimationDelay(delay));
 	}
 	private IEnumerator AnimationDelay(float delay)
 	{
-		pc.animationBlocked = true;
 		yield return new WaitForSeconds(delay);
 		pc.currentAnimationState = animationState[4];
 		pc.animationBlocked = false;

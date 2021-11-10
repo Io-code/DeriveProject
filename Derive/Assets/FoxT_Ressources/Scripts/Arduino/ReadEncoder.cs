@@ -43,28 +43,24 @@ public class ReadEncoder : MonoBehaviour
             gouvCurrentValue = int.Parse(dataTemp);
         }
     }
+    public void StartRead(bool firstPlayer)
+    { 
+        if (firstPlayer) fpInitialeValue = fpCurrentValue;
+        else spInitialeValue = spCurrentValue;    
+    }
 
-    public IEnumerator StartRead(float duration, bool firstPlayer)
+    public int UpdateRead(bool firstPlayer)
     {
-        fpInitialeValue = fpCurrentValue;
-        spInitialeValue = spCurrentValue;
-        float timeElapsed = 0;
-        while (timeElapsed <= duration)
-        {
-            yield return new WaitForEndOfFrame();
-            fpTour = 0;
-            spTour = 0;
-            timeElapsed += Time.deltaTime;
             if (firstPlayer)
             {
                 if (fpCurrentValue >= fpInitialeValue + 80)
                 {
-                    fpTour = 1;
+                    return 1;
                     fpInitialeValue = fpCurrentValue;
                 }
                 else if (fpCurrentValue <= fpInitialeValue - 80)
                 {
-                    fpTour = -1;
+                    return -1;
                     fpInitialeValue = fpCurrentValue;
                 }
             }
@@ -72,16 +68,16 @@ public class ReadEncoder : MonoBehaviour
             {
                 if (spCurrentValue >= spInitialeValue + 80)
                 {
-                    spTour = 1;
+                    return 1;
                     spInitialeValue = spCurrentValue;
                 }
                 else if(spCurrentValue <= spInitialeValue - 80)
                 {
-                    spTour = -1;
+                    return -1;
                     spInitialeValue = spCurrentValue;
                 }
             }
-        }
+        return 0;
     }
 
     public IEnumerator SwimRead(byte firstPl)
