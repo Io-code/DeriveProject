@@ -1705,8 +1705,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 698004392856411484, guid: 2d989b10f32b797468bb072c86ed18b3, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1219110469350943772, guid: 2d989b10f32b797468bb072c86ed18b3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e2914442bc3ad4a418c0dc9dee1e1992, type: 2}
     - target: {fileID: 5559208496785761105, guid: 2d989b10f32b797468bb072c86ed18b3, type: 3}
       propertyPath: m_RootOrder
       value: 4

@@ -21,7 +21,8 @@ public class Player
 	public bool onWater;
 	private Animator anim;
 	public string[] animationState; // 0 = RUN, 1 = THROW, 2 = SLASH, 3 = THROW, 4 IDLE
-	private string currentAnimationState;
+	public string currentAnimationState;
+	public bool animationBlocked;
 
 	public Player(Rigidbody2D _rb, Animator _anim, in float _speed, in float _accelerationStep, in float _decelartionStep, in byte _playerNumber, in string[] _animationState)
 	{
@@ -37,9 +38,21 @@ public class Player
 
 	public void Move(Vector2 direction)
 	{
+		if (currentState == PlayerState.SWIM) rb.transform.position -= new Vector3(0, 0, 0f);
 		if (currentState != PlayerState.FREE)
 		{
 			rb.velocity = direction * Time.deltaTime;
+			if (rb.velocity != Vector2.zero)
+			{
+				if (currentState == PlayerState.SWIM) ChangeAnimationState(animationState[3]);
+			}
+			if (animationBlocked) rb.velocity = Vector2.zero;
+			return;
+		}
+		if (currentState == PlayerState.SWIM) rb.transform.position -= new Vector3(0, 0, 7.6f);
+		if (animationBlocked)
+		{
+			rb.velocity = Vector2.zero;
 			return;
 		}
 		float acceleration = -decelerationStep;
@@ -65,7 +78,7 @@ public class Player
 		anim.transform.localEulerAngles = new Vector3(0, angle, 0);
 
 		if (rb.velocity != Vector2.zero) ChangeAnimationState(animationState[0]);
-		else ChangeAnimationState(animationState[2]);
+		else ChangeAnimationState(animationState[4]);
 	}
 	public IEnumerator Deceleration()
 	{
@@ -99,7 +112,7 @@ public class Player
 
 	public void ChangeAnimationState(string newState)
 	{
-		if (newState == currentAnimationState) return;
+		if (newState == currentAnimationState || animationBlocked) return;
 
 		currentAnimationState = newState;
 		anim.Play(newState);

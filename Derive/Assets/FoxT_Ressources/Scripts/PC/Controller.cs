@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Controller : MonoBehaviour
 {
-    public Player pc;
+	public Player pc;
 	//Inspector Elements
 	//Debug
 	public bool debug;
@@ -41,19 +41,19 @@ public class Controller : MonoBehaviour
 	private string currentAnimationState;
 	public string[] animationState;
 
-    private void OnEnable()
-    {
+	private void OnEnable()
+	{
 		ShipEvent.OnExitPlayer += EnterWater;
-    }
+	}
 
-    private void OnDisable()
-    {
+	private void OnDisable()
+	{
 		ShipEvent.OnExitPlayer -= EnterWater;
 	}
 
-    private void Awake()
+	private void Awake()
 	{
-		animationState = new string[] {"RUN", "THROW", "CLIMB", "SLASH" };
+		animationState = new string[] { "RUN", "THROW", "RAME", "SWIM", "IDLE" };
 		try
 		{
 			anim = GetComponentInChildren<Animator>();
@@ -94,17 +94,17 @@ public class Controller : MonoBehaviour
 	{
 		StartCoroutine(curves.Play(-direction, force));
 		if (pushCoroutine != null)
-        {
+		{
 			StopCoroutine(pushCoroutine);
-        }
+		}
 		pushCoroutine = StartCoroutine(PushController());
 	}
 
 	public void EnterWater(GameObject PLAYER)
-    {
+	{
 		// something
 		pc.onWater = true;
-    }
+	}
 
 	// New Input system
 	public void PerformMove(InputAction.CallbackContext value)
@@ -126,8 +126,8 @@ public class Controller : MonoBehaviour
 	}
 
 	public void PerformInteract(InputAction.CallbackContext value)
-    {
-		if(value.started)
+	{
+		if (value.started)
 			InputHandler.CallInteract(this);
 	}
 
@@ -191,5 +191,24 @@ public class Controller : MonoBehaviour
 	{
 		if (compared <= comparer + value && compared >= comparer - value) return true;
 		else return false;
+	}
+
+	public void ChangeAnimationState(string newState)
+	{
+		if (pc.currentAnimationState == newState)
+		{
+			return;
+		}
+		float delay = 0;
+		if (newState == animationState[2]) delay = 0.3f;
+		else if (newState == animationState[3]) delay = 0.4f;
+		StartCoroutine(AnimationDelay(delay));
+	}
+	private IEnumerator AnimationDelay(float delay)
+	{
+		pc.animationBlocked = true;
+		yield return new WaitForSeconds(delay);
+		pc.currentAnimationState = animationState[4];
+		pc.animationBlocked = false;
 	}
 }
