@@ -54,6 +54,7 @@ public class BulletBehaviour :ThrowBehaviour
     #region Method
     public void Load()
     {
+        controller = null;
         GetManage();
         ChangeBulletState(BulletState.LOAD);
     }
