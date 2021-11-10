@@ -87,7 +87,6 @@ public class SwimWen : MonoBehaviour
 			if (currentState != newState)
 			{
 				currentState = newState;
-				Debug.Log(currentState);
 			}
 			yield return new WaitForFixedUpdate();
 		}

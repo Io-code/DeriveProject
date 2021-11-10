@@ -7,7 +7,7 @@ using Fox.Editor;
 [CustomEditor(typeof(Controller))]
 public class ControllerEditor : Editor
 {
-	int test;
+	int animationIndex;
 	public override void OnInspectorGUI()
 	{
 		Controller ctrl = (Controller)target;
@@ -43,5 +43,35 @@ public class ControllerEditor : Editor
 		GUILayout.Label("Methods");
 		GUILayout.Label("");
 		CurveOptionsEditor.CurveFields(ctrl.curves);
+
+		GUI.color = Color.cyan;
+		GUILayout.Label("");
+		GUILayout.Label("Animation");
+		GUI.color = Color.white;
+		GUILayout.Label("");
+
+		/*animationIndex = EditorGUILayout.IntField("How Many Animations", animationIndex);
+		if (animationIndex != ctrl.animationState.Length)
+		{
+			string[] animationStateTemp = new string[ctrl.animationState.Length];
+			for (int i = 0; i < animationStateTemp.Length; i++)
+			{
+				animationStateTemp[i] = ctrl.animationState[i];
+			}
+
+			int max = 0;
+			if (animationIndex > ctrl.animationState.Length) max = animationStateTemp.Length;
+			else if (animationIndex < ctrl.animationState.Length) max = animationIndex;
+			ctrl.animationState = new string[animationIndex];
+
+			for (int i = 0; i < max; i++)
+			{
+				ctrl.animationState[i] = animationStateTemp[i];
+			}
+		}
+		for (int i = 0; i < ctrl.animationState.Length; i++)
+		{
+			ctrl.animationState[i] = EditorGUILayout.TextField("Animation Name " + i, ctrl.animationState[i]);
+		}*/
 	}
 }
