@@ -10,17 +10,29 @@ public class ReadEncoder : MonoBehaviour
     private int fpInitialeValue, fpCurrentValue;
     private int spInitialeValue, spCurrentValue;
     private int gouvInitialeValue, gouvCurrentValue;
+    public bool gouvTurned = false;
     [HideInInspector]
     public int fpTour = 0, spTour = 0;
 
     //Swim
     public float swimEncoderReadDelay;
-    [HideInInspector] public float swimSpeed;
+    [HideInInspector] public float spSwimSpeed, fpSwimSpeed;
     public int fpLastEncoderValue, spLastEncoderValue;
 
     void Start()
     {
         UduinoManager.Instance.OnDataReceived += DataReveived;
+    }
+
+    private void Update()
+    {
+        if (gouvCurrentValue != gouvInitialeValue)
+        {
+            gouvInitialeValue = gouvCurrentValue;
+            gouvTurned = true;
+        }
+        else gouvTurned = false;
+        Debug.Log(gouvTurned);
     }
 
     void DataReveived(string data, UduinoDevice board)
@@ -53,28 +65,29 @@ public class ReadEncoder : MonoBehaviour
     {
             if (firstPlayer)
             {
-                if (fpCurrentValue >= fpInitialeValue + 80)
+                Debug.Log("OK");
+                if (fpCurrentValue >= fpInitialeValue + 40)
                 {
+                    fpInitialeValue = fpCurrentValue;
                     return 1;
-                    fpInitialeValue = fpCurrentValue;
                 }
-                else if (fpCurrentValue <= fpInitialeValue - 80)
+                else if (fpCurrentValue <= fpInitialeValue - 40)
                 {
-                    return -1;
                     fpInitialeValue = fpCurrentValue;
+                    return -1;
                 }
             }
             else
             {
-                if (spCurrentValue >= spInitialeValue + 80)
+                if (spCurrentValue >= spInitialeValue + 40)
                 {
+                    spInitialeValue = spCurrentValue;
                     return 1;
-                    spInitialeValue = spCurrentValue;
                 }
-                else if(spCurrentValue <= spInitialeValue - 80)
+                else if(spCurrentValue <= spInitialeValue - 40)
                 {
-                    return -1;
                     spInitialeValue = spCurrentValue;
+                    return -1;
                 }
             }
         return 0;
@@ -93,12 +106,16 @@ public class ReadEncoder : MonoBehaviour
                 if (value < 0) value = 0;
                 else if (value > 40) value = 40;
                 value /= 40;
-                swimSpeed = value;
+                fpSwimSpeed = value;
                 fpLastEncoderValue = fpCurrentValue;
             }
             else
             {
-                swimSpeed = Mathf.Clamp(Mathf.Abs(spCurrentValue - fpLastEncoderValue), 0, 40) / 40;
+                float value = Mathf.Abs(spCurrentValue - spLastEncoderValue);
+                if (value < 0) value = 0;
+                else if (value > 40) value = 40;
+                value /= 40;
+                spSwimSpeed = value;
                 spLastEncoderValue = spCurrentValue;
             }
         }

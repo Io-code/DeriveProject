@@ -10,6 +10,7 @@ public class Controller : MonoBehaviour
 {
 	public Player pc;
 	//Inspector Elements
+	public int pcNumber;
 	//Debug
 	public bool debug;
 	public float minAccelerationStep = 1, maxAccelerationStep = 10;
@@ -59,7 +60,7 @@ public class Controller : MonoBehaviour
 			anim = GetComponentInChildren<Animator>();
 			encoderValues = GameObject.Find("Uduino").GetComponent<ReadEncoder>();
 			laders = GameObject.Find("Uduino").GetComponent<LaderManager>();
-			pc = new Player(GetComponent<Rigidbody2D>(), anim, in maxSpeed, in accelerationStep, in decelerationStep, (byte)GameObject.FindGameObjectsWithTag("Player").Length, in animationState);
+			pc = new Player(GetComponent<Rigidbody2D>(), anim, in maxSpeed, in accelerationStep, in decelerationStep, (byte)pcNumber, in animationState);
 		}
 		catch
 		{
@@ -165,16 +166,18 @@ public class Controller : MonoBehaviour
 		float encoderValue;
 		encoderCoroutine = StartCoroutine(encoderValues.SwimRead(pc.playerNumber));
 		pc.currentSpeed = 0;
-		while (!V3MoreOrLess(transform.position, laderPosition, 0.2f) == true)
+		while (Mathf.Abs(laderPosition.x - transform.position.x) > 0.2f || Mathf.Abs(laderPosition.y - transform.position.y) > 0.2f /*!V3MoreOrLess(transform.position, laderPosition, 0.2f) == true*/)
 		{
 			yield return new WaitForFixedUpdate();
-			encoderValue = encoderValues.swimSpeed;
-			pc.Move(((laderPosition - transform.position) * 100).normalized * swimSpeed * encoderValue);
+			if (pcNumber == 1) encoderValue = encoderValues.fpSwimSpeed;
+			else encoderValue = encoderValues.spSwimSpeed;
+			pc.Move(((laderPosition - transform.position) * 10000000).normalized * swimSpeed * encoderValue);
 		}
-		transform.position = endLaderPosition;
+		transform.position = new Vector3(endLaderPosition.x, endLaderPosition.y, transform.position.z);
 		pc.Move(Vector2.zero);
 		pc.onWater = false;
 		pc.ChangeState(PlayerState.FREE);
+		pc.ChangeAnimationState(animationState[4]);
 		StopCoroutine(encoderCoroutine);
 	}
 

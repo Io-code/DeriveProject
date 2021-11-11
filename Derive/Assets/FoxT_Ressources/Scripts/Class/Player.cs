@@ -38,7 +38,7 @@ public class Player
 
 	public void Move(Vector2 direction)
 	{
-		if (currentState == PlayerState.SWIM) rb.transform.position -= new Vector3(0, 0, 0f);
+		//if (currentState == PlayerState.SWIM) rb.transform.position -= new Vector3(0, 0, 9.2f);
 		if (currentState != PlayerState.FREE)
 		{
 			rb.velocity = direction * Time.deltaTime;
@@ -47,9 +47,15 @@ public class Player
 				if (currentState == PlayerState.SWIM) ChangeAnimationState(animationState[3]);
 			}
 			if (animationBlocked) rb.velocity = Vector2.zero;
+			if (direction != Vector2.zero)
+			{
+				angle = Mathf.Atan2(direction.y, direction.x * -1) * Mathf.Rad2Deg - 90;
+				if (angle < 0) angle += 360;
+				anim.transform.localEulerAngles = new Vector3(0, angle, 0);
+			}
 			return;
 		}
-		if (currentState == PlayerState.SWIM) rb.transform.position -= new Vector3(0, 0, 9.2f);
+		//if (currentState == PlayerState.SWIM) rb.transform.position -= new Vector3(0, 0, 9.2f);
 		if (animationBlocked)
 		{
 			Debug.Log("YA");
@@ -57,6 +63,7 @@ public class Player
 			return;
 		}
 		float acceleration = -decelerationStep;
+		//float acceleration = -decelerationStep;
 		if (direction != Vector2.zero)
 		{
 			acceleration = accelerationStep;

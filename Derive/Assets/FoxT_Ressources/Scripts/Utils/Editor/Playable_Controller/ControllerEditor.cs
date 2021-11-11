@@ -13,6 +13,7 @@ public class ControllerEditor : Editor
 		Controller ctrl = (Controller)target;
 		//base.OnInspectorGUI();
 		ctrl.debug = EditorGUILayout.Toggle("Enable Debug", ctrl.debug);
+		ctrl.pcNumber = EditorGUILayout.IntField("ID", ctrl.pcNumber);
 
 		//Movement
 		GUI.color = Color.cyan;
