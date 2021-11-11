@@ -14,6 +14,7 @@ public class InteractibleBehaviour : MonoBehaviour
 
     public List<Controller> players = new List<Controller>();
     public event Action<Controller> InteractHappens;
+    public event Action UpdateController;
     public bool oneController;
 
     // Start is called before the first frame update
@@ -23,11 +24,11 @@ public class InteractibleBehaviour : MonoBehaviour
     }
     void OnEnable()
     {
-        InputHandler.Instance.OnInteract += VerifyInteract;
+        InputHandler.OnInteract += VerifyInteract;
     }
     void OnDisable()
     {
-        InputHandler.Instance.OnInteract -= VerifyInteract;
+        InputHandler.OnInteract -= VerifyInteract;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -36,6 +37,8 @@ public class InteractibleBehaviour : MonoBehaviour
             Controller currentPlayer = collision.GetComponent<Controller>();
             if (!players.Contains(currentPlayer))
                 players.Add(currentPlayer);
+
+            UpdateController?.Invoke();
         }
             
     }
@@ -48,16 +51,21 @@ public class InteractibleBehaviour : MonoBehaviour
 
             if (players.Contains(currentPlayer))
                 players.Remove(currentPlayer);
+            UpdateController?.Invoke();
         }
     }
 
     public void VerifyInteract(Controller controller)
     {
-        if ((players.Count == 1 && controller == players[0]) || (!oneController && players.Count > 0))
+        if (players.Contains(controller))
         {
-            Debug.Log("Verifiy : " + players[0]);
-            InteractHappens?.Invoke(controller);
+            if((players.Count == 1 && oneController) || (!oneController && players.Count > 0))
+            {
+                Debug.Log("Verifiy : " + players[0].name);
+                InteractHappens?.Invoke(controller); 
+            }
         }
+        
             
     }
 

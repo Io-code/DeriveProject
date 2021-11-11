@@ -6,10 +6,11 @@ using System;
 [RequireComponent(typeof(CircleCollider2D))]
 public class CollisionDetector : MonoBehaviour
 {
-    CircleCollider2D cC2D;
+    [HideInInspector]
+    public CircleCollider2D cC2D;
     public enum CollisionType { PLAYER, OTHER};
     public CollisionType collisionType;
-    public Action< GameObject> OnCollision;
+    public Action< GameObject> OnCollisionPlayer, OnCollisionWall, OnCollisionExitPlayer;
 
     private void Awake()
     {
@@ -25,7 +26,36 @@ public class CollisionDetector : MonoBehaviour
             case CollisionType.PLAYER:
                 {
                     if (collision.tag == "Player")
-                        OnCollision?.Invoke(collision.gameObject);
+                    {
+                        OnCollisionPlayer?.Invoke(collision.gameObject);
+                       
+                    }
+                    break;
+                }
+        }
+
+        if(collision.tag == "BreakableWall")
+        {
+            Debug.Log("Hit wall");
+            BreakableWall wall = collision.GetComponent<BreakableWall>();
+            wall.TakeDamage(1);
+        }
+            
+        
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        switch (collisionType)
+        {
+            case CollisionType.PLAYER:
+                {
+                    if (collision.tag == "Player")
+                    {
+                        OnCollisionExitPlayer?.Invoke(collision.gameObject);
+                        Debug.Log("ExitPlayer");
+                    }
+
 
                     break;
                 }

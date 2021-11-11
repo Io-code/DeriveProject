@@ -8,7 +8,7 @@ namespace Fox.Editor
 	[System.Serializable]
 	public class CurveOptions
 	{
-		public CurveMethods currentMethod = CurveMethods.Simplified;
+		public CurveMethods currentMethod;
 		public uint curveKeys;
 		public float forceMultiplicator;
 		//Simplified & Advanced methods
@@ -58,7 +58,6 @@ namespace Fox.Editor
 						try
 						{
 							currentForce = Mathf.Clamp(force - (force * decelerationStep[i] * (timeElapsed / delay[i])) - forceSubstracted, 0, force);
-							Debug.Log(currentForce);
 						}
 						catch
 						{

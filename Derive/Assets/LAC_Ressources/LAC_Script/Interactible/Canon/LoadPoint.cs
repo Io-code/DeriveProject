@@ -9,7 +9,7 @@ public class LoadPoint : MonoBehaviour
     public float radius;
     CircleCollider2D cC2D;
 
-    private void Awake()
+    private void Start()
     {
         cC2D = GetComponent<CircleCollider2D>();
         cC2D.isTrigger = true;
@@ -21,10 +21,14 @@ public class LoadPoint : MonoBehaviour
         if(collision.tag == "Bullet")
         {
             BulletBehaviour bullet = collision.GetComponent<BulletBehaviour>();
-            if (!canon.bulletLoaded.Contains(bullet))
-                canon.bulletLoaded.Add(bullet);
+     
+            
+                if (!canon.bulletLoaded.Contains(bullet))
+                    canon.bulletLoaded.Add(bullet);
 
-            bullet.Load();
+                bullet.Load();
+            
+            
         }
     }
 }
