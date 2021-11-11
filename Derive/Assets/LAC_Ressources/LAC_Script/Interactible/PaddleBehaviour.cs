@@ -8,7 +8,7 @@ public class PaddleBehaviour : ThrowBehaviour
     public bool paddleActive = true;
     public float maxUse = 3;
     float currentUse = 0;
-
+    public float speedAngle = 60;
 
     public override void CollisionAction(GameObject colObject)
     {
@@ -44,7 +44,7 @@ public class PaddleBehaviour : ThrowBehaviour
         }
 
         collsionDetector.gameObject.SetActive(paddleActive);
-        transform.Rotate(0, -60 * Time.deltaTime, 0);
+        transform.Rotate(0, -speedAngle * Time.deltaTime, 0);
         //transform.eulerAngles= new Vector3 (transform.eulerAngles.x +60 * Time.deltaTime, transform.eulerAngles.y , transform.eulerAngles.z);
         //Debug.Log("Pos " + new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z));
         //HoldPos(controller, holdOffset);
@@ -59,6 +59,7 @@ public class PaddleBehaviour : ThrowBehaviour
                 Plouf();
             else
             {
+                triggerCollisionAction = true;
                 controller = lastController;
                 GetCaught();
             }  
@@ -70,9 +71,4 @@ public class PaddleBehaviour : ThrowBehaviour
 
     }
 
-    void UpdatePaddleController(ObjectState currentState, ObjectState newState)
-    {
-        if (newState == ObjectState.THROWED)
-            lastController = controller;
-    }
 }
