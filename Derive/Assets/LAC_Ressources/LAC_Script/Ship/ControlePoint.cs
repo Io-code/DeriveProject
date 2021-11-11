@@ -18,7 +18,7 @@ public class ControlePoint : MonoBehaviour
     bool startTurn = false;
     public void OnEnable()
     {
-        //interactPoint.InteractHappens += SetUpShipLead;
+        interactPoint.InteractHappens += SecondLead;
 
         colDetect.OnCollisionPlayer += AddController;
         colDetect.OnCollisionExitPlayer += RemoveController;
@@ -26,7 +26,7 @@ public class ControlePoint : MonoBehaviour
 
     public void OnDisable()
     {
-        //interactPoint.InteractHappens -= SetUpShipLead;
+        interactPoint.InteractHappens -= SecondLead;
 
         colDetect.OnCollisionPlayer -= AddController;
         colDetect.OnCollisionExitPlayer -= RemoveController;
@@ -50,13 +50,17 @@ public class ControlePoint : MonoBehaviour
                 
         }
     }
+    public void SecondLead(Controller ctrl)
+    {
+        startTurn = true;
+    }
     public void SetUpShipLead( List<GameObject> obj)
     {
         if (obj.Count == 0)
         {
             Debug.Log("Reset turn Bar");
             startTurn = false;
-            underControl = null;
+            //underControl = null;
         }
             
         else

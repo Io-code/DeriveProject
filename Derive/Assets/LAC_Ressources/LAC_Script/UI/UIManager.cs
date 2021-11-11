@@ -165,6 +165,7 @@ public class UIManager : MonoBehaviour
     }
     public void EndRound(UIPlayerData winner)
     {
+        inGameUI.SetActive(false);
         winner.winRound[uiData.round] = true;
         PlayerDataUtils.UpdateRound(uiData);
 

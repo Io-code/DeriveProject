@@ -7,6 +7,7 @@ public class BulletBehaviour :ThrowBehaviour
     public enum BulletState { UNLOAD,LOAD, THROWED, EXPLODED };
     public BulletState bulletState, lasteBulletState;
     public float explosionRadius = 2;
+    public float explodeForce = 60;
     bool triggerCollisionAction = true;
 
     public GameObject explodeVFX;
@@ -107,8 +108,8 @@ public class BulletBehaviour :ThrowBehaviour
                 Debug.Log(bulletState);
             }
                 
-
-            colObject.GetComponent<Controller>().Push(transform, throwForce);
+            
+            colObject.GetComponent<Controller>().Push(transform, (bulletState == BulletState.THROWED)?explodeForce : throwForce);
 
             FallInGround();
             Debug.Log("Fall");

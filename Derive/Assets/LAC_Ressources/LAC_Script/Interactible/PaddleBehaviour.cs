@@ -19,7 +19,6 @@ public class PaddleBehaviour : ThrowBehaviour
             currentUse++;
             if (currentUse > maxUse)
             {
-                
                 GetDestroy();
             }
                 
