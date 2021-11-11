@@ -32,7 +32,7 @@ public class ReadEncoder : MonoBehaviour
             gouvTurned = true;
         }
         else gouvTurned = false;
-        Debug.Log(gouvTurned);
+        //Debug.Log(gouvTurned);
     }
 
     void DataReveived(string data, UduinoDevice board)
