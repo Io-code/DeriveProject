@@ -37,8 +37,9 @@ public class CaisseBehaviour : ThrowBehaviour
 
     public override void CollisionAction(GameObject colObject)
     {
-        if (triggerCollisionAction)
+        if (triggerCollisionAction && colObject != lastController?.gameObject)
         {
+            Debug.Log("HitPlayer " +colObject+ " Ctrl " + lastController.gameObject);
             triggerCollisionAction = false;
             colObject.GetComponent<Controller>().Push(transform, 10);
 
@@ -47,6 +48,11 @@ public class CaisseBehaviour : ThrowBehaviour
         }
 
         //throw new System.NotImplementedException();
+    }
+
+    public override void ChangeStateModifier(ObjectState newState)
+    {
+
     }
 
     public override void EndThrow()

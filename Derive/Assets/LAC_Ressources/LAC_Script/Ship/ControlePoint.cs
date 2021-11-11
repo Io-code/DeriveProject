@@ -5,19 +5,30 @@ using UnityEngine;
 public class ControlePoint : MonoBehaviour
 {
     public InteractibleBehaviour interactPoint;
+    public CollisionDetector colDetect;
+    public ReadEncoder encoder;
+
     [HideInInspector]
     public Controller underControl;
+    List<GameObject> controllerObj;
+
     [HideInInspector]
     public int playerIndex;
     public float scoreIncreaseSpeed = 1;
     public void OnEnable()
     {
-        interactPoint.InteractHappens += SetUpShipLead;
+        //interactPoint.InteractHappens += SetUpShipLead;
+
+        colDetect.OnCollisionPlayer += AddController;
+        colDetect.OnCollisionExitPlayer += RemoveController;
     }
 
     public void OnDisable()
     {
-        interactPoint.InteractHappens -= SetUpShipLead;
+        //interactPoint.InteractHappens -= SetUpShipLead;
+
+        colDetect.OnCollisionPlayer -= AddController;
+        colDetect.OnCollisionExitPlayer -= RemoveController;
     }
 
     private void Update()
@@ -26,21 +37,36 @@ public class ControlePoint : MonoBehaviour
         {
           
             if (playerIndex >= 0)
+            {
                 PlayerDataUtils.UpdateScore(UIManager.instance.playerData[playerIndex], scoreIncreaseSpeed);
+            }
+                
         }
     }
-    public void SetUpShipLead( Controller player)
+    public void SetUpShipLead( List<GameObject> obj)
     {
-        if (interactPoint.players.Count == 1)
-        {
-            underControl = player;
-            
-        }
-        else
+        if (obj.Count == 0)
             underControl = null;
+        else
+            underControl = obj[0].GetComponent<Controller>();
+
         playerIndex = CtrlToIndex(underControl, UIManager.instance.playerData);
     }
 
+    public void AddController(GameObject obj)
+    {
+        if (!controllerObj.Contains(obj))
+            controllerObj.Add(obj);
+
+        SetUpShipLead(controllerObj);
+    }
+     public void RemoveController(GameObject obj)
+    {
+        if (controllerObj.Contains(obj))
+            controllerObj.Remove(obj);
+
+        SetUpShipLead(controllerObj);
+    }
     public int CtrlToIndex(Controller ctrl, UIPlayerData[] data)
     {
         int returnIndex = -1;

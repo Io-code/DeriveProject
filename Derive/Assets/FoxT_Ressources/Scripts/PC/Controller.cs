@@ -42,6 +42,9 @@ public class Controller : MonoBehaviour
 	private string currentAnimationState;
 	public string[] animationState;
 
+
+	//Object
+	public bool holdObj;
 	private void OnEnable()
 	{
 		ShipEvent.OnExitPlayer += EnterWater;

@@ -58,7 +58,7 @@ public class Player
 		//if (currentState == PlayerState.SWIM) rb.transform.position -= new Vector3(0, 0, 9.2f);
 		if (animationBlocked)
 		{
-			Debug.Log("YA");
+			//Debug.Log("YA");
 			rb.velocity = Vector2.zero;
 			return;
 		}
@@ -121,7 +121,7 @@ public class Player
 	public void ChangeAnimationState(string newState)
 	{
 		if (newState == currentAnimationState || animationBlocked) return;
-		Debug.Log(newState + " " + animationBlocked);
+		//Debug.Log(newState + " " + animationBlocked);
 		currentAnimationState = newState;
 		anim.Play(newState);
 	}

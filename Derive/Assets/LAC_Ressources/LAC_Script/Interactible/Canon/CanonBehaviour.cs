@@ -29,7 +29,7 @@ public class CanonBehaviour : MonoBehaviour
     public List<GameObject> playerObj = new List<GameObject>(2);
     public CollisionDetector colDetect;
     public List<Controller> controllers = new List<Controller>();
-
+    public ParticleSystem shoot_VFX;
 
 
     private void OnEnable()
@@ -108,8 +108,8 @@ public class CanonBehaviour : MonoBehaviour
 
                 //bulletLoaded[bulletLoaded.Count - 1].Shoot(shootPos + transform.position, shootDir, shootInitialSpeed);
                 bulletLoaded[0].transform.position = shootPos + transform.position;
-                bulletLoaded[0].Throw(shootDir, shootInitialSpeed);
-
+                bulletLoaded[0].Shoot(shootDir, shootInitialSpeed);
+                shoot_VFX.Play();
                 bulletLoaded.Remove(bulletLoaded[0]);
             }
         }
