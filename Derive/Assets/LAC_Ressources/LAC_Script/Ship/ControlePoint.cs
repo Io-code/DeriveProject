@@ -19,16 +19,16 @@ public class ControlePoint : MonoBehaviour
     {
         //interactPoint.InteractHappens += SetUpShipLead;
 
-        //colDetect.OnCollisionPlayer += AddController;
-        //colDetect.OnCollisionExitPlayer += RemoveController;
+        colDetect.OnCollisionPlayer += AddController;
+        colDetect.OnCollisionExitPlayer += RemoveController;
     }
 
     public void OnDisable()
     {
         //interactPoint.InteractHappens -= SetUpShipLead;
 
-        //colDetect.OnCollisionPlayer -= AddController;
-        //colDetect.OnCollisionExitPlayer -= RemoveController;
+        colDetect.OnCollisionPlayer -= AddController;
+        colDetect.OnCollisionExitPlayer -= RemoveController;
     }
 
     private void Update()
@@ -37,7 +37,10 @@ public class ControlePoint : MonoBehaviour
         {
           
             if (playerIndex >= 0)
+            {
                 PlayerDataUtils.UpdateScore(UIManager.instance.playerData[playerIndex], scoreIncreaseSpeed);
+            }
+                
         }
     }
     public void SetUpShipLead( List<GameObject> obj)

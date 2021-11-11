@@ -209,7 +209,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public void FallInGround()
     {
         ChangeState(ObjectState.FREE);
-        Debug.Log("Fall in ground");
+        //Debug.Log("Fall in ground");
         rb2D.velocity = velocity = Vector2.zero;
     }
     public void PutDown()
@@ -226,6 +226,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
     public void GetDestroy()
     {
+        velocity = Vector2.zero;
         ChangeState(ObjectState.DESTROYED);
         PoolManager.instance.PerformPoolActive(respawnDelay, Respawn);
         gameObject.SetActive(false);
@@ -236,6 +237,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
         Debug.Log("Respawn");
         gameObject.SetActive(true);
         transform.position = respawnPoint;
+        velocity = Vector2.zero;
         ChangeState(ObjectState.FREE);
     }
     public void GetManage()

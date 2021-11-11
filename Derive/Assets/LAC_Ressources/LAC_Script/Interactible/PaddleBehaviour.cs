@@ -9,7 +9,6 @@ public class PaddleBehaviour : ThrowBehaviour
     public float maxUse = 3;
     float currentUse = 0;
 
-    public Controller lastController;
 
     public override void CollisionAction(GameObject colObject)
     {

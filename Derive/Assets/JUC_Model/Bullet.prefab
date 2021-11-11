@@ -406,3 +406,5 @@ MonoBehaviour:
   throwForce: 40
   bulletState: 0
   lasteBulletState: 0
+  explosionRadius: 2
+  explodeVFX: {fileID: 2095713537807900651, guid: 659ae7edd23243b46ae76bd0d8aae7d5, type: 3}
