@@ -28,10 +28,8 @@ public class CollisionDetector : MonoBehaviour
                     if (collision.tag == "Player")
                     {
                         OnCollisionPlayer?.Invoke(collision.gameObject);
-                        Debug.Log("HitPlayer");
-                    }
                        
-
+                    }
                     break;
                 }
         }

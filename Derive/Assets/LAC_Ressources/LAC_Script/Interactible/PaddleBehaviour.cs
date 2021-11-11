@@ -8,6 +8,9 @@ public class PaddleBehaviour : ThrowBehaviour
     public bool paddleActive = true;
     public float maxUse = 3;
     float currentUse = 0;
+
+    public Controller lastController;
+
     public override void CollisionAction(GameObject colObject)
     {
         if (triggerCollisionAction && colObject != controller.gameObject)
@@ -24,6 +27,8 @@ public class PaddleBehaviour : ThrowBehaviour
     {
         if (controller)
         {
+            lastController = controller;
+
             velocity = Vector2.zero;
             Vector3 pos = controller.transform.position;
 
@@ -50,11 +55,25 @@ public class PaddleBehaviour : ThrowBehaviour
     {
         if (CurrentState == ObjectState.THROWED)
         {
+            Debug.Log("End ThrowState");
             if (!inShip)
                 Plouf();
             else
+            {
+                controller = lastController;
                 GetCaught();
-            
+            }  
         }
+    }
+
+    public override void ChangeStateModifier(ObjectState newState)
+    {
+
+    }
+
+    void UpdatePaddleController(ObjectState currentState, ObjectState newState)
+    {
+        if (newState == ObjectState.THROWED)
+            lastController = controller;
     }
 }

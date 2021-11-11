@@ -7,6 +7,7 @@ using System;
 public abstract class ThrowBehaviour : MonoBehaviour
 {
     public Rigidbody2D rb2D;
+    protected PaddleBehaviour paddleBehaviour;
     public enum ObjectState {FREE, HOLDED, THROWED, DESTROYED, MANAGE };
     public ObjectState CurrentState { get { return m_objectState; } }
     public ObjectState LastState { get { return m_lastState; } }
@@ -15,7 +16,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public ObjectState m_objectState, m_lastState;
     public InteractibleBehaviour interactPoint;
 
-    protected Controller controller;
+    protected Controller controller,lastController;
     protected Vector2 velocity = Vector2.zero;
 
     [Header("Respawn")]
@@ -62,7 +63,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     {
 
         respawnPoint = transform.position;
-        
+        paddleBehaviour = gameObject.GetComponent<PaddleBehaviour>();
 
         collsionDetector.cC2D.radius = collsionRange;
     }
@@ -114,21 +115,38 @@ public abstract class ThrowBehaviour : MonoBehaviour
         // Enable action
         if(newState == ObjectState.HOLDED && CurrentState != ObjectState.HOLDED)
         {
+            //Debug.Log("Enter Hold State");
+            if (controller)
+                controller.holdObj = true;
             InputHandler.OnAttack += AttackAction;
             InputHandler.OnInteract += InteractAction;
         }
-        if (LastState == ObjectState.HOLDED && LastState != newState)
+        if (CurrentState == ObjectState.HOLDED && newState != ObjectState.HOLDED)
         {
+            Debug.Log("Exit Hold State");
+            
+            if(controller && !(newState == ObjectState.THROWED && paddleBehaviour != null))
+            {
+                controller.holdObj = false;
+                lastController = controller;
+                controller = null;
+            }
+                
             InputHandler.OnAttack -= AttackAction;
             InputHandler.OnInteract -= InteractAction;
+
+            
         }
 
 
+        ChangeStateModifier(newState);
         //Debug.Log("State switch " + m_objectState + " to " + newState);
         m_lastState = m_objectState;
         m_objectState = newState;
         ChangeStateAction?.Invoke(LastState, CurrentState);
     }
+
+    public abstract void ChangeStateModifier(ObjectState newState);
     public void HoldPos(Controller refController, Vector3 offset)
     {
         if (refController)
@@ -170,7 +188,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
 
     public void Throw( Vector2 dir, float power)
     {
-        controller.ChangeAnimationState(controller.animationState[1]);
+        controller?.ChangeAnimationState(controller.animationState[1]);
         ChangeState(ObjectState.THROWED);
 
         throwDir = dir;
@@ -182,6 +200,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     IEnumerator ThrowDuration(float delay)
     {
         yield return new WaitForSeconds(delay);
+
         EndThrow();
     }
 
@@ -190,20 +209,17 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public void FallInGround()
     {
         ChangeState(ObjectState.FREE);
-        controller = null;
         Debug.Log("Fall in ground");
         rb2D.velocity = velocity = Vector2.zero;
     }
     public void PutDown()
     {
         ChangeState(ObjectState.FREE);
-        controller = null;
          velocity = Vector2.zero;
     }
 
     public void Plouf()
     {
-        controller = null;
         rb2D.velocity = velocity = Vector2.zero;
         GetDestroy();
     }
@@ -244,8 +260,13 @@ public abstract class ThrowBehaviour : MonoBehaviour
     #region Input Action
     void SetUpControl(Controller controller)
     {
-        this.controller = controller;
-        GetCaught();
+        if (!controller.holdObj)
+        {
+            this.controller = controller;
+            lastController = controller;
+            GetCaught();
+        }
+        
     }
 
     void AttackAction(Controller controller)

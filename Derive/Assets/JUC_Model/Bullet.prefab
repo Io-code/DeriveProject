@@ -261,7 +261,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aae1f55fed356eb408a6a91ae74ffce6, type: 2}
+  - {fileID: -5374185815670993362, guid: dfec33f834767854aba5df4d47dddfe5, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -372,8 +372,8 @@ MonoBehaviour:
   m_objectState: 0
   m_lastState: 0
   interactPoint: {fileID: 8688009240199853242}
-  respawnPoint: {x: 0, y: 0, z: 0}
   respawnDelay: 2.14
+  respawnPoint: {x: 0, y: 0, z: 0}
   throwDuration: 2
   throwSpeed: 5
   throwSpeedModifier:

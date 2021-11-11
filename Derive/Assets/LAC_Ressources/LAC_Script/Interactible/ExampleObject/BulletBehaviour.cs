@@ -50,13 +50,20 @@ public class BulletBehaviour :ThrowBehaviour
         }
     }
 
+    public override void ChangeStateModifier(ObjectState newState)
+    {
+      
+    }
+
     #endregion
     #region Method
     public void Load()
     {
-        controller = null;
+        
         GetManage();
         ChangeBulletState(BulletState.LOAD);
+        lastController = null;
+        //controller = null;
     }
 
     public void Shoot( Vector3 shootPos, Vector2 dir, float power)
@@ -68,7 +75,7 @@ public class BulletBehaviour :ThrowBehaviour
 
     public override void CollisionAction(GameObject colObject)
     {
-        if (triggerCollisionAction && colObject != controller?.gameObject)
+        if (triggerCollisionAction && colObject != lastController.gameObject)
         {
             triggerCollisionAction = false;
             ChangeBulletState(BulletState.EXPLODED);

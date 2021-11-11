@@ -702,6 +702,7 @@ MonoBehaviour:
     isPlaying: 0
     velocity: {x: 0, y: 0}
   animationState: []
+  holdObj: 0
 --- !u!23 &134907321
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1277,6 +1278,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8bb77c4361f6e24b822b51aaf4971de, type: 3}
+--- !u!1001 &322796295
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7009596072357113252, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
+      propertyPath: m_Name
+      value: WaterShader
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009596072357113256, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009596072357113256, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009596072357113256, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009596072357113256, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009596072357113256, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.92422277
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009596072357113256, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.38185385
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009596072357113256, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009596072357113256, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009596072357113256, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -44.897
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009596072357113256, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7009596072357113256, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 056c1efa6435de54e8ea27299dd3486a, type: 3}
 --- !u!1001 &322895122
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2149,6 +2207,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactPoint: {fileID: 2081556742}
+  colDetect: {fileID: 0}
+  encoder: {fileID: 0}
   underControl: {fileID: 0}
   playerIndex: 0
   scoreIncreaseSpeed: 1
@@ -6674,6 +6734,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 4884512310198278228, guid: e55bca473e6b9c749a297aa84be9a07f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6017489483815707451, guid: e55bca473e6b9c749a297aa84be9a07f, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -6721,6 +6785,10 @@ PrefabInstance:
     - target: {fileID: 6397849672115534209, guid: e55bca473e6b9c749a297aa84be9a07f, type: 3}
       propertyPath: m_Name
       value: Rame_001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6397849672115534209, guid: e55bca473e6b9c749a297aa84be9a07f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e55bca473e6b9c749a297aa84be9a07f, type: 3}
@@ -13950,6 +14018,7 @@ MonoBehaviour:
   - 
   - 
   - 
+  holdObj: 0
 --- !u!1 &5559208497056426342
 GameObject:
   m_ObjectHideFlags: 0
