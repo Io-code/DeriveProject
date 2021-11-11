@@ -18,7 +18,11 @@ public class PaddleBehaviour : ThrowBehaviour
             colObject.GetComponent<Controller>().Push(transform, 10);
             currentUse++;
             if (currentUse > maxUse)
+            {
+                
                 GetDestroy();
+            }
+                
         }
     }
 

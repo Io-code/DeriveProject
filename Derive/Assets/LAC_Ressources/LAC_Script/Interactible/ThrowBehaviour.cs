@@ -227,6 +227,10 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public void GetDestroy()
     {
         velocity = Vector2.zero;
+        transform.localRotation = Quaternion.identity;
+        if(controller)
+            controller.holdObj = false;
+
         ChangeState(ObjectState.DESTROYED);
         PoolManager.instance.PerformPoolActive(respawnDelay, Respawn);
         gameObject.SetActive(false);
