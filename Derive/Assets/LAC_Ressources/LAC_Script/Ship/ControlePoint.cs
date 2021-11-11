@@ -10,11 +10,12 @@ public class ControlePoint : MonoBehaviour
 
     [HideInInspector]
     public Controller underControl;
-    List<GameObject> controllerObj;
+    List<GameObject> controllerObj = new List<GameObject>();
 
     [HideInInspector]
     public int playerIndex;
     public float scoreIncreaseSpeed = 1;
+    bool startTurn = false;
     public void OnEnable()
     {
         //interactPoint.InteractHappens += SetUpShipLead;
@@ -35,8 +36,14 @@ public class ControlePoint : MonoBehaviour
     {
         if(underControl != null)
         {
-          
-            if (playerIndex >= 0)
+            if (encoder.gouvTurned)
+            {
+                startTurn = true;
+                Debug.Log("Start turn Bar");
+            }
+                
+
+            if (playerIndex >= 0 && startTurn)
             {
                 PlayerDataUtils.UpdateScore(UIManager.instance.playerData[playerIndex], scoreIncreaseSpeed);
             }
@@ -46,7 +53,12 @@ public class ControlePoint : MonoBehaviour
     public void SetUpShipLead( List<GameObject> obj)
     {
         if (obj.Count == 0)
+        {
+            Debug.Log("Reset turn Bar");
+            startTurn = false;
             underControl = null;
+        }
+            
         else
             underControl = obj[0].GetComponent<Controller>();
 
@@ -59,6 +71,7 @@ public class ControlePoint : MonoBehaviour
             controllerObj.Add(obj);
 
         SetUpShipLead(controllerObj);
+        Debug.Log("Add Controller");
     }
      public void RemoveController(GameObject obj)
     {
@@ -66,6 +79,7 @@ public class ControlePoint : MonoBehaviour
             controllerObj.Remove(obj);
 
         SetUpShipLead(controllerObj);
+        Debug.Log("Remove Controller");
     }
     public int CtrlToIndex(Controller ctrl, UIPlayerData[] data)
     {
