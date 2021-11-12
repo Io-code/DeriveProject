@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor;
 
 namespace Fox.Editor
 {
@@ -81,7 +82,9 @@ namespace Fox.Editor
 		{
 			method.currentMethod = (CurveMethods)GUILayout.Toolbar((int)method.currentMethod, new string[] { "Simplified", "Advanced", "Curve" });
 			GUILayout.Label("");
+#if UNITY_EDITOR
 			method.forceMultiplicator = EditorGUILayout.FloatField("Force Multiplicator", method.forceMultiplicator);
+#endif
 			switch (method.currentMethod)
 			{
 				default:
@@ -89,11 +92,15 @@ namespace Fox.Editor
 					NonCurveOptions(method.curveKeys, method);
 					break;
 				case CurveMethods.Advanced:
+#if UNITY_EDITOR
 					method.curveKeys = (uint)EditorGUILayout.IntField("Part", (int)method.curveKeys);
+#endif
 					NonCurveOptions(method.curveKeys, method);
 					break;
 				case CurveMethods.Curve:
+#if UNITY_EDITOR
 					method.curve = EditorGUILayout.CurveField("Curve", method.curve);
+#endif
 					break;
 			}
 		}
@@ -105,16 +112,20 @@ namespace Fox.Editor
 				method.delay = new float[part];
 				method.decelerationStep = new float[part];
 			}
+#if UNITY_EDITOR
 			GUILayout.Label("");
+#endif
 			float decelerationSomme = 0;
 			for (uint i = 0; i < method.delay.Length; i++)
 			{
+#if UNITY_EDITOR
 				GUILayout.Label("Part " + (i + 1));
 				method.delay[i] = EditorGUILayout.FloatField("Duration", method.delay[i]);
 				if (i < method.delay.Length - 1) method.decelerationStep[i] = Mathf.Clamp(EditorGUILayout.FloatField("Deceleration Step", method.decelerationStep[i]), 0, 1 - decelerationSomme);
 				else method.decelerationStep[i] = EditorGUILayout.FloatField("Deceleration Step", 1 - decelerationSomme);
 				decelerationSomme += method.decelerationStep[i];
 				GUILayout.Label("");
+#endif
 			}
 		}
 	}

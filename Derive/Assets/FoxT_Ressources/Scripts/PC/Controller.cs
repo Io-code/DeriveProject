@@ -28,6 +28,7 @@ public class Controller : MonoBehaviour
 	public float swimSpeed;
 	private Vector3 laderPosition, endLaderPosition;
 	private Coroutine swimCoroutine, encoderCoroutine;
+	public ParticleSystem particle;
 
 	//Push
 	public CurveOptions curves = new CurveOptions();
@@ -39,6 +40,8 @@ public class Controller : MonoBehaviour
 
 	//Divers
 	private Animator anim;
+	private AudioManager audioManager;
+	public int lastRunSoundIndex;
 	private string currentAnimationState;
 	public string[] animationState;
 
@@ -57,6 +60,8 @@ public class Controller : MonoBehaviour
 
 	private void Awake()
 	{
+		audioManager = GameObject.Find("SoundManager").GetComponent<AudioManager>();
+		particle = GetComponentInChildren<ParticleSystem>();
 		animationState = new string[] { "RUN", "THROW", "RAME", "SWIM", "IDLE" };
 		try
 		{
@@ -145,6 +150,7 @@ public class Controller : MonoBehaviour
 	{
 		Debug.Log("Push");
 		pc.ChangeState(PlayerState.PUSH);
+		audioManager.sounds[8 + pcNumber - 1].Play();
 		while (curves.isPlaying)
 		{
 			Physics2D.IgnoreLayerCollision(6, 7, true);
@@ -155,6 +161,8 @@ public class Controller : MonoBehaviour
 		if (pc.onWater)
 		{
 			pc.ChangeState(PlayerState.SWIM);
+			particle.Play();
+			audioManager.sounds[4].Play();
 			laderPosition = laders.LaderPosition(transform.position);
 			endLaderPosition = laders.EndLaderPosition();
 			StartCoroutine(Swim());
@@ -169,12 +177,18 @@ public class Controller : MonoBehaviour
 		float encoderValue;
 		encoderCoroutine = StartCoroutine(encoderValues.SwimRead(pc.playerNumber));
 		pc.currentSpeed = 0;
+		Vector3 dir = laderPosition - transform.position;
 		while (Mathf.Abs(laderPosition.x - transform.position.x) > 0.2f || Mathf.Abs(laderPosition.y - transform.position.y) > 0.2f /*!V3MoreOrLess(transform.position, laderPosition, 0.2f) == true*/)
 		{
 			yield return new WaitForFixedUpdate();
 			if (pcNumber == 1) encoderValue = encoderValues.fpSwimSpeed;
 			else encoderValue = encoderValues.spSwimSpeed;
-			pc.Move(((laderPosition - transform.position) * 10000000).normalized * swimSpeed * encoderValue);
+			//Jouer le son
+			if (encoderValue != 0)
+			{
+				if (!audioManager.sounds[3].IsPlaying()) audioManager.sounds[3].Play();
+			}
+			pc.Move((dir * 10000000).normalized * swimSpeed * encoderValue);
 		}
 		transform.position = new Vector3(endLaderPosition.x, endLaderPosition.y, transform.position.z);
 		pc.Move(Vector2.zero);
@@ -217,5 +231,14 @@ public class Controller : MonoBehaviour
 		yield return new WaitForSeconds(delay);
 		pc.currentAnimationState = animationState[4];
 		pc.animationBlocked = false;
+	}
+
+	private void Update()
+	{
+		if (pc.currentState == PlayerState.FREE && !audioManager.sounds[lastRunSoundIndex].IsPlaying() && GetComponent<Rigidbody2D>().velocity != Vector2.zero)
+		{
+			lastRunSoundIndex = Random.Range(5, 8);
+			audioManager.sounds[lastRunSoundIndex].Play();
+		}
 	}
 }

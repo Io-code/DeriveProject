@@ -8,10 +8,12 @@ public class SwimWen : MonoBehaviour
 	public float minimalDistance, minimalSize;
 	public float maximalDistance, maximalSize;
 	public RectTransform[] wen;
+	public Animator[] anim;
 	public Camera uiCamera;
 	public float borderSize;
 	private Vector2[] originalSize;
 	public string[] animationState;
+	public string currentState;
 
 	private void Awake()
 	{
@@ -78,7 +80,9 @@ public class SwimWen : MonoBehaviour
 				//Modifier la taille
 			wen[pc.GetComponent<Controller>().pc.playerNumber - 1].localScale = originalSize[pc.GetComponent<Controller>().pc.playerNumber - 1] * size;
 
-				//Verifier s'il y a la nage
+			//Verifier s'il y a la nage
+			if (pc.GetComponent<Rigidbody2D>().velocity != Vector2.zero) ChangeAnimationState("SWIM", pc.gameObject.GetComponent<Controller>().pcNumber - 1);
+			else ChangeAnimationState("IDLE", pc.gameObject.GetComponent<Controller>().pcNumber - 1);
 				//Changer l'animation en conséquence
 			string newState;
 			if (Vector3.Distance(pc.position, lastPosition) != 0) newState = animationState[pc.GetComponent<Controller>().pc.playerNumber - 1];
@@ -92,10 +96,13 @@ public class SwimWen : MonoBehaviour
 		}
 		wen[pc.GetComponent<Controller>().pc.playerNumber - 1].localScale = originalSize[pc.GetComponent<Controller>().pc.playerNumber - 1];
 	}
-	/*private void ChangeAnimationState(string newState)
+	
+	private void ChangeAnimationState(string newState, int animIndex)
 	{
 		if (currentState == newState) return;
 
 		currentState = newState;
-	}*/
+
+		anim[animIndex].Play(newState);
+	}
 }

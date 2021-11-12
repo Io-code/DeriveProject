@@ -1,79 +1,81 @@
+using UnityEngine.Audio;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
+public class AudioManager : MonoBehaviour
+{
+	public UIData uidata;
+	public AudioMixerGroup mixer;
+	public Sound[] sounds;
+
+	private void Awake()
+	{
+		foreach (Sound s in sounds)
+		{
+			s.source = gameObject.AddComponent<AudioSource>();
+			s.source.playOnAwake = false;
+			s.source.outputAudioMixerGroup = mixer;
+			s.source.clip = s.clip;
+
+			s.source.volume = s.volume;
+			s.source.pitch = s.pitch;
+			s.source.loop = s.loop;
+		}
+	}
+
+	private void Start()
+	{
+		StartCoroutine(AwakeSound());
+	}
+
+	private IEnumerator AwakeSound()
+	{
+		yield return new WaitForEndOfFrame();
+		Debug.Log(sounds[2]);
+		if (!uidata.inGame) sounds[2].Play(); //Jouer la musique du menu d'accueil
+		else
+		{
+			sounds[0].Play();
+			//Jouer la musique de readyGo
+			yield return new WaitUntil(() => sounds[0].IsPlaying() == false);
+			//Jouer la musique de fond
+			sounds[1].Play();
+		}
+	}
+
+	public void Play(string name)
+	{
+		Sound s = Array.Find(sounds, sound => sound.name == name);
+		if (s == null) return;
+
+		s.source.Play();
+	}
+}
 
 [System.Serializable]
 public class Sound
 {
-    public string name;
-    public AudioClip clip;
+	public string name;
+	public AudioClip clip;
 
-    [Range(0f, 1f)]
-    public float volume=0.7f;
-    [Range(0f, 1f)]
-    public float pitch=1f;
+	[HideInInspector] public AudioSource source;
 
-    [Range(0f, 0.5f)]
-    public float randomVolume = 0.1f;
-    [Range(0f, 0.5f)]
-    public float randomPitch = 0.1f;
+	public float volume;
+	public float pitch;
 
-    private AudioSource source;
+	public bool loop;
 
-    public void SetSource (AudioSource _source)
-    {
-        source = _source;
-        source.clip = clip;
-    }
+	private bool isPlaying;
 
-    public void Play()
-    {
-        source.volume = volume * (1 + Random.Range(-randomVolume / 2f, randomVolume/2f));
-        source.pitch = pitch * (1 + Random.Range(-randomPitch / 2f, randomPitch / 2f));
-        source.Play();
+	public void Play()
+	{
+		source.Play();
+	}
 
-    }
-}
-
-public class AudioManager : MonoBehaviour
-{
-    public static AudioManager instance;
-
-    [SerializeField]
-    Sound[] sounds;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogError("More than one AudioManager in the scene");
-        }
-        else
-        {
-            instance = this;
-        }
-    }
-
-    private void Start()
-    {
-        for (int i = 0; i < sounds.Length; i++)
-        {
-            GameObject _go = new GameObject("Sound_" + i + "_" + sounds[i].name);
-            _go.transform.SetParent(this.transform);
-            sounds[i].SetSource (_go.AddComponent<AudioSource>());
-        }
-    }
-
-    public void PlaySound (string _name)
-    {
-        for (int i = 0; i < sounds.Length; i++)
-        {
-            if (sounds[i].name == _name)
-            {
-                sounds[i].Play();
-                return;
-            }
-        }
-
-        //no sound with name
-        Debug.LogWarning("AudioManageur : Sound not found in list :" + _name);
-    }
+	public bool IsPlaying()
+	{
+		return source.isPlaying;
+	}
 }
