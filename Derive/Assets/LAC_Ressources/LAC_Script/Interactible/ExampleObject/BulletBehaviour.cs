@@ -7,13 +7,16 @@ public class BulletBehaviour :ThrowBehaviour
     public enum BulletState { UNLOAD,LOAD, THROWED, EXPLODED };
     public BulletState bulletState, lasteBulletState;
     public float explosionRadius = 2;
+    public float explodeForce = 60;
+    public float canonShootDuration = 5;
     bool triggerCollisionAction = true;
 
     public GameObject explodeVFX;
-
+    float baseThrowDuration;
     private void Awake()
     {
         ChangeStateAction += ResetTriggerCollision;
+        baseThrowDuration = throwDuration;
     }
     #region State
     void ChangeBulletState( BulletState state)
@@ -52,11 +55,12 @@ public class BulletBehaviour :ThrowBehaviour
     public override void EndThrow()
     {
         collsionDetector.cC2D.radius = collsionRange;
+        throwDuration = baseThrowDuration;
         if (CurrentState == ObjectState.THROWED)
         {
             if (inShip)
             {
-
+                
                 FallInGround();
             }
                 
@@ -84,6 +88,7 @@ public class BulletBehaviour :ThrowBehaviour
 
     public void Shoot( Vector2 dir, float power)
     {
+        throwDuration = canonShootDuration; 
         ChangeBulletState(BulletState.THROWED);
         Throw(dir, power);
     }
@@ -107,8 +112,8 @@ public class BulletBehaviour :ThrowBehaviour
                 Debug.Log(bulletState);
             }
                 
-
-            colObject.GetComponent<Controller>().Push(transform, throwForce);
+            
+            colObject.GetComponent<Controller>().Push(transform, (bulletState == BulletState.THROWED)?explodeForce : throwForce);
 
             FallInGround();
             Debug.Log("Fall");

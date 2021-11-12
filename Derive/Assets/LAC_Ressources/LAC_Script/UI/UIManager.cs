@@ -14,8 +14,9 @@ public class UIManager : MonoBehaviour
 
     bool readyToPlay = true;
     bool endTrigger = true;
-    float readyBuffer = 5f;
-    float endPlayBuffer = 360;
+    float readyBuffer = 3f;
+    float endPlayBuffer = 30;
+    bool startTrigger;
 
     public GameObject uiPanel;
     public GameObject inGameUI;
@@ -66,6 +67,7 @@ public class UIManager : MonoBehaviour
         UpdateSingleton();
         AssignControllerToData();
         DontDestroyOnLoad(gameObject);
+        StartCoroutine(StartTriggerDelay());
     }
 
     private void Update()
@@ -112,9 +114,9 @@ public class UIManager : MonoBehaviour
             
         }
 
-        if (playerData[0].lastInputTime != 0 && playerData[1].lastInputTime != 0)
+        if (playerData[0].lastInputTime != 0 && playerData[1].lastInputTime != 0 && startTrigger)
         {
-            //Debug.Log(playerData[0].lastInputTime + "/" + playerData[1].lastInputTime);
+            Debug.Log(playerData[0].lastInputTime + "/" + playerData[1].lastInputTime);
             if ((Mathf.Abs(playerData[0].lastInputTime - playerData[1].lastInputTime) < readyBuffer) && readyToPlay)
                 StartPlay(); 
         }
@@ -165,6 +167,7 @@ public class UIManager : MonoBehaviour
     }
     public void EndRound(UIPlayerData winner)
     {
+        inGameUI.SetActive(false);
         winner.winRound[uiData.round] = true;
         PlayerDataUtils.UpdateRound(uiData);
 
@@ -174,6 +177,8 @@ public class UIManager : MonoBehaviour
             if (winner.winRound[i])
                 winRounds++;
         }
+
+        Debug.Log(" Win Round " + winRounds + winner.name);
 
         if ((winRounds < 2))
         {
@@ -190,22 +195,18 @@ public class UIManager : MonoBehaviour
 
             }
         }
-        else
+        else 
         {
             finalEndPanel.SetActive(true);
-
+            uiData.inGame = false;
             for (int i = 0; i < playersUI.Length; i++)
             {
-                int totalWinRound = 0;
-                for(int j = 0; j < playerData[i].winRound.Length; j++)
-                {
-                    if (playerData[i].winRound[j])
-                        totalWinRound++;
-                }
-                if (totalWinRound > 1)
+
+                if (playersUI[i].refCtrl == winner.refPlayer)
                 {
                     playersUI[i].winTxt.SetActive(true);
                     playersUI[i].winImg.SetActive(true);
+
                 }
                 else
                 {
@@ -218,7 +219,15 @@ public class UIManager : MonoBehaviour
         }
             
 
-        StartCoroutine(EndRoundDelay(3));
+        StartCoroutine(EndRoundDelay(3, winRounds >= 2));
+    }
+    public IEnumerator StartTriggerDelay()
+    {
+        Debug.Log("Trigger Start");
+        yield return new WaitForSeconds(readyBuffer);
+        startTrigger = true;
+        Debug.Log(" End Trigger Start");
+        //startTigger = true;
     }
     public void EndPlay()
     {
@@ -229,8 +238,10 @@ public class UIManager : MonoBehaviour
         }
         PlayerDataUtils.ResetRound(uiData);
         uiData.inGame = false;
-        readyToPlay = true;
+        uiData.round = 0;
+        //readyToPlay = true;
         //PlayerDataUtils.UpdateRound(uiData);
+        Debug.Log(playerData[0].lastInputTime + "/" + playerData[1].lastInputTime);
         Debug.Log("EndPlay");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -247,10 +258,10 @@ public class UIManager : MonoBehaviour
 
         inGameUI.SetActive(true);
     }
-    public IEnumerator EndRoundDelay( float delay)
+    public IEnumerator EndRoundDelay( float delay, bool winner)
     {
         yield return new WaitForSecondsRealtime(delay);
-        if (uiData.round < 3)
+        if (!winner)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         else
             EndPlay();
