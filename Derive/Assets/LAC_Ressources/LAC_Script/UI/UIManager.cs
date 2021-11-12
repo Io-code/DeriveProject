@@ -98,10 +98,12 @@ public class UIManager : MonoBehaviour
     }
     void AssignControllerToData()
     {
-        for(int i = 0; i < playerData.Length; i++)
+        for (int i = 0; i < playerData.Length; i++)
         {
             if (i < playerController.Length)
+            {
                 playerData[i].refPlayer = playerController[i];
+            }
         }
     }
 
@@ -110,7 +112,9 @@ public class UIManager : MonoBehaviour
         for(int i = 0; i < playerData.Length; i++)
         {
             if (playerData[i].refPlayer == controller)
+            {
                 playerData[i].lastInputTime = Time.time;
+            }
             
         }
 
@@ -167,6 +171,7 @@ public class UIManager : MonoBehaviour
     }
     public void EndRound(UIPlayerData winner)
     {
+        GameObject.Find("SoundManager").GetComponent<AudioManager>().sounds[0].Play();
         inGameUI.SetActive(false);
         winner.winRound[uiData.round] = true;
         PlayerDataUtils.UpdateRound(uiData);
@@ -226,6 +231,7 @@ public class UIManager : MonoBehaviour
         Debug.Log("Trigger Start");
         yield return new WaitForSeconds(readyBuffer);
         startTrigger = true;
+            GameObject.Find("SoundManager").GetComponent<AudioManager>().sounds[17].Play();
         Debug.Log(" End Trigger Start");
         //startTigger = true;
     }

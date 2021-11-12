@@ -82,7 +82,7 @@ public class BulletBehaviour :ThrowBehaviour
         GetManage();
         ChangeBulletState(BulletState.LOAD);
         lastController = null;
-        
+        GameObject.Find("SoundManager").GetComponent<AudioManager>().sounds[13].Play();
         //controller = null;
     }
 
@@ -98,6 +98,7 @@ public class BulletBehaviour :ThrowBehaviour
         Debug.Log("BOOM");
         Instantiate(explodeVFX, transform.position, transform.rotation);
         ChangeBulletState(BulletState.EXPLODED);
+        GameObject.Find("SoundManager").GetComponent<AudioManager>().sounds[15].Play();
         GetDestroy();
     }
 

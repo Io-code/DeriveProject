@@ -22,7 +22,10 @@ public class BreakableWall : MonoBehaviour
 
             currentDamage += damage;
             if (currentDamage >= MaxDamage)
+            {
+                GameObject.Find("SoundManager").GetComponent<AudioManager>().sounds[11].Play();
                 DestroyWall();
+            }
 
             mesh.material = changeMat[Mathf.Clamp(currentDamage, 0, changeMat.Length)];
 

@@ -44,6 +44,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     public CollisionDetector collsionDetector;
     public float throwForce;
     //public float placeHolderThrowParam
+    private AudioManager audioManager;
 
     private void OnEnable()
     {
@@ -61,7 +62,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
     }
     private void Start()
     {
-
+        audioManager = GameObject.Find("SoundManager").GetComponent<AudioManager>();
         respawnPoint = transform.position;
         paddleBehaviour = gameObject.GetComponent<PaddleBehaviour>();
 
@@ -180,6 +181,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
         if (controller != null)
         {
             velocity = Vector2.zero;
+            GameObject.Find("SoundManager").GetComponent<AudioManager>().sounds[16].Play();
             ChangeState(ObjectState.HOLDED);
             HoldPos(controller, holdOffset);
         }
@@ -191,6 +193,7 @@ public abstract class ThrowBehaviour : MonoBehaviour
         controller?.ChangeAnimationState(controller.animationState[1]);
         ChangeState(ObjectState.THROWED);
 
+        audioManager.sounds[10].Play();
         throwDir = dir;
         throwReadTime = Time.time;
         rb2D.velocity = power * throwSpeedModifier.Evaluate((Time.time - throwReadTime) / throwDuration) * throwDir;

@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7153084848228236039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7153084848228236033}
+  - component: {fileID: 7153084848228236032}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7153084848228236033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153084848228236039}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7153084848228236032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7153084848228236039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13d27f41540f8748bc6b9c5ef505f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uidata: {fileID: 11400000, guid: e5011bc16fee16343820d17f99a6ee4b, type: 2}
+  mixer: {fileID: 24300002, guid: 9370a7ff1ef1c4440b62c5bd6d3f7dee, type: 2}
+  sounds:
+  - name: Start
+    clip: {fileID: 8300000, guid: fcbff50004c079c458a8e913c27633c5, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - name: Theme
+    clip: {fileID: 8300000, guid: a6afaa83ccc106542b42a9e4057be838, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 1
+  - name: Intro
+    clip: {fileID: 8300000, guid: 92cbe4edba30d1b49990808ead18cb94, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 1
+  - name: Swim
+    clip: {fileID: 8300000, guid: be692f4fff1869b4ea8a3f751b740344, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - name: Splash
+    clip: {fileID: 8300000, guid: 84e12f5de09c6774f9093b01b811474c, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - name: Run 1
+    clip: {fileID: 8300000, guid: 31d11e8ae8b2d27419fbdfc55a8f3d53, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - name: Run 2
+    clip: {fileID: 8300000, guid: 824da9ea8a2b699449d70f4a633fa10e, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - name: Run 3
+    clip: {fileID: 8300000, guid: 5b54a9f52f3d3d74aaefbfe5211ebfe0, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - name: Hit Player 1
+    clip: {fileID: 8300000, guid: 2228336bdb94ed447895546b6a0d0ec7, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - name: Hit Player 2
+    clip: {fileID: 8300000, guid: 2404106f907403341950d63f705c0fb4, type: 3}
+    source: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 0

@@ -88,6 +88,7 @@ public class CanonBehaviour : MonoBehaviour
     }
     void CanonRotation( float angle)
     {
+        if (angle != 0) GameObject.Find("SoundManager").GetComponent<AudioManager>().sounds[14].Play();
         shootAngle += angle;
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, shootAngle );
     }
@@ -103,6 +104,7 @@ public class CanonBehaviour : MonoBehaviour
             Debug.Log("Fire");
             if (bulletLoaded.Count > 0)
             {
+                GameObject.Find("SoundManager").GetComponent<AudioManager>().sounds[12].Play();
                 Vector3 shootPos = new Vector3(Mathf.Cos(shootAngle * Mathf.Deg2Rad) * shootDist, Mathf.Sin(shootAngle * Mathf.Deg2Rad) * shootDist, zOffset);
                 Vector2 shootDir = new Vector2(Mathf.Cos(shootAngle * Mathf.Deg2Rad), Mathf.Sin(shootAngle * Mathf.Deg2Rad));
 

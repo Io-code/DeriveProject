@@ -20,6 +20,7 @@ public class PaddleBehaviour : ThrowBehaviour
             if (currentUse > maxUse)
             {
                 GetDestroy();
+                GameObject.Find("SoundManager").GetComponent<AudioManager>().sounds[11].Play();
             }
                 
         }
