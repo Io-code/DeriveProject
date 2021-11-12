@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     bool readyToPlay = true;
     bool endTrigger = true;
     float readyBuffer = 5f;
-    float endPlayBuffer = 360;
+    float endPlayBuffer = 30;
 
     public GameObject uiPanel;
     public GameObject inGameUI;
@@ -114,7 +114,7 @@ public class UIManager : MonoBehaviour
 
         if (playerData[0].lastInputTime != 0 && playerData[1].lastInputTime != 0)
         {
-            //Debug.Log(playerData[0].lastInputTime + "/" + playerData[1].lastInputTime);
+            Debug.Log(playerData[0].lastInputTime + "/" + playerData[1].lastInputTime);
             if ((Mathf.Abs(playerData[0].lastInputTime - playerData[1].lastInputTime) < readyBuffer) && readyToPlay)
                 StartPlay(); 
         }
@@ -196,7 +196,7 @@ public class UIManager : MonoBehaviour
         else 
         {
             finalEndPanel.SetActive(true);
-
+            uiData.inGame = false;
             for (int i = 0; i < playersUI.Length; i++)
             {
 
@@ -217,7 +217,7 @@ public class UIManager : MonoBehaviour
         }
             
 
-        StartCoroutine(EndRoundDelay(3));
+        StartCoroutine(EndRoundDelay(3, winRounds >= 2));
     }
     public void EndPlay()
     {
@@ -228,8 +228,10 @@ public class UIManager : MonoBehaviour
         }
         PlayerDataUtils.ResetRound(uiData);
         uiData.inGame = false;
-        readyToPlay = true;
+        uiData.round = 0;
+        //readyToPlay = true;
         //PlayerDataUtils.UpdateRound(uiData);
+        Debug.Log(playerData[0].lastInputTime + "/" + playerData[1].lastInputTime);
         Debug.Log("EndPlay");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -246,10 +248,10 @@ public class UIManager : MonoBehaviour
 
         inGameUI.SetActive(true);
     }
-    public IEnumerator EndRoundDelay( float delay)
+    public IEnumerator EndRoundDelay( float delay, bool winner)
     {
         yield return new WaitForSecondsRealtime(delay);
-        if (uiData.round < 3)
+        if (!winner)
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         else
             EndPlay();

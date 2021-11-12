@@ -16,7 +16,7 @@ public class ControlePoint : MonoBehaviour
     public int playerIndex;
     public float scoreIncreaseSpeed = 1;
     bool startTurn = false;
-    bool triggerTurn = false;
+
     public void OnEnable()
     {
         interactPoint.InteractHappens += SecondLead;
@@ -57,17 +57,15 @@ public class ControlePoint : MonoBehaviour
     }
     public void SetUpShipLead( List<GameObject> obj)
     {
-        if (obj.Count == 0)
-        {
-            Debug.Log("Reset turn Bar");
-            startTurn = false;
-            //underControl = null;
-        }
-        else if (underControl != obj[0].GetComponent<Controller>())
-            triggerTurn = true;
 
-        if(obj.Count == 0)
-            underControl = obj[0].GetComponent<Controller>();
+        if(obj.Count != 0)
+        {
+            if (underControl != obj[0].GetComponent<Controller>())
+                startTurn = false;
+
+               underControl = obj[0].GetComponent<Controller>();
+        }
+            
 
         playerIndex = CtrlToIndex(underControl, UIManager.instance.playerData);
     }
