@@ -14,8 +14,9 @@ public class UIManager : MonoBehaviour
 
     bool readyToPlay = true;
     bool endTrigger = true;
-    float readyBuffer = 5f;
+    float readyBuffer = 3f;
     float endPlayBuffer = 30;
+    bool startTrigger;
 
     public GameObject uiPanel;
     public GameObject inGameUI;
@@ -66,6 +67,7 @@ public class UIManager : MonoBehaviour
         UpdateSingleton();
         AssignControllerToData();
         DontDestroyOnLoad(gameObject);
+        StartCoroutine(StartTriggerDelay());
     }
 
     private void Update()
@@ -112,7 +114,7 @@ public class UIManager : MonoBehaviour
             
         }
 
-        if (playerData[0].lastInputTime != 0 && playerData[1].lastInputTime != 0)
+        if (playerData[0].lastInputTime != 0 && playerData[1].lastInputTime != 0 && startTrigger)
         {
             Debug.Log(playerData[0].lastInputTime + "/" + playerData[1].lastInputTime);
             if ((Mathf.Abs(playerData[0].lastInputTime - playerData[1].lastInputTime) < readyBuffer) && readyToPlay)
@@ -218,6 +220,14 @@ public class UIManager : MonoBehaviour
             
 
         StartCoroutine(EndRoundDelay(3, winRounds >= 2));
+    }
+    public IEnumerator StartTriggerDelay()
+    {
+        Debug.Log("Trigger Start");
+        yield return new WaitForSeconds(readyBuffer);
+        startTrigger = true;
+        Debug.Log(" End Trigger Start");
+        //startTigger = true;
     }
     public void EndPlay()
     {
