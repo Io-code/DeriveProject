@@ -374,28 +374,37 @@ MonoBehaviour:
   interactPoint: {fileID: 8688009240199853242}
   respawnDelay: 2.14
   respawnPoint: {x: 0, y: 0, z: 0}
-  throwDuration: 2
-  throwSpeed: 5
+  throwDuration: 0.35
+  throwSpeed: 30
   throwSpeedModifier:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: -1
-      outSlope: -1
-      tangentMode: 34
+      inSlope: -0.0059842723
+      outSlope: -0.0059842723
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.33333334
+      outWeight: 0.7935802
+    - serializedVersion: 3
+      time: 0.8126076
+      value: 0.7384875
+      inSlope: -1.0341679
+      outSlope: -1.0341679
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.35358942
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: -1
-      outSlope: -1
-      tangentMode: 34
+      inSlope: -2.7124243
+      outSlope: -2.7124243
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.15389931
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -403,8 +412,8 @@ MonoBehaviour:
   holdOffset: {x: 2, y: 0, z: 0}
   collsionRange: 0.87
   collsionDetector: {fileID: 3959546414634804398}
-  throwForce: 40
+  throwForce: 17
   bulletState: 0
   lasteBulletState: 0
-  explosionRadius: 2
+  explosionRadius: 1
   explodeVFX: {fileID: 2095713537807900651, guid: 659ae7edd23243b46ae76bd0d8aae7d5, type: 3}

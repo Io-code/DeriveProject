@@ -69,11 +69,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   encoder: {fileID: 0}
-  RotationSpeed: 0
+  RotationSpeed: 18
   shootAngle: 0
   shootDist: 3.57
   zOffset: -1.95
-  shootInitialSpeed: 5
+  shootInitialSpeed: 50
   bulletLoaded: []
   loadPos: {x: -0.45, y: 0, z: 0}
   loadDetectRadius: 2.77

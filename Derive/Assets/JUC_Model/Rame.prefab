@@ -101,7 +101,7 @@ MonoBehaviour:
   interactPoint: {fileID: 2593920366351829808}
   respawnDelay: 0
   respawnPoint: {x: 0, y: 0, z: 0}
-  throwDuration: 1
+  throwDuration: 0.5
   throwSpeed: 3
   throwSpeedModifier:
     serializedVersion: 2
@@ -112,9 +112,10 @@ MonoBehaviour:
   holdOffset: {x: 0, y: 0.5, z: 0}
   collsionRange: 1.24
   collsionDetector: {fileID: 9034958260566012447}
-  throwForce: 0
+  throwForce: 1e+16
   paddleActive: 1
   maxUse: 3
+  speedAngle: 80
 --- !u!1 &2917121182225094902
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +332,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6397849672115534209}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
