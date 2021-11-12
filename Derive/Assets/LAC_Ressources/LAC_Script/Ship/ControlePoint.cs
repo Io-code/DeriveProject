@@ -16,6 +16,7 @@ public class ControlePoint : MonoBehaviour
     public int playerIndex;
     public float scoreIncreaseSpeed = 1;
     bool startTurn = false;
+    bool triggerTurn = false;
     public void OnEnable()
     {
         interactPoint.InteractHappens += SecondLead;
@@ -62,8 +63,10 @@ public class ControlePoint : MonoBehaviour
             startTurn = false;
             //underControl = null;
         }
-            
-        else
+        else if (underControl != obj[0].GetComponent<Controller>())
+            triggerTurn = true;
+
+        if(obj.Count == 0)
             underControl = obj[0].GetComponent<Controller>();
 
         playerIndex = CtrlToIndex(underControl, UIManager.instance.playerData);

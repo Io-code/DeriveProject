@@ -8,13 +8,15 @@ public class BulletBehaviour :ThrowBehaviour
     public BulletState bulletState, lasteBulletState;
     public float explosionRadius = 2;
     public float explodeForce = 60;
+    public float canonShootDuration = 5;
     bool triggerCollisionAction = true;
 
     public GameObject explodeVFX;
-
+    float baseThrowDuration;
     private void Awake()
     {
         ChangeStateAction += ResetTriggerCollision;
+        baseThrowDuration = throwDuration;
     }
     #region State
     void ChangeBulletState( BulletState state)
@@ -53,11 +55,12 @@ public class BulletBehaviour :ThrowBehaviour
     public override void EndThrow()
     {
         collsionDetector.cC2D.radius = collsionRange;
+        throwDuration = baseThrowDuration;
         if (CurrentState == ObjectState.THROWED)
         {
             if (inShip)
             {
-
+                
                 FallInGround();
             }
                 
@@ -85,6 +88,7 @@ public class BulletBehaviour :ThrowBehaviour
 
     public void Shoot( Vector2 dir, float power)
     {
+        throwDuration = canonShootDuration; 
         ChangeBulletState(BulletState.THROWED);
         Throw(dir, power);
     }

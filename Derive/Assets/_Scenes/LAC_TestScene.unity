@@ -4836,6 +4836,7 @@ MonoBehaviour:
   bulletState: 0
   lasteBulletState: 0
   explosionRadius: 2
+  explodeForce: 60
   explodeVFX: {fileID: 0}
 --- !u!4 &940116886
 Transform:
@@ -12146,13 +12147,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 508194697}
     m_Modifications:
+    - target: {fileID: 4895681911051795697, guid: ff4370ad4a0c1a5418679e0ec16523bf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5324623704151133992, guid: ff4370ad4a0c1a5418679e0ec16523bf, type: 3}
       propertyPath: encoder
       value: 
       objectReference: {fileID: 701437723}
     - target: {fileID: 5324623704151133992, guid: ff4370ad4a0c1a5418679e0ec16523bf, type: 3}
       propertyPath: scoreIncreaseSpeed
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6054556117587075770, guid: ff4370ad4a0c1a5418679e0ec16523bf, type: 3}
       propertyPath: m_RootOrder

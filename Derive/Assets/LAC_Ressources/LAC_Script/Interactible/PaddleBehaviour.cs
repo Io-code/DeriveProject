@@ -15,7 +15,7 @@ public class PaddleBehaviour : ThrowBehaviour
         if (triggerCollisionAction && colObject != controller.gameObject)
         {
             triggerCollisionAction = false;
-            colObject.GetComponent<Controller>().Push(transform, 10);
+            colObject.GetComponent<Controller>().Push(transform, throwForce);
             currentUse++;
             if (currentUse > maxUse)
             {

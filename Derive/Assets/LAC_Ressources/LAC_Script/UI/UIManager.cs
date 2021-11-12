@@ -176,6 +176,8 @@ public class UIManager : MonoBehaviour
                 winRounds++;
         }
 
+        Debug.Log(" Win Round " + winRounds + winner.name);
+
         if ((winRounds < 2))
         {
             roundEndPanel.SetActive(true);
@@ -191,22 +193,18 @@ public class UIManager : MonoBehaviour
 
             }
         }
-        else
+        else 
         {
             finalEndPanel.SetActive(true);
 
             for (int i = 0; i < playersUI.Length; i++)
             {
-                int totalWinRound = 0;
-                for(int j = 0; j < playerData[i].winRound.Length; j++)
-                {
-                    if (playerData[i].winRound[j])
-                        totalWinRound++;
-                }
-                if (totalWinRound > 1)
+
+                if (playersUI[i].refCtrl == winner.refPlayer)
                 {
                     playersUI[i].winTxt.SetActive(true);
                     playersUI[i].winImg.SetActive(true);
+
                 }
                 else
                 {

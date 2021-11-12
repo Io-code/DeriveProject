@@ -23,6 +23,7 @@ public static class PlayerDataUtils
         if (playerData.distToObjectif <= 0)
         {
             ResetScore(playerData);
+            Debug.Log("Win Score" + playerData.name);
             winRound?.Invoke(playerData);
             
         }
