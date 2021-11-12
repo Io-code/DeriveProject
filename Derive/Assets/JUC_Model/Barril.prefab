@@ -206,8 +206,8 @@ MonoBehaviour:
   interactPoint: {fileID: 4708670291314306773}
   respawnDelay: 4
   respawnPoint: {x: 0, y: 0, z: 0}
-  throwDuration: 1
-  throwSpeed: 3
+  throwDuration: 2.2
+  throwSpeed: 20
   throwSpeedModifier:
     serializedVersion: 2
     m_Curve:

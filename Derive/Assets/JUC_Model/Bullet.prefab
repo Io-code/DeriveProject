@@ -374,8 +374,8 @@ MonoBehaviour:
   interactPoint: {fileID: 8688009240199853242}
   respawnDelay: 2.14
   respawnPoint: {x: 0, y: 0, z: 0}
-  throwDuration: 0.75
-  throwSpeed: 20
+  throwDuration: 0.35
+  throwSpeed: 30
   throwSpeedModifier:
     serializedVersion: 2
     m_Curve:
@@ -388,6 +388,15 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0.7935802
+    - serializedVersion: 3
+      time: 0.8126076
+      value: 0.7384875
+      inSlope: -1.0341679
+      outSlope: -1.0341679
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.35358942
     - serializedVersion: 3
       time: 1
       value: 0
@@ -406,5 +415,5 @@ MonoBehaviour:
   throwForce: 17
   bulletState: 0
   lasteBulletState: 0
-  explosionRadius: 2
+  explosionRadius: 1
   explodeVFX: {fileID: 2095713537807900651, guid: 659ae7edd23243b46ae76bd0d8aae7d5, type: 3}
