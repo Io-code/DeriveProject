@@ -47,13 +47,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - g: 0.12
     - thickness: 0
-    - transmission: 15
+    - transmission: 40.88
     m_Colors:
+    - Color_246e9215ecb44348bc617b16005a4bda: {r: 0.17501779, g: 0.21567732, b: 0.6509434, a: 0}
     - Vector3: {r: 0.95, g: 0.97, b: 0.99, a: 0}
+    - Vector3_6f7d61298e3a426ab1100a84bb03c123: {r: 4.02, g: 1, b: 1, a: 0}
     - sss_absorb_factors: {r: 0, g: 0, b: 0, a: 0}
     - sss_object_color: {r: 0, g: 0.75, b: 1, a: 0}
     - sss_scatter_factors: {r: 0.97, g: 0.98, b: 0.99, a: 0}

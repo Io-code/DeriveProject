@@ -1286,14 +1286,14 @@ PrefabInstance:
     - target: {fileID: 756785354456526627, guid: 96b92e44bb4536348be77100abe772e4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 591ed7c11a2bbbf4bb2e4699b6446c79, type: 2}
+      objectReference: {fileID: 2100000, guid: 9cd2aa8680eb1b043a7ba0008b7b3f66, type: 2}
     - target: {fileID: 756785354456526629, guid: 96b92e44bb4536348be77100abe772e4, type: 3}
       propertyPath: m_Name
       value: LCR_Water_002
       objectReference: {fileID: 0}
     - target: {fileID: 756785354456526629, guid: 96b92e44bb4536348be77100abe772e4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96b92e44bb4536348be77100abe772e4, type: 3}
@@ -12322,7 +12322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1846296418
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12355,7 +12355,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 591ed7c11a2bbbf4bb2e4699b6446c79, type: 2}
+  - {fileID: 2100000, guid: 9cd2aa8680eb1b043a7ba0008b7b3f66, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12394,7 +12395,7 @@ Transform:
   m_GameObject: {fileID: 1846296417}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.911769, y: -57.9, z: 2.4}
-  m_LocalScale: {x: 82.83536, y: 82.83536, z: 82.83536}
+  m_LocalScale: {x: 93.56254, y: 93.56254, z: 93.56254}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
