@@ -7,28 +7,25 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cordes_Color
-  m_Shader: {fileID: -6465566751694194690, guid: be4535f76dbcd4d40b5a8a219f2ec0b4, type: 3}
-  m_ShaderKeywords: 
+  m_Name: LCR_Gouvernail
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_ShaderKeywords: _METALLICSPECGLOSSMAP _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_7a631c934ecb4c6ebf8f81a2daff2273:
-        m_Texture: {fileID: 2800000, guid: bce68dd5b4e98dd42b63202ff19167e5, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a89b611f23bef2547b7758020210900b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2959da77841edaf44bccbeda846a720e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -48,11 +45,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a89b611f23bef2547b7758020210900b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a77f8882bf7bd53498302b89fd45a7a2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -80,16 +77,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Boolean_Cordes: 0
-    - Lerp_1to2: 1
-    - Lerp_1to3: 1
-    - Lerp_Cordes: 1
-    - Lerp_cordes: 1
-    - Vector1_021e2bf3dcca47f681b9afe8e01cb6f7: 11.21
-    - Vector1_2862701f95ef4a43b051c9ea26c1f1b6: 0.673
-    - Vector1_88b9d8e8bb854527a083bc79ff49e709: 1
-    - Vector1_9f1c3381d6a6417f941c32a9c4e621cb: 0.1
-    - Vector1_e50a30bd7af240139ca419a0beac5a13: 4
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -117,15 +104,12 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_1: {r: 0.8773585, g: 0.82441807, b: 0.75734246, a: 0}
-    - Color_2: {r: 0.7830189, g: 0.15143289, b: 0.20642236, a: 1}
-    - Color_3: {r: 0.16264686, g: 0.24032183, b: 0.8018868, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &3160444187579968078
+--- !u!114 &3603141258497834482
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
