@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - base_size: 0.231
+    - base_size: 0.073
     - scale: 0.34
     - size: 0.58
     m_Colors:
