@@ -11915,7 +11915,7 @@
     "m_Group": {
         "m_Id": "410d4ed3c4454997a55679d4764f4171"
     },
-    "m_Name": "LightNode",
+    "m_Name": "LCR_LightNode",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
@@ -16081,10 +16081,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -763.0,
-            "y": 1160.9998779296875,
-            "width": 129.99998474121095,
-            "height": 117.99999237060547
+            "x": -748.0000610351563,
+            "y": 1172.0,
+            "width": 130.0,
+            "height": 118.0
         }
     },
     "m_Slots": [
@@ -16300,10 +16300,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1118.0001220703125,
-            "y": 1011.9999389648438,
+            "x": -1118.0,
+            "y": 1013.0000610351563,
             "width": 206.0,
-            "height": 131.99998474121095
+            "height": 132.0
         }
     },
     "m_Slots": [

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2353119816838382265
+--- !u!114 &-2062609908926069185
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,10 +20,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LCR_Boxe
-  m_Shader: {fileID: -6465566751694194690, guid: d3ee01d0345bb4148a11f0f4bfd85c84, type: 3}
-  m_ShaderKeywords: _METALLICSPECGLOSSMAP _NORMALMAP
-  m_LightmapFlags: 4
+  m_Name: LCR_Fish_Animation
+  m_Shader: {fileID: -6465566751694194690, guid: ba10ebb6f88131446b796b499e6ca69e, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -32,16 +32,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_43a9e821332b4896a130fca8b01c7007:
-        m_Texture: {fileID: 2800000, guid: 8506ff1695c7cd04eba0c9f407e39303, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 15efbd084b6f0bd42b7375ff63f413fd, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 8506ff1695c7cd04eba0c9f407e39303, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -61,11 +57,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 15efbd084b6f0bd42b7375ff63f413fd, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 5c4e70071cd91f0469716ec1efa2bc47, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -93,15 +89,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - HIGHLIGHT: 1
-    - HIGHLIGHT_GRADIENT: 1
-    - LIGHT: 1
-    - LINING_OVERLAY: 0
-    - SHADOW: 1
-    - SHADOW_GRADIENT: 1
-    - X: 0
-    - Y: 0
-    - Z: 1
+    - Amp_Body: 2.48
+    - Amp_Legs: 1.18
+    - Freq_Body: 0.06
+    - Freq_Legs: 0.2
+    - Masque_Legs: 0.24
+    - Masque_Queue_H: -4.02
+    - Masque_Queue_V: -0.73
+    - Metallic: 0.63
+    - Smoothness: 0.6
+    - Speeed: 81.26
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -121,31 +118,18 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 1
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - additive: 1
-    - glossiness: 1
-    - gradient_intensity: 2.38
-    - gradient_size: 0.81
-    - h_gradient_intensity: 123.04
-    - h_gradient_size: 5.55
-    - highlight_size: 0.558
-    - light_size: 0.51
-    - multiply_shadow: 1
-    - shadow_size: 0.577
     m_Colors:
+    - Amp_Queue: {r: 1, g: 7, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.13260946, g: 0.13302867, b: 0.18867922, a: 1}
+    - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - gradient_color: {r: 0, g: 0, b: 0, a: 0}
-    - h_gradient_color: {r: 0.04313723, g: 0.8235294, b: 0.61970276, a: 1}
-    - highlight_color: {r: 1, g: 0.2783019, b: 0.2783019, a: 0}
-    - light_color: {r: 1, g: 1, b: 1, a: 0}
-    - shadow_color: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
