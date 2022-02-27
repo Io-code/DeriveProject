@@ -2268,8 +2268,8 @@
         "m_Id": "c98e1801602a468ab0536a53015d4a30"
     },
     "m_SurfaceType": 1,
-    "m_AlphaMode": 0,
-    "m_TwoSided": false,
+    "m_AlphaMode": 2,
+    "m_TwoSided": true,
     "m_AlphaClip": false,
     "m_CustomEditorGUI": ""
 }
