@@ -41,6 +41,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 07dcb73fdf26e4b46b44c9078fe58d9d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - Texture2D_f7a3ba44f0e348c697d9c69bc4674e1b:
+        m_Texture: {fileID: 2800000, guid: d7938692f4bf4a143bf6fa5bc509a21a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 07dcb73fdf26e4b46b44c9078fe58d9d, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -102,6 +106,7 @@ Material:
     - Vector1_2981c3f4f1da4a98a0e320d367109b87: 1
     - Vector1_59b9bf1a79e54f348a3ca9f70064d6d7: 0
     - Vector1_8461d239b7a1488abea4b64db2767452: 0.2
+    - Vector1_9c629ff54ef74d87a69714d982cacb4d: 0.175
     - Vector1_b61b599234c046ce88a0d9cfd25d0b46: 1.106
     - _AlphaClip: 0
     - _Blend: 0
@@ -130,8 +135,8 @@ Material:
     - _WorkflowMode: 0
     - _ZWrite: 0
     m_Colors:
-    - Color_7b4b0f30e91840baaf10e9d6050a7c2e: {r: 1.7932544, g: 0.795623, b: 0.12688118, a: 0}
-    - Color_beba97f24635402e8c50380db89ef8f3: {r: 4, g: 4, b: 4, a: 1}
+    - Color_7b4b0f30e91840baaf10e9d6050a7c2e: {r: 1.987584, g: 1.3340387, b: 0.2531357, a: 0}
+    - Color_beba97f24635402e8c50380db89ef8f3: {r: 2, g: 2, b: 2, a: 1}
     - _BaseColor: {r: 0.9150943, g: 0.78340906, b: 0.13381095, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
