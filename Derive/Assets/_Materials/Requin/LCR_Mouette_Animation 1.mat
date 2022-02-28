@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LCR_Fish_Animation
+  m_Name: LCR_Mouette_Animation 1
   m_Shader: {fileID: -6465566751694194690, guid: ba10ebb6f88131446b796b499e6ca69e, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 2
@@ -89,21 +89,18 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Amp_Body: 168
-    - Amp_Legs: 118
+    - Amp_Body: 0.65
+    - Amp_Legs: 3.95
     - Boolean_10232eece9f246a99374c6078322bbbf: 0
     - Boolean_8e30da25e475452a823d3c197b36b912: 0
-    - Freq_Body: 0.06
-    - Freq_Legs: 0.2
-    - Masque_Legs: 7
-    - Masque_Queue_H: -2.65
-    - Masque_Queue_V: -0.73
-    - Masque_Queue_X: -0.6
-    - Masque_Queue_Y: -1
-    - Metallic: 0.63
-    - Smoothness: 0.6
-    - Speeed: 81.26
-    - Vector1_3550599cee4f4b6ead6f27b09607699d: 7.55
+    - Freq_Body: 0.43
+    - Freq_Legs: 1.22
+    - Masque_Legs: 0.24
+    - Masque_Queue_H: -6.17
+    - Masque_Queue_V: -0.7
+    - Metallic: -10.31
+    - Smoothness: -21.5
+    - Speeed: 10
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -131,9 +128,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Amp_Queue: {r: 1, g: 7, b: 0, a: 0}
+    - Amp_Queue: {r: 1, g: 2.77, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.13260946, g: 0.13302867, b: 0.18867922, a: 1}
+    - _Color: {r: 0.495283, g: 0.495283, b: 1, a: 1}
     - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
