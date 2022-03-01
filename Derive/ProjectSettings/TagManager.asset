@@ -7,6 +7,7 @@ TagManager:
   - Bullet
   - BreakableWall
   - Uduino
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - FakeWall
   - Player
   - ThrowObject
-  - 
-  - 
+  - Commun - output tex & main cam
+  - output tex
   - 
   - 
   - 
