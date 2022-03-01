@@ -58,6 +58,65 @@ MonoBehaviour:
   rounded:
     m_OverrideState: 0
     m_Value: 0
+--- !u!114 &-4680275709111639485
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfbdbb87d3286943a057f7791b43141, type: 3}
+  m_Name: ChannelMixer
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  redOutRedIn:
+    m_OverrideState: 0
+    m_Value: 100
+    min: -200
+    max: 200
+  redOutGreenIn:
+    m_OverrideState: 1
+    m_Value: -12
+    min: -200
+    max: 200
+  redOutBlueIn:
+    m_OverrideState: 0
+    m_Value: 0
+    min: -200
+    max: 200
+  greenOutRedIn:
+    m_OverrideState: 0
+    m_Value: 0
+    min: -200
+    max: 200
+  greenOutGreenIn:
+    m_OverrideState: 0
+    m_Value: 100
+    min: -200
+    max: 200
+  greenOutBlueIn:
+    m_OverrideState: 0
+    m_Value: 0
+    min: -200
+    max: 200
+  blueOutRedIn:
+    m_OverrideState: 0
+    m_Value: 0
+    min: -200
+    max: 200
+  blueOutGreenIn:
+    m_OverrideState: 0
+    m_Value: 0
+    min: -200
+    max: 200
+  blueOutBlueIn:
+    m_OverrideState: 0
+    m_Value: 100
+    min: -200
+    max: 200
 --- !u!114 &-3787158710293813948
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -100,6 +159,7 @@ MonoBehaviour:
   - {fileID: 1865526839827840004}
   - {fileID: -6189149441410922366}
   - {fileID: 7083895951264703259}
+  - {fileID: -4680275709111639485}
 --- !u!114 &490518654183659773
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -120,7 +180,7 @@ MonoBehaviour:
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.27
     min: 0
   scatter:
     m_OverrideState: 1
