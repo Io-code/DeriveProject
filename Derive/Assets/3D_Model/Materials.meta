@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 80fe9e32648ceac458336f76ff24cf50
+=======
+guid: f162b24a2b093df46b80da7262d12a2d
+>>>>>>> LCR_Branch
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

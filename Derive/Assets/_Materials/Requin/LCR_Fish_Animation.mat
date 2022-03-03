@@ -89,16 +89,23 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Amp_Body: 2.48
-    - Amp_Legs: 1.18
+    - Amp_Body: 168
+    - Amp_Legs: 93
+    - Boolean_10232eece9f246a99374c6078322bbbf: 0
+    - Boolean_2aa73ee204964914ab76ec0cf1cc7245: 0
+    - Boolean_41cd70de6fa942a496c63c49a03c9487: 0
+    - Boolean_8e30da25e475452a823d3c197b36b912: 0
     - Freq_Body: 0.06
-    - Freq_Legs: 0.2
-    - Masque_Legs: 0.24
-    - Masque_Queue_H: -4.02
+    - Freq_Legs: 0.1
+    - Masque_Legs: 7.59
+    - Masque_Queue_H: -2.65
     - Masque_Queue_V: -0.73
+    - Masque_Queue_X: -0.6
+    - Masque_Queue_Y: -1
     - Metallic: 0.63
     - Smoothness: 0.6
     - Speeed: 81.26
+    - Vector1_3550599cee4f4b6ead6f27b09607699d: 4.5
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
