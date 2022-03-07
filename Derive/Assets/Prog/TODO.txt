@@ -1,0 +1,9 @@
+Transforme les armes en empty
+-> Scriptable
+
+Nomenclature
+Arborescence
+Score Manager
+
+BUGS:
+- Empêcher le spam d'arme
