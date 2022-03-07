@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerMovementInput;
     private Vector3 moveVector;
     private bool isAttacked;
+    private bool canAttack = true;
     private float power;
     
     [SerializeField]
@@ -57,9 +58,10 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            if (hand.GetComponentInChildren<Rigidbody>() != null)
+            if (hand.GetComponentInChildren<Rigidbody>() != null && canAttack)
             {
                 animations.SetBool("Attack", true);
+                canAttack = false;
                 StartCoroutine(AttackCooldown());
             }
         }
@@ -75,8 +77,8 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator AttackCooldown()
     {
-        yield return new WaitForSeconds(1);
-
+        yield return new WaitForSeconds(hand.GetComponentInChildren<WeaponController>().cooldown);
+        canAttack = true;
         animations.SetBool("Attack", false);
     }
     
@@ -91,7 +93,6 @@ public class PlayerController : MonoBehaviour
     private IEnumerator KnockbackHit(Vector3 hit, float power)
     {
         
-        Debug.Log(power);
         
         isAttacked = true;
         

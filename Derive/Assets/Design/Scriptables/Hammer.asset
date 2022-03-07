@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ce985e82f01eba4ca9c2f068d1295e1, type: 3}
-  m_Name: Sword
+  m_Name: Hammer
   m_EditorClassIdentifier: 
-  power: 20
-  cooldown: 1
-  prefab: {fileID: 7017465585652308223, guid: 0b768f289c378b44fa928a0505c80f2a, type: 3}
+  power: 15
+  cooldown: 5
+  prefab: {fileID: 2904831175970593829, guid: f5a0aacb34678c9429fe4144fd0b631f, type: 3}
   attackSound: {fileID: 0}
   attackParticles: {fileID: 0}

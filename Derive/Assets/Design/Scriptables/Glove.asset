@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ce985e82f01eba4ca9c2f068d1295e1, type: 3}
-  m_Name: Hammer
+  m_Name: Glove
   m_EditorClassIdentifier: 
-  power: 30
-  cooldown: 2
-  prefab: {fileID: 2904831175970593829, guid: f5a0aacb34678c9429fe4144fd0b631f, type: 3}
+  power: 7
+  cooldown: 0
+  prefab: {fileID: 2333054471193624116, guid: 461cd2ca7ae94c64b83692740932011d, type: 3}
   attackSound: {fileID: 0}
   attackParticles: {fileID: 0}

@@ -9,7 +9,7 @@ public class WeaponController : MonoBehaviour
 	[SerializeField] private PlayerController playerController;
 
 	public float power = 0;
-	private float cooldown = 0;
+	public float cooldown = 0;
 	private GameObject prefab;
 	private GameObject weapon;
 
