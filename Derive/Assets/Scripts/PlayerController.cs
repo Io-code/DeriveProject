@@ -102,7 +102,8 @@ public class PlayerController : MonoBehaviour
               0,
               (transform.position.z - hit.z) * power
           );
-
+        Debug.Log(destination);
+        
         while ((isAttacked  && (destination - transform.position).magnitude > 4))
         {
             transform.position = Vector3.Lerp(transform.position, destination, knockbackSpeed * Time.deltaTime);
