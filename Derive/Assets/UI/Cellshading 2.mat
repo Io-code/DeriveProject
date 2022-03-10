@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cellshading
+  m_Name: Cellshading 2
   m_Shader: {fileID: -6465566751694194690, guid: d3ee01d0345bb4148a11f0f4bfd85c84, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_199a7fac33b5493cabab5cf306ba54b0:
-        m_Texture: {fileID: 2800000, guid: 07c7f5e035d6e0348a87a11086032503, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1db5e139f2898a7408db91b8eb4f34fb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2ef1a3d0ff021624992389ab186444c3, type: 3}
+        m_Texture: {fileID: 2800000, guid: a050d98144e49034ba6d36abd0b63365, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -86,7 +86,7 @@ Material:
     - LINING_OVERLAY: 1
     - SHADOW: 1
     - SHADOW_GRADIENT: 1
-    - Vector1_208e1f40655643be95ba1feddbfc1c69: 1.48
+    - Vector1_208e1f40655643be95ba1feddbfc1c69: 1
     - X: 0
     - Y: 1
     - Z: 0

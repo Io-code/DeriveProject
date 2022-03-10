@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4154616608281772708
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 4
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -7,22 +20,18 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cellshading
-  m_Shader: {fileID: -6465566751694194690, guid: d3ee01d0345bb4148a11f0f4bfd85c84, type: 3}
+  m_Name: BlackUIOutline
+  m_Shader: {fileID: -6465566751694194690, guid: 59342bf9d9e02ab4296fa3c5a3040ad0, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_199a7fac33b5493cabab5cf306ba54b0:
-        m_Texture: {fileID: 2800000, guid: 07c7f5e035d6e0348a87a11086032503, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -48,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2ef1a3d0ff021624992389ab186444c3, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -80,16 +89,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - HIGHLIGHT: 1
-    - HIGHLIGHT_GRADIENT: 1
-    - LIGHT: 1
-    - LINING_OVERLAY: 1
-    - SHADOW: 1
-    - SHADOW_GRADIENT: 1
-    - Vector1_208e1f40655643be95ba1feddbfc1c69: 1.48
-    - X: 0
-    - Y: 1
-    - Z: 0
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -104,6 +103,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _LerpOutline: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -114,39 +114,17 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _WhichColor: 0.42
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - additive: 1
-    - glossiness: 0
-    - gradient_intensity: 1.06
-    - gradient_size: 2.9
-    - h_gradient_intensity: 0.58
-    - h_gradient_size: 0.3
-    - highlight_size: 0.521
-    - light_size: 0.723
-    - multiply_shadow: 1
-    - shadow_size: 0
+    - base_size: 0.071
+    - scale: 0.86
+    - size: 1
     m_Colors:
+    - Color_998a40d196964c26942257b41c4fbc4b: {r: 1, g: 1, b: 1, a: 0}
+    - Color_ede4f02af69f469fa6784725b28ffacc: {r: 1, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - gradient_color: {r: 0.028301895, g: 0.028301895, b: 0.028301895, a: 0}
-    - h_gradient_color: {r: 0, g: 0, b: 0, a: 0}
-    - highlight_color: {r: 0.31132078, g: 0.3062429, b: 0.2804824, a: 0}
-    - light_color: {r: 0.5849056, g: 0.4286235, b: 0.29521182, a: 0}
-    - shadow_color: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &1492610419435345116
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 4
