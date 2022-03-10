@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LCR_Water
-  m_Shader: {fileID: -6465566751694194690, guid: 3273e0b420468ba499f05c4905e3c8f4, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 256cab63e44ae87459cf90e1bca83d10, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_eb1a36f65a2d4521a823c6c9eede1b42:
-        m_Texture: {fileID: 8600000, guid: 2cd7836f3e34b654eb3b95c382015ef9, type: 2}
+        m_Texture: {fileID: 8600000, guid: 94ad0daab2f51d448be2693e7973166f, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2DLOD_5958440050f14ff39acfb7393e83bad3_Texture_1:
