@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Sensor : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class Sensor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<CharacterController>())
+        if (other.GetComponent<PlayerInput>())
         {
             player = other.gameObject;
             isDetecting = true;

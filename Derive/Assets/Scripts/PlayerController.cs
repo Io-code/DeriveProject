@@ -9,12 +9,9 @@ public class PlayerController : MonoBehaviour
     private float playerSpeed = 2.0f;
     [SerializeField] 
     private float knockbackSpeed;
-    [SerializeField] 
-    private float force;
-    
+
     [Space]
-    [SerializeField] 
-    private Animator animations;
+    public Animator animations;
     [SerializeField] 
     private Rigidbody rb;
     
@@ -27,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 playerMovementInput;
     private Vector3 moveVector;
     private bool isAttacked;
-    private bool canAttack = true;
+    public bool canAttack = true;
     private float power;
     
     [SerializeField]
@@ -75,7 +72,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private IEnumerator AttackCooldown()
+    public IEnumerator AttackCooldown()
     {
         yield return new WaitForSeconds(hand.GetComponentInChildren<WeaponController>().cooldown);
         canAttack = true;
@@ -86,7 +83,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        interacting = false;
+        interacting = false; 
     }
 
     
@@ -102,7 +99,6 @@ public class PlayerController : MonoBehaviour
               0,
               (transform.position.z - hit.z) * power
           );
-        Debug.Log(destination);
         
         while ((isAttacked  && (destination - transform.position).magnitude > 4))
         {
@@ -124,7 +120,7 @@ public class PlayerController : MonoBehaviour
         }
         if (other.transform.CompareTag("Weapon"))
         {
-            StartCoroutine(KnockbackHit(other.transform.position, other.transform.GetComponentInParent<WeaponController>().power));
+            StartCoroutine(KnockbackHit(other.transform.position, other.transform.GetComponent<WeaponController>().power));
         }
         
         if (other.transform.CompareTag("Water"))
