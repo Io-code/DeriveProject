@@ -27,16 +27,9 @@ public class WeaponController : MonoBehaviour
 	private void OnEnable()
 	{
 		prefab = weaponSO.prefab;
-		weapon = Pooler.instance.Pop(weaponSO.name);
-		weapon.transform.parent = transform;
-		weapon.transform.position = transform.position;
-		weapon.transform.rotation = transform.rotation;
 		power = weaponSO.power;
 		cooldown = weaponSO.cooldown;
 	}
 
-	private void OnDisable()
-	{
-		Pooler.instance.DePop(weaponSO.name, weapon);
-	}
+
 }

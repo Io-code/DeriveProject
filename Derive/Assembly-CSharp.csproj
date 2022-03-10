@@ -53,54 +53,50 @@
     <UnityVersion>2020.3.18f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\PlayerControls.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\SpawnerManager.cs" />
-    <Compile Include="Assets\Scripts\Pooler.cs" />
-    <Compile Include="Assets\Scripts\WeaponScriptableObject.cs" />
-    <Compile Include="Assets\Scripts\TrapManager.cs" />
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\WeaponController.cs" />
-    <Compile Include="Assets\Scripts\Sensor.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathSplineTrack.cs" />
-    <Compile Include="Assets\UI\LeanTween\Framework\LeanTest.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralAdvancedTechniques.cs" />
-    <Compile Include="Assets\UI\LeanTween\Framework\LeanAudio.cs" />
-    <Compile Include="Assets\UI\LeanTween\Framework\LTDescrOptional.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathSpline.cs" />
     <Compile Include="Assets\UI\LeanTween\Framework\LeanTween.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Archived\OldGUIExamplesCS.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralEasingTypes.cs" />
+    <Compile Include="Assets\UI\LeanTween\Framework\LTDescr.cs" />
+    <Compile Include="Assets\UI\LeanTween\Framework\LeanTweenExt.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\TestingUnitTests.cs" />
+    <Compile Include="Assets\UI\LeanTween\Framework\LTSeq.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralUISpace.cs" />
     <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralSimpleUI.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathSpline2d.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathSplineEndless.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathBezier.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathSplines.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralEventsListeners.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\TestingZLegacy.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\TestingZLegacyExt.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathBezier2d.cs" />
+    <Compile Include="Assets\Scripts\SpawnerManager.cs" />
+    <Compile Include="Assets\UI\LeanTween\Framework\LTDescrOptional.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralEasingTypes.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralSequencer.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Archived\OldGUIExamplesCS.cs" />
     <Compile Include="Assets\UI\LeanTween\Examples\Scripts\LogoCinematic.cs" />
     <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralCameraShake.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathSplines.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Archived\TestingRigidbodyCS.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralBasic.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathBezier2d.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralEventsListeners.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\Following.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralSequencer.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\TestingZLegacyExt.cs" />
-    <Compile Include="Assets\UI\LeanTween\Framework\LeanSmooth.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\TestingUnitTests.cs" />
     <Compile Include="Assets\UI\LeanTween\Examples\Archived\TestingPunch.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\TestingZLegacy.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathBezier.cs" />
-    <Compile Include="Assets\UI\LeanTween\Framework\LTDescr.cs" />
-    <Compile Include="Assets\UI\LeanTween\Framework\LTSeq.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathSplinePerformance.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralUISpace.cs" />
-    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathSplineEndless.cs" />
-    <Compile Include="Assets\UI\LeanTween\Framework\LeanTweenExt.cs" />
+    <Compile Include="Assets\UI\LeanTween\Framework\LeanAudio.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathSpline.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralAdvancedTechniques.cs" />
+    <Compile Include="Assets\UI\LeanTween\Framework\LeanSmooth.cs" />
     <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralBasics2d.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathSplineTrack.cs" />
+    <Compile Include="Assets\UI\LeanTween\Framework\LeanTest.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathSpline2d.cs" />
+    <Compile Include="Assets\Scripts\WeaponController.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\PathSplinePerformance.cs" />
+    <Compile Include="Assets\Scripts\Sensor.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\GeneralBasic.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Archived\TestingRigidbodyCS.cs" />
+    <Compile Include="Assets\UI\LeanTween\Examples\Scripts\Following.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\UI\LeanTween\ReadMe.txt" />
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Scripts\Questions.txt" />
     <None Include="Assets\UI\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\Scripts\TODO.txt" />
     <None Include="Assets\UI\LeanTween\License.txt" />
@@ -763,6 +759,14 @@
     <ProjectReference Include="Unity.ShaderGraph.Editor.csproj">
       <Project>{45BAFE54-1B35-C709-66A1-4C90B8FC5436}</Project>
       <Name>Unity.ShaderGraph.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Cinemachine.csproj">
+      <Project>{78EDA23B-E14F-5A4B-D516-E0F6978C56E2}</Project>
+      <Name>Cinemachine</Name>
+    </ProjectReference>
+    <ProjectReference Include="com.unity.cinemachine.editor.csproj">
+      <Project>{6AED6AF6-66F4-7CFC-DD05-7610BFFD7846}</Project>
+      <Name>com.unity.cinemachine.editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.RenderPipelines.Universal.Editor.csproj">
       <Project>{3A4A751D-43E9-40F1-353B-8D65B821F72F}</Project>

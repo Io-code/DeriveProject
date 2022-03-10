@@ -1,0 +1,5 @@
+Pourquoi Player_Red dans Player_Red
+Peut-on mettre un socket RightHand au niveau de la main des persos
+Pourquoi dédouble quand sors du bateau
+Où en sont les anims (si terminés faire une branche à push)
+Y a-t-il des anims pour les armes ?

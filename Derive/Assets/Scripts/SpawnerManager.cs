@@ -6,17 +6,16 @@ using Random = UnityEngine.Random;
 
 public class SpawnerManager : MonoBehaviour
 {
-    public Animator animations;
     public GameObject[] weapons;
 
     public int selectedWeapon = 0;
     
     private GameObject hand;
     private GameObject prefab;
-    private bool isDetecting;
+    public bool isDetecting;
     private GameObject player;
     
-    private GameObject weaponHolder;
+    private GameObject weaponHolder; 
 
 
     private void Start()
@@ -57,13 +56,14 @@ public class SpawnerManager : MonoBehaviour
     {
         int test = Random.Range(0, weapons.Length);
         prefab = weapons[test];
-        prefab = Instantiate(prefab, transform.position + Vector3.up*0.8f, Quaternion.identity);
+        prefab = Pooler.instance.Pop(prefab.name);
+        prefab.transform.position = transform.position + Vector3.up*3f;
     }
     
     private IEnumerator RerollWeapons()
     {
         yield return new WaitForSeconds(5);
-        Destroy(prefab);
+        Pooler.instance.DePop(prefab.name.Split('(')[0], prefab);
         SpawnRandomWeapon();
         StartCoroutine(RerollWeapons());
     }
@@ -85,6 +85,9 @@ public class SpawnerManager : MonoBehaviour
                     weaponHolder.GetComponent<Animator>().SetBool(weapon.name, false);
                 }
             }
+            StopCoroutine(player.GetComponent<PlayerController>().AttackCooldown());
+            player.GetComponent<PlayerController>().animations.SetBool("Attack", false);
+            player.GetComponent<PlayerController>().canAttack = true;
         }
 
         player.GetComponent<PlayerController>().interacting = false;

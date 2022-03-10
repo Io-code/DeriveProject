@@ -6,7 +6,7 @@ public class WeaponScriptableObject : ScriptableObject
 	public float power = 1;
 	public float cooldown = 1;
 	
-	public GameObject prefab;
+	public GameObject prefab; 
 	
 	//Put AudioSource on prefabs
 	public AudioClip attackSound;

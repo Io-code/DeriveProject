@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] 
-    private GameObject player1;
+    private GameObject player1; 
     [SerializeField] 
     private GameObject player2;
     
