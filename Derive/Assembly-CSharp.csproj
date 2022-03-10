@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\WeaponController.cs" />
      <Compile Include="Assets\Scripts\Sensor.cs" />
+     <Compile Include="Assets\Scripts\MenuManager.cs" />
      <None Include="Assets\Scripts\Questions.txt" />
      <None Include="Assets\Scripts\TODO.txt" />
  <Reference Include="UnityEngine">
